@@ -1,0 +1,2 @@
+const jwt = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjo2MzYyLCJleHAiOjE1Mzg2NzI2MTB9.CtxHcyzntbb-ZvxlzipkQXeX_LEo4LqANfA9eZK1klQ";
+export default jwt;

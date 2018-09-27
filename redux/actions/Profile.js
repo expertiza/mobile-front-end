@@ -1,6 +1,6 @@
 import * as actions from '../index';
 import axios from '../../axios-instance';
-
+import jwt from './jwt';
 export const fetchProfile = () =>(dispatch) => {
     return axios({
         method: 'get',
@@ -13,11 +13,10 @@ export const fetchProfile = () =>(dispatch) => {
 }
 
 export const fetchInstitutions = () =>(dispatch) => {
-    console.log('in fetchInstitutions')
     return axios({
         method: 'get',
         url: 'institution',
-        headers: { AUTHORIZATION: "Bearer " + localStorage.getItem('jwt') }
+        headers: { AUTHORIZATION: "Bearer " + jwt }
     })
     .then(response => response.data)
     .then(institutions => dispatch(addInstitutions(institutions)))
