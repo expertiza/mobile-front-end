@@ -4,6 +4,7 @@ import { createStackNavigator, createDrawerNavigator, DrawerItems, SafeAreaView 
 import { Icon } from 'react-native-elements';
 
 import Profile from './ProfileComponent';
+import Preference from './PreferenceComponent';
 import Assignment from './AssignmentComponent';
 
 const ProfileNavigator = createStackNavigator({
@@ -11,6 +12,26 @@ const ProfileNavigator = createStackNavigator({
     },
     {
         initialRouteName: 'Profile',
+        navigationOptions: ({ navigation }) => ({
+          headerStyle: {
+              backgroundColor: "#a90201"
+          },
+          headerTitleStyle: {
+              color: "#fff"
+          },
+          headerTintColor: "#fff",
+          headerLeft: <Icon name="menu" size={24}
+            iconStyle={{ color: 'white' }}
+            onPress={ () => navigation.toggleDrawer() } />
+        })
+    }
+);
+
+const PreferenceNavigator = createStackNavigator({
+        Preference: { screen: Preference }
+    },
+    {
+        initialRouteName: 'Preference',
         navigationOptions: ({ navigation }) => ({
           headerStyle: {
               backgroundColor: "#a90201"
@@ -60,19 +81,26 @@ const CustomDrawerContentComponent = (props) => (
 );
 
 const MainNavigator = createDrawerNavigator({
+    Preference: 
+      { screen: PreferenceNavigator,
+        navigationOptions: {
+          title: 'Preference',
+          drawerLabel: 'Preference  '
+        }, 
+      },
+    Profile: 
+      { screen: ProfileNavigator,
+        navigationOptions: {
+          title: 'Profile',
+          drawerLabel: 'Profile  '
+        }, 
+      },
     Home: 
       { screen: AssignmentNavigator,
         navigationOptions: {
           title: 'Assignments',
           drawerLabel: 'Assignment  '
         }
-      },
-    Menu: 
-      { screen: ProfileNavigator,
-        navigationOptions: {
-          title: 'Profile',
-          drawerLabel: 'Profile  '
-        }, 
       }
 }, {
   drawerBackgroundColor: '#ffffff',

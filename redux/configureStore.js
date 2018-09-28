@@ -12,7 +12,7 @@ export const ConfigureStore = () => {
             studentTaskList: studentTaskList,
             institutions: Institutions,
         }),
-        applyMiddleware(thunk, logger)
+        applyMiddleware(thunk)
     );
 
     return store;

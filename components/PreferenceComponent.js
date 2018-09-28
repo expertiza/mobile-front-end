@@ -17,7 +17,7 @@ const mapDispatchToProps = dispatch => ({
     editProfile: (profile,aq) =>{dispatch(editProfile(profile,aq))}
 })
 
-class Profile extends Component {
+class Preference extends Component {
   constructor(props) {
     super(props);
     this.state= this.propsToState(props);
@@ -32,7 +32,7 @@ class Profile extends Component {
   }
   
   static navigationOptions = {
-    title: 'Profile  '
+    title: 'Preference  '
   };
 
   propsToState(props) {
@@ -138,4 +138,4 @@ class Profile extends Component {
     }
   }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(Profile);
+export default connect(mapStateToProps, mapDispatchToProps)(Preference);
