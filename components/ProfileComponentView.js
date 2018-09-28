@@ -3,6 +3,7 @@ import {ScrollView, View, Text, TextInput, Picker, Switch, Button} from 'react-n
 
 const style = {
   label:{
+    fontWeight: 'bold',
     marginTop: 10
   },
   textInput: {
@@ -21,7 +22,11 @@ const style = {
     }
   },
   submit: {
-    marginTop: 15
+    view: {
+      marginTop: 50,
+      marginLeft: 10,
+      marginRight: 10
+    }
   }
 }
 
@@ -72,8 +77,10 @@ class ProfileView extends Component {
             style={style.textInput} underlineColorAndroid='transparent' autoCorrect={false}/>
           </View>
 
-          <Button style={style.submit} title='Save' disabled={this.props.errors.confirmpassword!==''} 
-            onPress={(e) => {this.props.handleSubmit();}} />
+          <View style={style.submit.view}>
+            <Button title='Save' disabled={this.props.errors.confirmpassword!==''} 
+              onPress={(e) => {this.props.handleSubmit();}} />
+          </View>
       </ScrollView>
     );
   }

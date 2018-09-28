@@ -81,12 +81,12 @@ const CustomDrawerContentComponent = (props) => (
 );
 
 const MainNavigator = createDrawerNavigator({
-    Preference: 
-      { screen: PreferenceNavigator,
+    Home: 
+      { screen: AssignmentNavigator,
         navigationOptions: {
-          title: 'Preference',
-          drawerLabel: 'Preference  '
-        }, 
+          title: 'Assignments',
+          drawerLabel: 'Assignment  '
+        }
       },
     Profile: 
       { screen: ProfileNavigator,
@@ -95,13 +95,13 @@ const MainNavigator = createDrawerNavigator({
           drawerLabel: 'Profile  '
         }, 
       },
-    Home: 
-      { screen: AssignmentNavigator,
+    Preference: 
+      { screen: PreferenceNavigator,
         navigationOptions: {
-          title: 'Assignments',
-          drawerLabel: 'Assignment  '
-        }
-      }
+          title: 'Preference',
+          drawerLabel: 'Preference  '
+        }, 
+      },
 }, {
   drawerBackgroundColor: '#ffffff',
   contentComponent: CustomDrawerContentComponent
