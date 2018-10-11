@@ -5,6 +5,7 @@ import { Icon } from 'react-native-elements';
 
 import Profile from './ProfileComponent';
 import Assignment from './AssignmentComponent';
+import Login from './loginComponent';
 
 const ProfileNavigator = createStackNavigator({
         Profile: { screen: Profile }
@@ -46,6 +47,23 @@ const AssignmentNavigator = createStackNavigator({
 }
 );
 
+const LoginNavigator = createStackNavigator({
+    Login: { screen: Login }
+  }, {
+  navigationOptions: ({ navigation }) => ({
+    headerStyle: {
+        backgroundColor: "#a90201"
+    },
+    headerTitleStyle: {
+        color: "#fff"
+    },
+    headerTintColor: "#fff",
+    headerLeft: <Icon name="menu" size={24}
+      iconStyle={{ color: 'white' }}
+      onPress={ () => navigation.toggleDrawer() } />
+  })
+});
+
 const CustomDrawerContentComponent = (props) => (
   <ScrollView>
     <SafeAreaView style={styles.container} forceInset={{ top: 'always', horizontal: 'never' }}>
@@ -60,6 +78,21 @@ const CustomDrawerContentComponent = (props) => (
 );
 
 const MainNavigator = createDrawerNavigator({
+  Login:
+      { screen: LoginNavigator,
+        navigationOptions: {
+          title: 'Login',
+          drawerLabel: 'Login  ',
+          drawerIcon: ({ tintColor, focused }) => (
+            <Icon
+              name='sign-in'
+              type='font-awesome'
+              size={24}
+              iconStyle={{ color: tintColor }}
+            />
+          ),
+        }
+    },
     Home: 
       { screen: AssignmentNavigator,
         navigationOptions: {

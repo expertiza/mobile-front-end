@@ -1,5 +1,5 @@
 import * as actions from '../index'
-import {updateObject}  from '../../shared/utility/utility'
+import {updateObject}  from './../utility'
 
 const initialize = {
     jwt: null,

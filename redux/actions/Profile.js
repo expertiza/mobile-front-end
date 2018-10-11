@@ -1,6 +1,6 @@
 import * as actions from '../index';
 import axios from '../../axios-instance';
-import jwt from './jwt';
+
 export const fetchProfile = () =>(dispatch) => {
     return axios({
         method: 'get',
@@ -12,13 +12,13 @@ export const fetchProfile = () =>(dispatch) => {
     .catch(error => console.log(error));
 }
 
-export const fetchInstitutions = () =>(dispatch) => {
+export const fetchInstitutions = (jwt) =>(dispatch) => {
     return axios({
         method: 'get',
         url: 'institution',
-        headers: { AUTHORIZATION: "Bearer " + jwt }
+        headers: { AUTHORIZATION: "Bearer " +  jwt}
     })
-    .then(response => response.data)
+    .then((response)=>response.data)
     .then(institutions => dispatch(addInstitutions(institutions)))
     .catch(error => console.log(error));
 }
