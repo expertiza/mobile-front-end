@@ -1,2 +1,2 @@
-const jwt = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjo2MzYyLCJleHAiOjE1Mzg2NzI2MTB9.CtxHcyzntbb-ZvxlzipkQXeX_LEo4LqANfA9eZK1klQ";
+const jwt = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjo3LCJleHAiOjE1Mzk5MTk1NDR9.bTlSktPJOrYEg_M2-tubsm3jvRyQVaPe75Ueo6LXtjM";
 export default jwt;

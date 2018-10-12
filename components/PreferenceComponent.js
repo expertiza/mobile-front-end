@@ -25,7 +25,7 @@ class Preference extends Component {
     this.handleNotificationChange = this.handleNotificationChange.bind(this);
     this.performedit = this.performedit.bind(this);
   }
-  
+
   static navigationOptions = {
     title: 'Preference  '
   };
@@ -85,6 +85,7 @@ class Preference extends Component {
   render(){
     if(this.props){
       console.log('render(): this.state:', this.state);
+      // console.log('render(): this.props.profile:', this.props.profile);
       return(<PreferenceView
           profileform={this.state.profileform}
           handleInputChange={this.handleInputChange}
@@ -93,7 +94,7 @@ class Preference extends Component {
       />);
     } else {
       return(
-        <View> 
+        <View>
           LOL
         </View>
       )

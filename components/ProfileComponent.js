@@ -30,7 +30,7 @@ class Profile extends Component {
     this.performedit = this.performedit.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
-  
+
   static navigationOptions = {
     title: 'Profile  '
   };
@@ -131,7 +131,7 @@ class Profile extends Component {
       />);
     } else {
       return(
-        <View> 
+        <View>
           LOL
         </View>
       )

@@ -6,6 +6,7 @@ import { Icon } from 'react-native-elements';
 import Profile from './ProfileComponent';
 import Preference from './PreferenceComponent';
 import Assignment from './AssignmentComponent';
+import StudentTeamComponent from './studentTeamComponent/StudentTeamComponent';
 
 const ProfileNavigator = createStackNavigator({
         Profile: { screen: Profile }
@@ -32,6 +33,26 @@ const PreferenceNavigator = createStackNavigator({
     },
     {
         initialRouteName: 'Preference',
+        navigationOptions: ({ navigation }) => ({
+          headerStyle: {
+              backgroundColor: "#a90201"
+          },
+          headerTitleStyle: {
+              color: "#fff"
+          },
+          headerTintColor: "#fff",
+          headerLeft: <Icon name="menu" size={24}
+            iconStyle={{ color: 'white' }}
+            onPress={ () => navigation.toggleDrawer() } />
+        })
+    }
+);
+
+const StudentTeamNavigator = createStackNavigator({
+        StudentTeam: { screen: StudentTeamComponent }
+    },
+    {
+        initialRouteName: 'StudentTeam',
         navigationOptions: ({ navigation }) => ({
           headerStyle: {
               backgroundColor: "#a90201"
@@ -81,26 +102,33 @@ const CustomDrawerContentComponent = (props) => (
 );
 
 const MainNavigator = createDrawerNavigator({
-    Home: 
+    Home:
       { screen: AssignmentNavigator,
         navigationOptions: {
           title: 'Assignments',
           drawerLabel: 'Assignment  '
         }
       },
-    Profile: 
+    Profile:
       { screen: ProfileNavigator,
         navigationOptions: {
           title: 'Profile',
           drawerLabel: 'Profile  '
-        }, 
+        },
       },
-    Preference: 
+    Preference:
       { screen: PreferenceNavigator,
         navigationOptions: {
           title: 'Preference',
           drawerLabel: 'Preference  '
-        }, 
+        },
+      },
+    StudentTeam:
+      { screen: StudentTeamNavigator,
+        navigationOptions: {
+          title: 'StudentTeam',
+          drawerLabel: 'StudentTeam  '
+        },
       },
 }, {
   drawerBackgroundColor: '#ffffff',
@@ -144,5 +172,5 @@ const styles = StyleSheet.create({
     }
 });
 
-  
+
 export default Main;
