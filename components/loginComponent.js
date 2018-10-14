@@ -3,58 +3,22 @@ import { View, StyleSheet, Text, ScrollView, Image } from 'react-native';
 import { Input, CheckBox, Button, Icon } from 'react-native-elements';
 import { SecureStore } from 'expo';
 import { createBottomTabNavigator } from 'react-navigation';
-import { AsyncStorage } from "react-native";
-import * as actions from '../redux/index';
-
-import { connect} from 'react-redux';
-
-const mapStatetoProps = state => {
-    return {
-        // loggedin: state.auth.loggedIn
-    }
-}
-
-const mapDispatchToProps = dispatch => {
-    return {
-         onSubmit: (name, password) => {dispatch(actions.auth(name, password))},
-        //  checkForAutoLogin : () => { dispatch(actions.checkForAutoLogIn())}
-    }
-}
 
 class LoginTab extends Component {
 
     constructor(props) {
         super(props);
-
         this.state = {
             username: '',
             password: '',
-            remember: false
+            remember: true
         }
     }
-    componentWillMount () {
-        // this.props.checkForAutoLogin();
-
-    }
-
-    componentDidMount() {
-        // this.props.onSubmit(this.state.username, this.state.password)
-        SecureStore.getItemAsync('userinfo')
-        .then((userdata) => {
-            let userinfo = JSON.parse(userdata);
-            if (userinfo) {
-                this.setState({username: userinfo.username});
-                this.setState({password: userinfo.password});
-                this.setState({remember: true});
-            }
-            else{
-                // do nothing
-            }
-        })
-        .then(
-            () =>  this.props.onSubmit(this.state.username, this.state.password)
-        )
-    }
+    // componentDidMount(){
+    //     SecureStore.getItemAsync('userinfo')
+    //     .then(()=>this.props.navigation.navigate('AuthLoading'))
+    //     .catch((err)=>console.log(err)) 
+    // }
     static navigationOptions = {
         title: 'Login   ',
         tabBarIcon: ({ tintColor }) => (
@@ -67,14 +31,10 @@ class LoginTab extends Component {
         )
     };
     handleLogin() {
-          console.log(JSON.stringify(this.state));
-         // this.props.onSubmit(this.state.username, this.state.password);
-          if (this.state.remember)
-              SecureStore.setItemAsync('userinfo', JSON.stringify({username: this.state.username, password: this.state.password}))
-                  .catch((error) => console.log('Could not save user info', error));
-          else
-              SecureStore.deleteItemAsync('userinfo')
-                  .catch((error) => console.log('Could not delete user info', error));
+        console.log(JSON.stringify(this.state));
+        SecureStore.setItemAsync('userinfo', JSON.stringify({username: this.state.username, password: this.state.password}))
+        .then(()=>this.props.navigation.navigate('AuthLoading')) 
+        .catch((error) => console.log('Could not save user info', error));
     }
     render() {
         return (
@@ -92,12 +52,6 @@ class LoginTab extends Component {
                     onChangeText={(password) => this.setState({password})}
                     value={this.state.password}
                     containerStyle={styles.formInput}
-                    />
-                <CheckBox title="Remember Me"
-                    center
-                    checked={this.state.remember}
-                    onPress={() => this.setState({remember: !this.state.remember})}
-                    containerStyle={styles.formCheckbox}
                     />
                 <View style={styles.formButton}>
                     <Button
@@ -183,4 +137,4 @@ const Login = createBottomTabNavigator({
     }
 });
 
-export default connect(mapStatetoProps, mapDispatchToProps)(LoginTab);
+export default LoginTab;

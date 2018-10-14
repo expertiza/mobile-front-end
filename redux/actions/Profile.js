@@ -1,18 +1,23 @@
 import * as actions from '../index';
 import axios from '../../axios-instance';
+import { SecureStore } from 'expo';
 
 export const fetchProfile = () =>(dispatch) => {
-    return axios({
-        method: 'get',
-        url: 'profile',
-        headers: { AUTHORIZATION: "Bearer " + localStorage.getItem('jwt') }
+    SecureStore.getItemAsync('jwt')
+    .then((jwt)=>{
+        const token = JSON.parse(jwt);
+        return axios({
+            method: 'get',
+            url: 'profile',
+            headers: { AUTHORIZATION: "Bearer " + token.jwt }
+        })
     })
     .then(response => { return {response: response.data, servermsg : response.status} } )
     .then(profile => dispatch(addProfile(profile)))
     .catch(error => console.log(error));
 }
 
-export const fetchInstitutions = (jwt) =>(dispatch) => {
+export const fetchInstitutions = () =>(dispatch) => {
     return axios({
         method: 'get',
         url: 'institution',

@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import { View, Platform, Text, ScrollView, Image, StyleSheet } from 'react-native';
-import { createStackNavigator, createDrawerNavigator, DrawerItems, SafeAreaView } from 'react-navigation';
-import { Icon } from 'react-native-elements';
+import { createSwitchNavigator, createStackNavigator, createDrawerNavigator, DrawerItems, SafeAreaView } from 'react-navigation';
+import { Icon,Button } from 'react-native-elements';
 
 import Profile from './ProfileComponent';
 import Assignment from './AssignmentComponent';
+import Logout from './logoutComponent';
 import Login from './loginComponent';
+import AuthLoadingScreen from './AuthLoading';
 
 const ProfileNavigator = createStackNavigator({
         Profile: { screen: Profile }
@@ -47,6 +49,23 @@ const AssignmentNavigator = createStackNavigator({
 }
 );
 
+const LogoutNavigator = createStackNavigator({
+    Logout: { screen: Logout }
+  }, {
+  navigationOptions: ({ navigation }) => ({
+    headerStyle: {
+        backgroundColor: "#a90201"
+    },
+    headerTitleStyle: {
+        color: "#fff"
+    },
+    headerTintColor: "#fff",
+    headerLeft: <Icon name="menu" size={24}
+      iconStyle={{ color: 'white' }}
+      onPress={ () => navigation.toggleDrawer() } />
+  })
+});
+
 const LoginNavigator = createStackNavigator({
     Login: { screen: Login }
   }, {
@@ -64,8 +83,10 @@ const LoginNavigator = createStackNavigator({
   })
 });
 
+
 const CustomDrawerContentComponent = (props) => (
-  <ScrollView>
+<View style={styles.container}>
+<ScrollView>
     <SafeAreaView style={styles.container} forceInset={{ top: 'always', horizontal: 'never' }}>
       <View style={styles.drawerHeader}>
         <View>
@@ -75,24 +96,10 @@ const CustomDrawerContentComponent = (props) => (
       <DrawerItems {...props} />
     </SafeAreaView>
   </ScrollView>
+</View>
 );
 
 const MainNavigator = createDrawerNavigator({
-  Login:
-      { screen: LoginNavigator,
-        navigationOptions: {
-          title: 'Login',
-          drawerLabel: 'Login  ',
-          drawerIcon: ({ tintColor, focused }) => (
-            <Icon
-              name='sign-in'
-              type='font-awesome'
-              size={24}
-              iconStyle={{ color: tintColor }}
-            />
-          ),
-        }
-    },
     Home: 
       { screen: AssignmentNavigator,
         navigationOptions: {
@@ -106,11 +113,29 @@ const MainNavigator = createDrawerNavigator({
           title: 'Profile',
           drawerLabel: 'Profile  '
         }, 
-      }
+      },
+    Logout: 
+      { screen: LogoutNavigator,
+        navigationOptions: {
+          title: 'Logout',
+          drawerLabel: 'Logout  '
+        }, 
+      },
 }, {
   drawerBackgroundColor: '#ffffff',
   contentComponent: CustomDrawerContentComponent
 });
+
+const AuthNavigator = createSwitchNavigator(
+  {
+    AuthLoading: AuthLoadingScreen,
+    App: MainNavigator,
+    Auth: LoginNavigator,
+  },
+  {
+    initialRouteName: 'AuthLoading',
+  }
+);
 
 
 class Main extends Component {
@@ -121,7 +146,7 @@ class Main extends Component {
   render() {
     return (
        <View style={styles.container}>
-            <MainNavigator />
+            <AuthNavigator />
       </View>
     );
   }

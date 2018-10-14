@@ -111,8 +111,8 @@ export const auth = (name, password) => {
              .then((jwt)=>{
                 let token = JSON.parse(jwt)
                 dispatch(actions.authSuccess(token.jwt))
-                dispatch(actions.fetchInstitutions(token.jwt))
-                // console.log(jwt)
+                dispatch(actions.fetchProfile())
+                console.log(jwt + "in action")
              })
         })
         .catch(error => {
