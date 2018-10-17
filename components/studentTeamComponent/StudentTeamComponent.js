@@ -2,6 +2,7 @@ import * as actions from '../../redux/index'
 import React, { Component } from 'react';
 import { Button, Text, ScrollView, View, Picker } from 'react-native';
 import { connect } from 'react-redux';
+import StudentTeamView from './StudentTeamComponentView';
 
 const mapStateToProps = state => ({
     profile: state.profile,
@@ -46,11 +47,8 @@ class StudentTeamComponent extends Component {
 
   render(){
     return(
-      <View>
-        <Button title='Test' onPress={(e) => {
-            console.log('StudentTeamComponent: ', this.props);
-          }} />
-      </View>
+      <StudentTeamView profile={this.props.profile}
+      />
     )
   }
 }

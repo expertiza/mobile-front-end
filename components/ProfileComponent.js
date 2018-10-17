@@ -118,7 +118,7 @@ class Profile extends Component {
   render(){
     const errors = this.validate(this.state.profileform.password, this.state.confirmpassword);
     if(this.props){
-      console.log('render(): this.state:', this.state);
+      // console.log('render(): this.state:', this.state);
       return(<ProfileView institutions={this.props.institutions}
           profileform={this.state.profileform}
           handleInputChange={this.handleInputChange}
