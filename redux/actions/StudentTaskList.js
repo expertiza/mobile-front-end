@@ -1,17 +1,22 @@
-import axios from '../../axios-instance'
-import * as actions from '../index'
+import axios from '../../axios-instance';
+import jwt from './jwt';
+import * as actions from '../index';
 
 export const fetchStudentsTeamedWith = () =>(dispatch) => {
     return axios ({
         method : 'get',
         url : 'student_task/list',
-        headers: { AUTHORIZATION: "Bearer " + localStorage.getItem('jwt') }
+        headers: { AUTHORIZATION: "Bearer " + jwt }
     })
-    .then(response =>{ 
-        console.log('hhhh', response.data)
-        dispatch(actions.addStudentsTeamedWith(response.data.studentsTeamedWith[""]))
-    } )
+
+    .then(response => dispatch(actions.addStudentsTeamedWith(response.data.studentsTeamedWith)))
     .catch(error => console.log(error));
+    
+    // .then(response =>{ 
+    //     console.log('hhhh', response.data)
+    //     dispatch(actions.addStudentsTeamedWith(response.data.studentsTeamedWith[""]))
+    // } )
+    // .catch(error => console.log(error));
 
 }
 
@@ -19,11 +24,13 @@ export const fetchStudentTasks = () =>(dispatch) => {
     return axios({
         method: 'get',
         url: 'student_task/list',
-        headers: { AUTHORIZATION: "Bearer " + localStorage.getItem('jwt') }
+        headers: { AUTHORIZATION: "Bearer " + jwt }
     })
     // .then(response => console.log(response.data))
     .then(response => dispatch(actions.addStudentTasks(response.data.studentTasks)))
     .catch(error => console.log(error));
+
+    
 }
 
 

@@ -5,6 +5,9 @@ import { Icon } from 'react-native-elements';
 
 import Profile from './ProfileComponent';
 import Assignment from './AssignmentComponent';
+import AssignmentDetails from './AssignmentDetailsComponent';
+
+
 
 const ProfileNavigator = createStackNavigator({
         Profile: { screen: Profile }
@@ -27,7 +30,8 @@ const ProfileNavigator = createStackNavigator({
 );
 
 const AssignmentNavigator = createStackNavigator({
-    Assignment: { screen: Assignment }
+    Assignment: { screen: Assignment },
+    Details: {screen: AssignmentDetails }
 },
 {
     initialRouteName: 'Assignment',
@@ -39,9 +43,7 @@ const AssignmentNavigator = createStackNavigator({
           color: "#fff"
       },
       headerTintColor: "#fff",
-      headerLeft: <Icon name="menu" size={24}
-        iconStyle={{ color: 'white' }}
-        onPress={ () => navigation.toggleDrawer() } />
+      
     })
 }
 );
@@ -64,7 +66,7 @@ const MainNavigator = createDrawerNavigator({
       { screen: AssignmentNavigator,
         navigationOptions: {
           title: 'Assignments',
-          drawerLabel: 'Assignment  '
+          drawerLabel: 'Assignments '
         }
       },
     Menu: 

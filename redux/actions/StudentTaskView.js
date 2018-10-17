@@ -1,14 +1,14 @@
-import axios from '../../axios-instance'
-import * as actions from '../index'
+import axios from '../../axios-instance';
+import jwt from './jwt';
+import * as actions from '../index';
 
-export const onLoad = (id) => {
-    return dispatch => {
+export const onLoad = (id) => (dispatch) => {
         console.log('id in actions is :', id)
         axios({
             method: 'post',
             url: 'student_task/view',
             headers: { "Content-Type": "application/json",
-                       AUTHORIZATION: "Bearer " + localStorage.getItem('jwt')},
+                       AUTHORIZATION: "Bearer " + jwt},
             data: { "id": id }
         })
         .then(response => {
@@ -29,7 +29,6 @@ export const onLoad = (id) => {
                 console.log(error)
         } )
     }
-}
 
 
 export const unsubmitted_self_review = (participant_id) => {
@@ -37,7 +36,7 @@ export const unsubmitted_self_review = (participant_id) => {
         axios({
             method: 'post',
             url: 'student_task/unsubmitted_self_review',
-            headers: { "Content-Type": "application/json", AUTHORIZATION: "Bearer " + localStorage.getItem('jwt')},
+            headers: { "Content-Type": "application/json", AUTHORIZATION: "Bearer " + jwt},
             data: { "participant_id": participant_id }
         })
         .then( res => dispatch(actions.unsubmitted_self_review_success(res.data.unsubmitted_self_review)))
@@ -57,7 +56,7 @@ export const quiz_allowed = (assignment_id, topic_id) => {
         axios({
             method: 'post',
             url: 'student_task/quiz_allowed',
-            headers: { "Content-Type": "application/json", AUTHORIZATION: "Bearer " + localStorage.getItem('jwt')},
+            headers: { "Content-Type": "application/json", AUTHORIZATION: "Bearer " + jwt},
             data: { "assignment_id": assignment_id, topic_id: topic_id  }
         })
         .then( res => dispatch(actions.quiz_allowed_success(res.data.quiz_allowed)))
@@ -76,7 +75,7 @@ export const get_current_stage = (assignment_id, topic_id) => {
         axios({
             method: 'post',
             url: 'student_task/get_current_stage',
-            headers: { "Content-Type": "application/json", AUTHORIZATION: "Bearer " + localStorage.getItem('jwt')},
+            headers: { "Content-Type": "application/json", AUTHORIZATION: "Bearer " + jwt},
             data: { "assignment_id": assignment_id, topic_id: topic_id  }
         })
         .then( res => dispatch(actions.get_current_stage_success(res.data.check_reviewable_topics)))
@@ -95,7 +94,7 @@ export const check_reviewable_topics = (assignment_id) => {
         axios({
             method: 'post',
             url: 'student_task/check_reviewable_topic',
-            headers: { "Content-Type": "application/json", AUTHORIZATION: "Bearer " + localStorage.getItem('jwt')},
+            headers: { "Content-Type": "application/json", AUTHORIZATION: "Bearer " + jwt},
             data: { "assignment_id": assignment_id  }
         })
         .then( res => dispatch(actions.check_reviewable_topics_success(res.data.check_reviewable_topics)))
@@ -110,7 +109,7 @@ export const metareview_allowed = (assignment_id, topic_id) => {
         axios({
             method: 'post',
             url: 'student_task/metareview_allowed',
-            headers: { "Content-Type": "application/json", AUTHORIZATION: "Bearer " + localStorage.getItem('jwt')},
+            headers: { "Content-Type": "application/json", AUTHORIZATION: "Bearer " + jwt},
             data: { "assignment_id": assignment_id , "topic_id": topic_id }
         })
         .then( res => dispatch(actions.metareview_allowed_success(res.data.metareview_allowed)))
@@ -138,7 +137,7 @@ export const submission_allowed = (assignment_id, topic_id) => {
             method: 'post',
             url: 'student_task/submission_allowed',
             headers: { "Content-Type": "application/json",
-                       AUTHORIZATION: "Bearer " + localStorage.getItem('jwt')},
+                       AUTHORIZATION: "Bearer " + jwt},
             data: { "assignment_id": assignment_id ,
                     "topic_id": topic_id  }
         })
@@ -153,8 +152,7 @@ export const submission_allowed_success = (submissions_allowed) => {
         submissions_allowed: submission_allowed
     }
 }
-export const loadSuccess = (data) => {
-    return {
+export const loadSuccess = (data) => ({
         type: actions.STUDENT_TASK_VIEW_SUCCESS,
         participant: data.participant,
         can_submit : data.can_submit,
@@ -167,8 +165,8 @@ export const loadSuccess = (data) => {
         topic_id: data.topic_id,
         topics: data.topics,
         timeline_list: data.timeline_list
-    }
-}
+    
+});
 
 export const loadFailure = () => {
     return {
