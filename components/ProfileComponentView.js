@@ -40,7 +40,7 @@ class ProfileView extends Component {
     return(
       <ScrollView className="profileform container-fluid">
         <View style={style.view}>
-          <Text style={style.label}>Name:</Text>
+          <Text style={style.label}>Name</Text>
           <TextInput id='fullname' name='fullname' className='form-control'
           defaultValue={this.props.profileform.fullname}
           onChangeText={this.props.handleInputChange('fullname')}
@@ -48,14 +48,14 @@ class ProfileView extends Component {
         </View>
 
         <View style={style.view}>
-          <Text style={style.label}>Password:</Text>
+          <Text style={style.label}>Password</Text>
           <TextInput id="password" name="password" className='form-control' secureTextEntry={true}
           onChangeText={this.props.handleInputChange('password')} onBlur={this.props.handleBlur('password')}
           style={style.textInput} underlineColorAndroid='transparent'/>
         </View>
 
         <View style={style.view}>
-          <Text style={style.label}>Confirm Password:</Text>
+          <Text style={style.label}>Confirm password</Text>
           <TextInput id="confirmpassword" name="confirmpassword" className='form-control'
           secureTextEntry={true} onChangeText={this.props.handleConfirmpassword}
           onBlur={this.props.handleBlur('confirmpassword')}
@@ -64,14 +64,14 @@ class ProfileView extends Component {
         </View>
 
         <View style={style.view}>
-          <Text style={style.label}>E-mail address:</Text>
+          <Text style={style.label}>E-mail address</Text>
           <TextInput id='email' name='email' className='form-control'
           defaultValue={this.props.profileform.email} onChangeText={this.props.handleInputChange('email')}
           style={style.textInput} underlineColorAndroid='transparent' autoCorrect={false}/>
         </View>
 
         <View style={style.view}>
-          <Text style={style.label}>Institution:</Text>
+          <Text style={style.label}>Institution</Text>
           <View style={style.picker.border}>
             <Picker
             selectedValue={this.props.profileform.institution_id}
@@ -87,7 +87,7 @@ class ProfileView extends Component {
         </View>
 
         <View style={style.view}>
-          <Text style={style.label}>Username:</Text>
+          <Text style={style.label}>Username</Text>
           <TextInput id="handle" name="handle" defaultValue={this.props.profileform.handle}
           onChangeText={this.props.handleInputChange('handle')} className='form-control'
           style={style.textInput} underlineColorAndroid='transparent' autoCorrect={false}/>
