@@ -1,9 +1,7 @@
 import * as actions from '../index';
 import axios from '../../axios-instance';
-import { SecureStore } from 'expo';
 
 export const fetchProfile = (jwt) =>(dispatch) => {
-        const token = JSON.parse(jwt);
         return axios({
             method: 'get',
             url: 'profile',
@@ -12,7 +10,7 @@ export const fetchProfile = (jwt) =>(dispatch) => {
     .then(response => { return {response: response.data, servermsg : response.status} } )
     .then(profile => dispatch(addProfile(profile)))
     .catch(error => console.log(error));
-}
+};
 
 export const fetchInstitutions = (jwt) =>(dispatch) => {
     return axios({
@@ -23,14 +21,14 @@ export const fetchInstitutions = (jwt) =>(dispatch) => {
     .then((response)=>response.data)
     .then(institutions => dispatch(addInstitutions(institutions)))
     .catch(error => console.log(error));
-}
+};
 
 export const changeHandle = (handle_name) => {
     return {
         type: actions.CHANGE_HANDLE,
         handle: handle_name
     }
-}
+};
 
 export const addProfile = (profile) => ({
     type: actions.ADD_PROFILE,
@@ -47,20 +45,20 @@ export const profileFailed = (errormess) => ({
     payload: errormess
 });
 
-export const editProfile = (profile,aq)  => (dispatch) => {
-    const newprofile = 
+export const editProfile = (profile,aq, jwt)  => (dispatch) => {
+    const newprofile =
     {
         user: profile,
         assignment_questionnaire: aq
     };
     var headers = {
         'Content-Type': 'application/json',
-        'Authorization': "Bearer " + localStorage.getItem('jwt') 
+        'Authorization': "Bearer " + jwt
     }
     return axios({
         method: 'put',
-        url: 'profile/update', 
-        data: JSON.stringify(newprofile), 
+        url: 'profile/update',
+        data: JSON.stringify(newprofile),
         headers
     })
     .then(response => {
@@ -72,17 +70,16 @@ export const editProfile = (profile,aq)  => (dispatch) => {
                 error.reponse = response;
                 throw error;
             }
-    }, 
+    },
     error => {
         var errmess = new Error(error.message);
         throw errmess;
     })
     .then(profile => dispatch(edit_profile(profile)))
     .catch(error => console.log(error));
-}
+};
 
 export const addInstitutions = (institutions) => ({
     type: actions.ADD_INSTITUTIONS,
     payload: institutions
 });
-
