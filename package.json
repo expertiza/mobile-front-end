@@ -6,7 +6,8 @@
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "eject": "expo eject"
+    "eject": "expo eject",
+    "devtools": "react-devtools"
   },
   "dependencies": {
     "axios": "^0.18.0",
@@ -17,6 +18,8 @@
     "react-native": "https://github.com/expo/react-native/archive/sdk-30.0.0.tar.gz",
     "react-native-elements": "^1.0.0-beta5",
     "react-native-mask-loader": "0.0.3",
+    "react-native-loading-spinner-overlay": "^1.0.1",
+    "react-native-timeline-listview": "^0.2.3",
     "react-navigation": "^2.16.0",
     "react-redux": "^5.0.7",
     "redux": "^4.0.0",

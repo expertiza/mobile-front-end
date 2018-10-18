@@ -1,8 +1,8 @@
-import * as actions from '../redux/index'
+import * as actions from '../../redux/index'
 import React, { Component } from 'react';
 import { Text, ScrollView, View, Picker } from 'react-native';
 import { connect } from 'react-redux';
-import {fetchProfile, editProfile} from '../redux/actions/Profile';
+import {fetchProfile, editProfile} from '../../redux/actions/Profile';
 import PreferenceView from './PreferenceComponentView';
 
 const mapStateToProps = state => {
@@ -27,7 +27,7 @@ class Preference extends Component {
   }
 
   static navigationOptions = {
-    title: 'Preference  '
+    title: 'Preference   '
   };
 
   propsToState(props) {
@@ -95,7 +95,6 @@ class Preference extends Component {
     } else {
       return(
         <View>
-          LOL
         </View>
       )
     }

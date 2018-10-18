@@ -1,5 +1,6 @@
 import * as actions from '../index'
 import {updateObject}  from '../../shared/utility/utility'
+    
 
 const initialize = {
     loaded: false,
@@ -15,13 +16,15 @@ const initialize = {
     topic_id: null,
     topics: null,
     timeline_list: null,
-    submission_allowed: false,
+    submission_allowed: false, 
     check_reviewable_topics: false,
     metareview_allowed: false,
     get_current_stage: '',
     quiz_allowed: false,
     unsubmitted_self_review: false
 }
+
+
 
 const studentTaskViewReducer = (state = initialize, action) => {
     switch (action.type) {
@@ -55,5 +58,5 @@ const studentTaskViewReducer = (state = initialize, action) => {
         default:
             return state;
     }
-}
+};
 export default studentTaskViewReducer;

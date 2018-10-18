@@ -1,8 +1,8 @@
-import * as actions from '../redux/index'
+import * as actions from '../../../redux/index'
 import React, { Component } from 'react';
 import { Text, ScrollView, View, Picker } from 'react-native';
 import { connect } from 'react-redux';
-import {fetchProfile, fetchInstitutions, editProfile} from '../redux/actions/Profile';
+import {fetchProfile, fetchInstitutions, editProfile} from '../../../redux/actions/Profile';
 import ProfileView from './ProfileComponentView';
 
 const mapStateToProps = state => {
