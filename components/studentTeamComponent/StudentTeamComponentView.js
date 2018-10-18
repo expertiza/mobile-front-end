@@ -34,9 +34,39 @@ const style = {
 const mock = {
   teamName: "OSS project/Writing assignment 2_Team20",
   members: [
-    {id: 6362, name: 'student6362'},
-    {id: 6433, name: 'student6433'},
-    {id: 6420, name: 'student6420'},
+    {
+      id: 6362,
+      name: 'student6362',
+      actions: []
+    }, {
+      id: 6433,
+      name: 'student6433',
+      actions: [
+        {
+          id: 0,
+          name: 'View',
+          handler: () => {}
+        }, {
+          id: 0,
+          name: 'Edit',
+          handler: () => {}
+        }
+      ]
+    }, {
+      id: 6420,
+      name: 'student6420',
+      actions: [
+        {
+          id: 0,
+          name: 'View',
+          handler: () => {}
+        }, {
+          id: 0,
+          name: 'Edit',
+          handler: () => {}
+        }
+      ]
+    },
   ],
   invitations: [
     {id: 6433, name: 'student6433', status: 'accept'},
@@ -56,7 +86,8 @@ class StudentTeamView extends Component {
         <Text style={style.label}>Team Members:</Text>
         {mock.members.map((member) =>
           (<StudentTeamMemberComponent
-            key={'member_' + member.id} name={member.name} />))}
+            key={'member_' + member.id} name={member.name}
+            actions={member.actions} />))}
         <Text style={style.label}>Sent Invitations:</Text>
         {mock.invitations.map((invitation) =>
           (<InvitationComponent

@@ -13,7 +13,6 @@ const style = {
     paddingTop: 3,
     paddingBottom: 3,
     height: 30,
-    // borderWidth: 1,
     backgroundColor: '#DDDDDD',
     borderRadius: 5,
   },

@@ -46,12 +46,13 @@ class StudentTeamMemberComponent extends Component {
       <View style={style.view}>
         <Text style={style.text}>{this.props.name}</Text>
         <View style={style.buttonGroupView}>
-          <TouchableOpacity style={style.button} onPress={() => {}}>
-            <Text style={style.buttonText}>View</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={style.button} onPress={() => {}}>
-            <Text style={style.buttonText}>Edit</Text>
-          </TouchableOpacity>
+          {this.props.actions.map((action) =>
+          (
+            <TouchableOpacity key={'action_' + action.id}
+            style={style.button} onPress={action.handler}>
+              <Text style={style.buttonText}>{action.name}</Text>
+            </TouchableOpacity>
+          ))}
         </View>
       </View>
     );
