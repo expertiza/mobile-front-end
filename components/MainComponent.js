@@ -4,16 +4,39 @@ import { createSwitchNavigator, createStackNavigator, createDrawerNavigator, Dra
 import { Icon,Button } from 'react-native-elements';
 
 import Profile from './ProfileComponent';
+import Preference from './PreferenceComponent';
 import Assignment from './AssignmentComponent';
 import Logout from './logoutComponent';
 import Login from './loginComponent';
 import AuthLoadingScreen from './AuthLoading';
+
+
 
 const ProfileNavigator = createStackNavigator({
         Profile: { screen: Profile }
     },
     {
         initialRouteName: 'Profile',
+        navigationOptions: ({ navigation }) => ({
+          headerStyle: {
+              backgroundColor: "#a90201"
+          },
+          headerTitleStyle: {
+              color: "#fff"
+          },
+          headerTintColor: "#fff",
+          headerLeft: <Icon name="menu" size={24}
+            iconStyle={{ color: 'white' }}
+            onPress={ () => navigation.toggleDrawer() } />
+        })
+    }
+);
+
+const PreferenceNavigator = createStackNavigator({
+        Preference: { screen: Preference }
+    },
+    {
+        initialRouteName: 'Preference',
         navigationOptions: ({ navigation }) => ({
           headerStyle: {
               backgroundColor: "#a90201"
@@ -107,7 +130,7 @@ const MainNavigator = createDrawerNavigator({
           drawerLabel: 'Assignment  '
         }
       },
-    Menu: 
+    Profile: 
       { screen: ProfileNavigator,
         navigationOptions: {
           title: 'Profile',
@@ -119,6 +142,13 @@ const MainNavigator = createDrawerNavigator({
         navigationOptions: {
           title: 'Logout',
           drawerLabel: 'Logout  '
+      },
+    },
+    Preference: 
+      { screen: PreferenceNavigator,
+        navigationOptions: {
+          title: 'Preference',
+          drawerLabel: 'Preference  '
         }, 
       },
 }, {

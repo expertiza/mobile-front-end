@@ -2,38 +2,32 @@ import * as actions from '../redux/index'
 import React, { Component } from 'react';
 import { Text, ScrollView, View, Picker } from 'react-native';
 import { connect } from 'react-redux';
-import {fetchProfile, fetchInstitutions, editProfile} from '../redux/actions/Profile';
-import ProfileView from './ProfileComponentView';
+import {fetchProfile, editProfile} from '../redux/actions/Profile';
+import PreferenceView from './PreferenceComponentView';
 
 const mapStateToProps = state => {
-    return {
-      institutions: state.institutions.institutions,
-      profile: state.profile,
-      jwt: state.auth.jwt
-    }
+  return {
+    profile: state.profile
+  }
 }
 const mapDispatchToProps = dispatch => ({
-    fetchInstitutions: (jwt) => dispatch(fetchInstitutions(jwt)),
-    fetchProfile: (jwt) => dispatch(fetchProfile(jwt)),
-    editProfile: (profile,aq,jwt) =>{dispatch(editProfile(profile,aq, jwt))}
+    fetchProfile: () => dispatch(fetchProfile()),
+    editProfile: (profile,aq) =>{dispatch(editProfile(profile,aq))}
 })
 
-class Profile extends Component {
+class Preference extends Component {
   constructor(props) {
     super(props);
     this.state= this.propsToState(props);
 
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleBlur = this.handleBlur.bind(this);
-    this.handleConfirmpassword= this.handleConfirmpassword.bind(this);
     this.handleNotificationChange = this.handleNotificationChange.bind(this);
     this.performedit = this.performedit.bind(this);
-    this.handleChange = this.handleChange.bind(this);
   }
   
   static navigationOptions = {
-    title: 'Profile  '
+    title: 'Preference  '
   };
 
   propsToState(props) {
@@ -63,38 +57,16 @@ class Profile extends Component {
   }
 
   componentDidMount(){
-    this.props.fetchInstitutions(this.props.jwt);
-    this.props.fetchProfile(this.props.jwt)
+    this.props.fetchProfile()
       .then(() => {this.setState(this.propsToState(this.props))});
   }
 
-  validate(password, confirmpassword){
-    const errors = {
-      password: '',
-      confirmpassword: ''
-    }
-    if(this.state.profileform.password !== this.state.confirmpassword){
-      errors.confirmpassword = 'passwords do not match';
-    }
-    return errors;
-  }
-
   performedit(){
-    this.props.editProfile(this.state.profileform, this.state.aq, this.props.jwt);
+    this.props.editProfile(this.state.profileform, this.state.aq);
   }
 
   handleSubmit() {
     this.setState({ save: true}, ()=>{console.log(this.state.save); this.performedit()});
-  }
-
-  handleChange = (newValue) => {
-      var profileform = {...this.state.profileform};
-      profileform['timezonepref'] = newValue
-      this.setState({ profileform });
-  }
-
-  handleConfirmpassword(value){
-    this.setState({confirmpassword: value});
   }
 
   handleInputChange = (field) => (value) => {
@@ -110,25 +82,14 @@ class Profile extends Component {
       this.setState({aq});
   }
 
-  handleBlur = (field) => (evt) => {
-    this.setState({
-      touched: { ...this.state.touched, [field]: true },
-    });
-  }
-
   render(){
-    const errors = this.validate(this.state.profileform.password, this.state.confirmpassword);
     if(this.props){
       console.log('render(): this.state:', this.state);
-      return(<ProfileView institutions={this.props.institutions}
+      return(<PreferenceView
           profileform={this.state.profileform}
           handleInputChange={this.handleInputChange}
-          handleBlur={this.handleBlur}
-          handleConfirmpassword={this.handleConfirmpassword}
           handleNotificationChange={this.handleNotificationChange}
-          handleChange={this.handleChange}
           handleSubmit={this.handleSubmit}
-          errors={errors}
       />);
     } else {
       return(
@@ -139,4 +100,4 @@ class Profile extends Component {
     }
   }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(Profile);
+export default connect(mapStateToProps, mapDispatchToProps)(Preference);

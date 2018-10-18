@@ -15,7 +15,7 @@ export const ConfigureStore = () => {
             institutions: Institutions,
             auth: authReducer,
         }),
-        applyMiddleware(thunk, logger)
+        applyMiddleware(thunk)
     );
     return  store;
 }
