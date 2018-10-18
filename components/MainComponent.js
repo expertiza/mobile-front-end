@@ -6,7 +6,6 @@ import { Icon } from 'react-native-elements';
 import Profile from './ProfileComponent';
 import Preference from './PreferenceComponent';
 import Assignment from './AssignmentComponent';
-import StudentTeamComponent from './studentTeamComponent/StudentTeamComponent';
 
 const ProfileNavigator = createStackNavigator({
     Profile: { screen: Profile }
@@ -50,7 +49,6 @@ const PreferenceNavigator = createStackNavigator({
 
 const AssignmentNavigator = createStackNavigator({
     Assignment: { screen: Assignment },
-    StudentTeam: { screen: StudentTeamComponent }
 },
 {
     initialRouteName: 'Assignment',
