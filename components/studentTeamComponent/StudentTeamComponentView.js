@@ -8,6 +8,12 @@ const style = {
     fontWeight: 'bold',
     marginTop: 10,
     marginLeft: 10,
+    fontSize: 16,
+  },
+  text: {
+    marginLeft: 5,
+    marginRight: 5,
+    fontSize: 16,
   },
   view: {
     flex: 1,
@@ -17,17 +23,12 @@ const style = {
     alignItems: 'center',
     marginTop: 10,
     marginLeft: 20,
-    marginRight: 10,
+    marginRight: 20,
   },
   buttonView: {
-    flex: 1,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 10,
-    marginLeft: 20,
-    marginRight: 10,
+      marginTop: 50,
+      marginLeft: 10,
+      marginRight: 10,
   }
 }
 
@@ -80,7 +81,7 @@ class StudentTeamView extends Component {
       <ScrollView>
         <Text style={style.label}>Team Name:</Text>
         <View style={style.view}>
-          <Text>{mock.teamName}</Text>
+          <Text style={style.text}>{mock.teamName}</Text>
           <Button title='Edit name' onPress={() => {}} />
         </View>
         <Text style={style.label}>Team Members:</Text>

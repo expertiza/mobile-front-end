@@ -10,9 +10,9 @@ const style = {
     marginTop: 5,
     marginLeft: 20,
     marginRight: 20,
-    paddingTop: 3,
-    paddingBottom: 3,
-    height: 30,
+    paddingTop: 5,
+    paddingBottom: 5,
+    height: 35,
     backgroundColor: '#DDDDDD',
     borderRadius: 5,
   },
@@ -26,17 +26,19 @@ const style = {
   text: {
     marginLeft: 5,
     marginRight: 5,
+    fontSize: 16,
   },
   button: {
     alignItems: 'center',
-    width: 40,
-    marginLeft: 5,
     marginRight: 5,
+    paddingLeft: 5,
+    paddingRight: 5,
     borderRadius: 10,
     backgroundColor: '#2196F3',
   },
   buttonText: {
-    color: '#FFFFFF'
+    color: '#FFFFFF',
+    fontSize: 16,
   }
 }
 
@@ -46,8 +48,7 @@ class StudentTeamMemberComponent extends Component {
       <View style={style.view}>
         <Text style={style.text}>{this.props.name}</Text>
         <View style={style.buttonGroupView}>
-          {this.props.actions.map((action) =>
-          (
+          {this.props.actions.map((action) => (
             <TouchableOpacity key={'action_' + action.id}
             style={style.button} onPress={action.handler}>
               <Text style={style.buttonText}>{action.name}</Text>

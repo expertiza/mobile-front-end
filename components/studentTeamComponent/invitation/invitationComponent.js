@@ -10,15 +10,16 @@ const style = {
     marginTop: 5,
     marginLeft: 20,
     marginRight: 20,
-    paddingTop: 3,
-    paddingBottom: 3,
-    height: 30,
+    paddingTop: 5,
+    paddingBottom: 5,
+    height: 35,
     backgroundColor: '#DDDDDD',
     borderRadius: 5,
   },
   text: {
     marginLeft: 5,
     marginRight: 5,
+    fontSize: 16,
   },
 }
 
