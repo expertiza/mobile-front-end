@@ -39,6 +39,7 @@ const style = {
   buttonText: {
     color: '#FFFFFF',
     fontSize: 16,
+    fontWeight: 'bold',
   }
 }
 
@@ -51,7 +52,7 @@ class StudentTeamMemberComponent extends Component {
           {this.props.actions.map((action) => (
             <TouchableOpacity key={'action_' + action.id}
             style={style.button} onPress={action.handler}>
-              <Text style={style.buttonText}>{action.name}</Text>
+              <Text style={style.buttonText}>{action.name.toUpperCase()}</Text>
             </TouchableOpacity>
           ))}
         </View>
