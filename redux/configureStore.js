@@ -13,7 +13,7 @@ export const ConfigureStore = () => {
             profile: Profile,
             studentTaskList: studentTaskList,
             institutions: Institutions,
-            // auth: authReducer,
+            auth: authReducer,
         }),
         applyMiddleware(thunk, logger)
     );

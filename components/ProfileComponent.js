@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Text, View } from 'react-native';
 import { connect } from 'react-redux';
 import {fetchInstitutions} from './../redux/actions/Profile';
+import {SecureStore} from 'expo';
 
 const mapStateToProps = state => {
     return {
@@ -9,7 +10,7 @@ const mapStateToProps = state => {
     }
 }
 const mapDispatchToProps = dispatch => ({
-    fetchInstitutions: () => dispatch(fetchInstitutions())
+    fetchInstitutions: (jwt) => dispatch(fetchInstitutions(jwt))
 })
 
 class Profile extends Component {
@@ -20,15 +21,19 @@ class Profile extends Component {
         }
     }
     componentDidMount(){
-        this.props.fetchInstitutions();
+        SecureStore.getItemAsync('jwt')
+        .then((jwt)=>{
+            const token = JSON.parse(jwt)
+            this.props.fetchInstitutions(token.jwt);
+        })
     }
     static navigationOptions = {
         title: 'Profile  '
     };
     render(){
-        if(this.props){
+        if(this.props.institutions){
             return(
-            <Text> This is profile page {console.log(this.props.institutions)} </Text>
+                <Text> This is profile page {console.log(this.props.institutions)} </Text>
             )
         }
         else{

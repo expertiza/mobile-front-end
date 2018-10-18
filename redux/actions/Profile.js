@@ -2,22 +2,19 @@ import * as actions from '../index';
 import axios from '../../axios-instance';
 import { SecureStore } from 'expo';
 
-export const fetchProfile = () =>(dispatch) => {
-    SecureStore.getItemAsync('jwt')
-    .then((jwt)=>{
+export const fetchProfile = (jwt) =>(dispatch) => {
         const token = JSON.parse(jwt);
         return axios({
             method: 'get',
             url: 'profile',
-            headers: { AUTHORIZATION: "Bearer " + token.jwt }
+            headers: { AUTHORIZATION: "Bearer " + jwt }
         })
-    })
     .then(response => { return {response: response.data, servermsg : response.status} } )
     .then(profile => dispatch(addProfile(profile)))
     .catch(error => console.log(error));
 }
 
-export const fetchInstitutions = () =>(dispatch) => {
+export const fetchInstitutions = (jwt) =>(dispatch) => {
     return axios({
         method: 'get',
         url: 'institution',
