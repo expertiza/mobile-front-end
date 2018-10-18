@@ -9,67 +9,48 @@ import Assignment from './AssignmentComponent';
 import StudentTeamComponent from './studentTeamComponent/StudentTeamComponent';
 
 const ProfileNavigator = createStackNavigator({
-        Profile: { screen: Profile }
-    },
-    {
-        initialRouteName: 'Profile',
-        navigationOptions: ({ navigation }) => ({
-          headerStyle: {
-              backgroundColor: "#a90201"
-          },
-          headerTitleStyle: {
-              color: "#fff"
-          },
-          headerTintColor: "#fff",
-          headerLeft: <Icon name="menu" size={24}
-            iconStyle={{ color: 'white' }}
-            onPress={ () => navigation.toggleDrawer() } />
-        })
-    }
+    Profile: { screen: Profile }
+  },
+  {
+    initialRouteName: 'Profile',
+    navigationOptions: ({ navigation }) => ({
+      headerStyle: {
+        backgroundColor: "#a90201"
+      },
+      headerTitleStyle: {
+        color: "#fff"
+      },
+      headerTintColor: "#fff",
+      headerLeft: <Icon name="menu" size={24}
+        iconStyle={{ color: 'white' }}
+        onPress={ () => navigation.toggleDrawer() } />
+    })
+  }
 );
 
 const PreferenceNavigator = createStackNavigator({
-        Preference: { screen: Preference }
-    },
-    {
-        initialRouteName: 'Preference',
-        navigationOptions: ({ navigation }) => ({
-          headerStyle: {
-              backgroundColor: "#a90201"
-          },
-          headerTitleStyle: {
-              color: "#fff"
-          },
-          headerTintColor: "#fff",
-          headerLeft: <Icon name="menu" size={24}
-            iconStyle={{ color: 'white' }}
-            onPress={ () => navigation.toggleDrawer() } />
-        })
-    }
-);
-
-const StudentTeamNavigator = createStackNavigator({
-        StudentTeam: { screen: StudentTeamComponent }
-    },
-    {
-        initialRouteName: 'StudentTeam',
-        navigationOptions: ({ navigation }) => ({
-          headerStyle: {
-              backgroundColor: "#a90201"
-          },
-          headerTitleStyle: {
-              color: "#fff"
-          },
-          headerTintColor: "#fff",
-          headerLeft: <Icon name="menu" size={24}
-            iconStyle={{ color: 'white' }}
-            onPress={ () => navigation.toggleDrawer() } />
-        })
-    }
+    Preference: { screen: Preference }
+  },
+  {
+    initialRouteName: 'Preference',
+    navigationOptions: ({ navigation }) => ({
+      headerStyle: {
+        backgroundColor: "#a90201"
+      },
+      headerTitleStyle: {
+        color: "#fff"
+      },
+      headerTintColor: "#fff",
+      headerLeft: <Icon name="menu" size={24}
+        iconStyle={{ color: 'white' }}
+        onPress={ () => navigation.toggleDrawer() } />
+    })
+  }
 );
 
 const AssignmentNavigator = createStackNavigator({
-    Assignment: { screen: Assignment }
+    Assignment: { screen: Assignment },
+    StudentTeam: { screen: StudentTeamComponent }
 },
 {
     initialRouteName: 'Assignment',
@@ -121,13 +102,6 @@ const MainNavigator = createDrawerNavigator({
         navigationOptions: {
           title: 'Preference',
           drawerLabel: 'Preference  '
-        },
-      },
-    StudentTeam:
-      { screen: StudentTeamNavigator,
-        navigationOptions: {
-          title: 'StudentTeam',
-          drawerLabel: 'StudentTeam  '
         },
       },
 }, {

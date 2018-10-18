@@ -84,7 +84,7 @@ class Preference extends Component {
 
   render(){
     if(this.props){
-      console.log('render(): this.state:', this.state);
+      // console.log('render(): this.state:', this.state);
       // console.log('render(): this.props.profile:', this.props.profile);
       return(<PreferenceView
           profileform={this.state.profileform}
