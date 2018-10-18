@@ -6,7 +6,8 @@ import {SecureStore} from 'expo';
 
 const mapStateToProps = state => {
     return {
-        institutions: state.institutions.institutions
+        institutions: state.institutions.institutions,
+        jwt : state.auth.jwt
     }
 }
 const mapDispatchToProps = dispatch => ({
@@ -21,11 +22,7 @@ class Profile extends Component {
         }
     }
     componentDidMount(){
-        SecureStore.getItemAsync('jwt')
-        .then((jwt)=>{
-            const token = JSON.parse(jwt)
-            this.props.fetchInstitutions(token.jwt);
-        })
+        this.props.fetchInstitutions(this.props.jwt);
     }
     static navigationOptions = {
         title: 'Profile  '
@@ -33,7 +30,7 @@ class Profile extends Component {
     render(){
         if(this.props.institutions){
             return(
-                <Text> This is profile page {console.log(this.props.institutions)} </Text>
+                <Text> This is profile page {console.log(this.props.jwt)} </Text>
             )
         }
         else{
