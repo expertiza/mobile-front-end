@@ -1,8 +1,10 @@
 import axios from '../../axios-instance';
-import jwt from './jwt';
 import * as actions from '../index';
+import jwt from './jwt';
 
-export const onLoad = (id) => (dispatch) => {
+
+export const onLoad = (id) => {
+    return dispatch => {
         console.log('id in actions is :', id)
         axios({
             method: 'post',
@@ -29,6 +31,7 @@ export const onLoad = (id) => (dispatch) => {
                 console.log(error)
         } )
     }
+}
 
 
 export const unsubmitted_self_review = (participant_id) => {
@@ -152,8 +155,11 @@ export const submission_allowed_success = (submissions_allowed) => {
         submissions_allowed: submission_allowed
     }
 }
-export const loadSuccess = (data) => ({
+export const loadSuccess = (data) => {
+    console.log("Hi loadSuccess")
+    return {
         type: actions.STUDENT_TASK_VIEW_SUCCESS,
+
         participant: data.participant,
         can_submit : data.can_submit,
         can_review: data.can_review,
@@ -165,8 +171,8 @@ export const loadSuccess = (data) => ({
         topic_id: data.topic_id,
         topics: data.topics,
         timeline_list: data.timeline_list
-    
-});
+    }
+}
 
 export const loadFailure = () => {
     return {

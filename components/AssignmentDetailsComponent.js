@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { ScrollView, Text, View } from 'react-native';
+import { ScrollView, Text, View, StyleSheet } from 'react-native';
 import { Card, ListItem, Button, Icon } from 'react-native-elements'
 import { connect } from 'react-redux';
+import * as actions from './../redux'
 import Timeline from 'react-native-timeline-listview';
-import {onLoad} from './../redux/actions/StudentTaskView';
 import Spinner from 'react-native-loading-spinner-overlay';
 
 
@@ -21,24 +21,18 @@ class AssignmentDetails extends Component {
           {time: '16:30', title: 'Event 5', description: 'Event 5 Description'}
         ]
 
-        this.state={
-            spinner: false
-        }
+        
     }
 
-    componentDidMount(){  
-        const {navigation} = this.props;
-        const part_id = navigation.getParam('par_id', 'NO-ID');
-        const part_id_string = JSON.stringify(part_id);     
-        this.props.onLoad(part_id_string);
 
-        setInterval(() => {
-        this.setState({
-        spinner: !this.state.spinner
-      });
-    }, 3000);
+    componentDidMount() {
 
-    }
+    const {navigation} = this.props;
+    const part_id = navigation.getParam('par_id', 'NO-ID');
+    
+    this.props.onLoad(part_id)
+
+  }
 
     static navigationOptions = {
         title: 'Assignment 1'
@@ -46,49 +40,66 @@ class AssignmentDetails extends Component {
     
     render(){
 
+        let i = true
         if(this.props.loaded){
-        const {navigation} = this.props
-        const part_id = navigation.getParam('par_id', 'NO-ID')
-        const part_id_string = JSON.stringify(part_id)
-
-        const list = [
-                    
-                    {
-                        name: "Signup sheet",
-                        desc: "Sign up for a topic"
-                    },
-                    {
-                        name: "Your work",
-                        desc: "You have to choose a topic first"
-                    },
-                    {
-                        name: "Others Work",
-                        desc: "Give feedback to others on their work"
-                    },
-                    {
-                        name: "Change handle",
-                        desc: "Provide a different handle for this assignment"
-                    },
-                ]
 
 
-        
-        
+            const {navigation} = this.props
+                const part_id = navigation.getParam('par_id', 'NO-ID')
+                const part_id_string = JSON.stringify(part_id)
+
+                const list = [
+                            
+                            {
+                                name: "Signup sheet",
+                                desc: "Sign up for a topic"
+                            },
+                            {
+                                name: "Your work",
+                                desc: "You have to choose a topic first"
+                            },
+                            {
+                                name: "Others Work",
+                                desc: "Give feedback to others on their work"
+                            },
+                            {
+                                name: "Change handle",
+                                desc: "Provide a different handle for this assignment"
+                            },
+                        ]
+
+
             return(
 
                 <ScrollView>
 
-                <View>
+                <View style ={styles.container}>
 
-                
+                <Card
 
-                <Text> ID : {part_id_string} </Text>
+                            containerStyle={{
+
+                                borderWidth: 1, 
+                                borderColor: 'gray',
+                                marginRight:20,
+                                marginLeft:20,
+                                marginTop:10,
+                                paddingTop:10,
+                                paddingBottom:10,
+                                paddingRight:1,
+                                paddingLeft:10,
+                                borderRadius:10,
+            
+                        }}
+
+                >
+
                     {
                         
                         list.map((l,i) => (
                         <ListItem 
                                 key ={i}
-                                containerStyle={{flex:1}}
+                                containerStyle={{flex:1, padding:1, paddingBottom:5}}
                                 title={l.name}
                                 titleStyle={{ color: 'black', fontSize:13, textAlign: 'left' }}
                                 subtitle={l.desc}
@@ -98,14 +109,19 @@ class AssignmentDetails extends Component {
                             />
                         ))
                     }
+
+                </Card>
+                <Text> {"\n"} </Text>
                     
-                <Timeline data = {this.props.timeline_list} />
+               
+                <Timeline data = {this.data} />
 
                 </View>
 
                 </ScrollView>
+                
             )
-
+                
         }
 
             else{
@@ -113,11 +129,13 @@ class AssignmentDetails extends Component {
                 return(
 
                 <Spinner
-                  visible={this.state.spinner}
+                  visible={true}
                   textContent={'Loading...'}
                 />
 
                 )
+
+                
             }
         }
             
@@ -143,12 +161,35 @@ const mapStateToProps = state => {
         check_reviewable_topics: state.studentTaskView.check_reviewable_topics,
         metareview_allowed: state.studentTaskView.metareview_allowed,
         get_current_stage: state.studentTaskView.get_current_stage
+
+
     }
 }
 
-const mapDispatchToProps = dispatch => ({
-        onLoad: (id) => dispatch(onLoad(id))
-})
+const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: 'white'
+    },
+});
+
+const mapDispatchToProps = dispatch => {
+        return {
+        onLoad: (id) => { dispatch(actions.onLoad(id))}
+    }
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(AssignmentDetails);
+
+
+       
+    //     , function(something) {
+    //   this.setState({ spinner: !this.state.spinner});
+    // }.bind(this));
+
+    // this.state={
+    //         spinner: true
+    //     }
+
+
 

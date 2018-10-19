@@ -1,8 +1,13 @@
 import * as actions from '../index'
-import {updateObject}  from '../../shared/utility/utility'
-    
 
-const initialize = {
+const updateObject = (oldObject , updatedProperties) => {
+    return {
+        ...oldObject,
+        ...updatedProperties
+    }
+}
+
+const initialize2 = {
     loaded: false,
     participant: null,
     can_submit : null,
@@ -16,7 +21,7 @@ const initialize = {
     topic_id: null,
     topics: null,
     timeline_list: null,
-    submission_allowed: false, 
+    submission_allowed: false,
     check_reviewable_topics: false,
     metareview_allowed: false,
     get_current_stage: '',
@@ -24,9 +29,7 @@ const initialize = {
     unsubmitted_self_review: false
 }
 
-
-
-const studentTaskViewReducer = (state = initialize, action) => {
+const studentTaskViewReducer = (state = initialize2, action) => {
     switch (action.type) {
         case actions.STUDENT_TASK_VIEW_SUCCESS:
             return updateObject(state, { participant: action.participant,
@@ -58,5 +61,5 @@ const studentTaskViewReducer = (state = initialize, action) => {
         default:
             return state;
     }
-};
+}
 export default studentTaskViewReducer;
