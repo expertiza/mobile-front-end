@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import { View, ScrollView, Image, StyleSheet } from 'react-native';
 import { createSwitchNavigator, createStackNavigator, createDrawerNavigator, DrawerItems, SafeAreaView } from 'react-navigation';
 import { Icon } from 'react-native-elements';
-import Profile from './studentTeamComponent/ProfileComponent/ProfileComponent';
+import Profile from './ProfileComponent/ProfileComponent';
 import Preference from './PreferenceComponent/PreferenceComponent';
 import Assignment from './AssignmentComponent/AssignmentComponent';
+import AssignmentDetails from './AssignmentDetailsComponent/AssignmentDetailsComponent';
 import Logout from './Auth/logoutComponent';
 import Login from './Auth/loginComponent';
 import AuthLoadingScreen from './Auth/AuthLoading';
@@ -50,7 +51,8 @@ const PreferenceNavigator = createStackNavigator({
 );
 
 const AssignmentNavigator = createStackNavigator({
-    Assignment: { screen: Assignment }
+    Assignment: { screen: Assignment },
+    Details: {screen: AssignmentDetails }
 },
 {
     initialRouteName: 'Assignment',

@@ -1,7 +1,9 @@
 import axios from '../../axios-instance';
 import * as actions from '../index';
 
-export const onLoad = (id) => (dispatch) => {
+
+export const onLoad = (id, jwt) => {
+    return dispatch => {
         console.log('id in actions is :', id)
         axios({
             method: 'post',
@@ -17,20 +19,21 @@ export const onLoad = (id) => (dispatch) => {
             }else {
                 console.log("need to see data here",response.data)
                 dispatch(actions.loadSuccess(response.data));
-                dispatch(actions.submission_allowed(response.data.assignment.id, response.data.topic_id))
-                dispatch(actions.check_reviewable_topics(response.data.assignment.id))
-                dispatch(actions.get_current_stage(response.data.assignment.id, response.data.topic_id))
-                dispatch(actions.quiz_allowed(response.data.assignment.id, response.data.topic_id))   
-                dispatch(actions.unsubmitted_self_review(response.data.participant.id))             
+                dispatch(actions.submission_allowed(response.data.assignment.id, response.data.topic_id, jwt))
+                dispatch(actions.check_reviewable_topics(response.data.assignment.id, jwt))
+                dispatch(actions.get_current_stage(response.data.assignment.id, response.data.topic_id, jwt))
+                dispatch(actions.quiz_allowed(response.data.assignment.id, response.data.topic_id, jwt))   
+                dispatch(actions.unsubmitted_self_review(response.data.participant.id, jwt))             
             }
         })
         .catch(error => {
                 console.log(error)
         } )
     }
+}
 
 
-export const unsubmitted_self_review = (participant_id) => {
+export const unsubmitted_self_review = (participant_id, jwt) => {
     return dispatch => {
         axios({
             method: 'post',
@@ -50,7 +53,7 @@ export const unsubmitted_self_review_success = (quiz_allowed) => {
     }
 }
 
-export const quiz_allowed = (assignment_id, topic_id) => {
+export const quiz_allowed = (assignment_id, topic_id, jwt) => {
     return dispatch => {
         axios({
             method: 'post',
@@ -69,7 +72,7 @@ export const quiz_allowed_success = (quiz_allowed) => {
         quiz_allowed: quiz_allowed
     }
 }
-export const get_current_stage = (assignment_id, topic_id) => {
+export const get_current_stage = (assignment_id, topic_id, jwt) => {
     return dispatch => {
         axios({
             method: 'post',
@@ -88,7 +91,7 @@ export const get_current_stage_success = (get_current_stage) => {
         get_current_stage: get_current_stage
     }
 }
-export const check_reviewable_topics = (assignment_id) => {
+export const check_reviewable_topics = (assignment_id, jwt) => {
     return dispatch => {
         axios({
             method: 'post',
@@ -130,7 +133,7 @@ export const check_reviewable_topics_success = (check_reviewable_topics) => {
     }
 }
 
-export const submission_allowed = (assignment_id, topic_id) => {
+export const submission_allowed = (assignment_id, topic_id, jwt) => {
     return dispatch => {
         axios({
             method: 'post',
@@ -151,8 +154,11 @@ export const submission_allowed_success = (submissions_allowed) => {
         submissions_allowed: submission_allowed
     }
 }
-export const loadSuccess = (data) => ({
+export const loadSuccess = (data) => {
+    console.log("Hi loadSuccess")
+    return {
         type: actions.STUDENT_TASK_VIEW_SUCCESS,
+
         participant: data.participant,
         can_submit : data.can_submit,
         can_review: data.can_review,
@@ -164,8 +170,8 @@ export const loadSuccess = (data) => ({
         topic_id: data.topic_id,
         topics: data.topics,
         timeline_list: data.timeline_list
-    
-});
+    }
+}
 
 export const loadFailure = () => {
     return {
