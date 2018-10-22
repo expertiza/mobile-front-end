@@ -21,7 +21,7 @@ class AssignmentDetails extends Component {
           {time: '16:30', title: 'Event 5', description: 'Event 5 Description'}
         ]
 
-        
+
     }
 
 
@@ -29,7 +29,7 @@ class AssignmentDetails extends Component {
 
     const {navigation} = this.props;
     const part_id = navigation.getParam('par_id', 'NO-ID');
-    
+
     this.props.onLoad(part_id, this.props.jwt)
 
   }
@@ -37,7 +37,7 @@ class AssignmentDetails extends Component {
     static navigationOptions = {
         title: 'Assignment 1     '
     };
-    
+
     render(){
 
         let i = true
@@ -49,7 +49,7 @@ class AssignmentDetails extends Component {
                 const part_id_string = JSON.stringify(part_id)
 
                 const list = [
-                            
+
                             {
                                 name: "Signup sheet",
                                 desc: "Sign up for a topic"
@@ -64,7 +64,10 @@ class AssignmentDetails extends Component {
                             },
                             {
                                 name: "Change handle",
-                                desc: "Provide a different handle for this assignment"
+                                desc: "Provide a different handle for this assignment",
+                                handler: ()=>{
+                                  this.props.navigation.navigate('ChangeHandle', {});
+                                }
                             },
                         ]
 
@@ -79,7 +82,7 @@ class AssignmentDetails extends Component {
 
                             containerStyle={{
 
-                                borderWidth: 1, 
+                                borderWidth: 1,
                                 borderColor: 'gray',
                                 marginRight:20,
                                 marginLeft:20,
@@ -89,22 +92,23 @@ class AssignmentDetails extends Component {
                                 paddingRight:1,
                                 paddingLeft:10,
                                 borderRadius:10,
-            
+
                         }}
 
                 >
 
                     {
-                        
+
                         list.map((l,i) => (
-                        <ListItem 
+                        <ListItem
                                 key ={i}
                                 containerStyle={{flex:1, padding:1, paddingBottom:5}}
                                 title={l.name}
                                 titleStyle={{ color: 'black', fontSize:13, textAlign: 'left' }}
                                 subtitle={l.desc}
                                 subtitleStyle={{ color: 'red', fontSize:10 }}
-                                
+                                onPress={l.handler}
+
 
                             />
                         ))
@@ -112,16 +116,16 @@ class AssignmentDetails extends Component {
 
                 </Card>
                 <Text> {"\n"} </Text>
-                    
-               
+
+
                 <Timeline data = {this.data} />
 
                 </View>
 
                 </ScrollView>
-                
+
             )
-                
+
         }
 
             else{
@@ -135,15 +139,15 @@ class AssignmentDetails extends Component {
 
                 )
 
-                
+
             }
         }
-            
+
     }
 
 const mapStateToProps = state => {
     return {
-        
+
         participant: state.studentTaskView.participant,
         can_submit : state.studentTaskView.can_submit,
         can_review: state.studentTaskView.can_review,
@@ -181,7 +185,7 @@ const mapDispatchToProps = dispatch => {
 export default connect(mapStateToProps, mapDispatchToProps)(AssignmentDetails);
 
 
-       
+
     //     , function(something) {
     //   this.setState({ spinner: !this.state.spinner});
     // }.bind(this));
@@ -189,6 +193,3 @@ export default connect(mapStateToProps, mapDispatchToProps)(AssignmentDetails);
     // this.state={
     //         spinner: true
     //     }
-
-
-

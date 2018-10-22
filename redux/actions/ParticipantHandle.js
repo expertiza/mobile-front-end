@@ -8,22 +8,22 @@ export const edit_handle = (participant) => {
         payload: participant
     }
 }
-export const editHandle = (participantid, newhand)  => (dispatch) => {
-    const newparticipant = 
+export const editHandle = (participantid, newhand, jwt)  => (dispatch) => {
+    const newparticipant =
     {
         participant: {
             handle : newhand
-        }        
+        }
     };
     var headers = {
         'Content-Type': 'application/json',
-        'Authorization': "Bearer " + localStorage.getItem('jwt') 
-    }
+        'Authorization': "Bearer " + jwt
+    };
     return axios({
         method: 'put',
-        url: 'participants/change_handle?id=' + participantid, 
-        data: JSON.stringify(newparticipant), 
-        headers
+        url: 'participants/change_handle?id=' + participantid,
+        data: JSON.stringify(newparticipant),
+        headers: headers
     })
     .then(response => {
             if(response.status === 200){
@@ -34,7 +34,7 @@ export const editHandle = (participantid, newhand)  => (dispatch) => {
                 error.reponse = response;
                 throw error;
             }
-    }, 
+    },
     error => {
         var errmess = new Error(error.message);
         throw errmess;
