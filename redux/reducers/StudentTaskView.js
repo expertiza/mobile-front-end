@@ -1,7 +1,13 @@
 import * as actions from '../index'
-import {updateObject}  from '../../shared/utility/utility'
 
-const initialize = {
+const updateObject = (oldObject , updatedProperties) => {
+    return {
+        ...oldObject,
+        ...updatedProperties
+    }
+}
+
+const initialize2 = {
     loaded: false,
     participant: null,
     can_submit : null,
@@ -23,7 +29,7 @@ const initialize = {
     unsubmitted_self_review: false
 }
 
-const studentTaskViewReducer = (state = initialize, action) => {
+const studentTaskViewReducer = (state = initialize2, action) => {
     switch (action.type) {
         case actions.STUDENT_TASK_VIEW_SUCCESS:
             return updateObject(state, { participant: action.participant,
@@ -52,6 +58,8 @@ const studentTaskViewReducer = (state = initialize, action) => {
             return updateObject(state, {quiz_allowed: action.quiz_allowed})
         case actions.STUDENT_TASK_VIEW_UNSUBMITTED_SELF_REVIEW:
             return updateObject(state, {unsubmitted_self_review: action.unsubmitted_self_review})
+        case actions.STUDENT_TASK_VIEW_PARTICIPANT:
+            return updateObject(state, {participant: action.payload})
         default:
             return state;
     }

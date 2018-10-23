@@ -2,13 +2,12 @@ import * as actions from '../index';
 import axios from '../../axios-instance';
 
 export const fetchProfile = (jwt) =>(dispatch) => {
-    return axios({
-        method: 'get',
-        url: 'profile',
-        headers: { AUTHORIZATION: "Bearer " + jwt }
-    })
-    .then(response => { 
-      return {response: response.data, servermsg : response.status};} )
+        return axios({
+            method: 'get',
+            url: 'profile',
+            headers: { AUTHORIZATION: "Bearer " + jwt }
+        })
+    .then(response => { return {response: response.data, servermsg : response.status} } )
     .then(profile => dispatch(addProfile(profile)))
     .catch(error => console.log(error));
 };
@@ -46,8 +45,8 @@ export const profileFailed = (errormess) => ({
     payload: errormess
 });
 
-export const editProfile = (profile,aq)  => (dispatch) => {
-    const newprofile = 
+export const editProfile = (profile,aq, jwt)  => (dispatch) => {
+    const newprofile =
     {
         user: profile,
         assignment_questionnaire: aq
@@ -58,8 +57,8 @@ export const editProfile = (profile,aq)  => (dispatch) => {
     }
     return axios({
         method: 'put',
-        url: 'profile/update', 
-        data: JSON.stringify(newprofile), 
+        url: 'profile/update',
+        data: JSON.stringify(newprofile),
         headers
     })
     .then(response => {
@@ -71,7 +70,7 @@ export const editProfile = (profile,aq)  => (dispatch) => {
                 error.reponse = response;
                 throw error;
             }
-    }, 
+    },
     error => {
         var errmess = new Error(error.message);
         throw errmess;

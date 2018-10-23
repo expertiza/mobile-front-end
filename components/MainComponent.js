@@ -1,59 +1,62 @@
 import React, { Component } from 'react';
-import { View, Platform, Text, ScrollView, Image, StyleSheet } from 'react-native';
+import { View, ScrollView, Image, StyleSheet } from 'react-native';
 import { createSwitchNavigator, createStackNavigator, createDrawerNavigator, DrawerItems, SafeAreaView } from 'react-navigation';
-import { Icon,Button } from 'react-native-elements';
-
-import Profile from './ProfileComponent';
-import Preference from './PreferenceComponent';
-import Assignment from './AssignmentComponent';
-import Logout from './logoutComponent';
-import Login from './loginComponent';
-import AuthLoadingScreen from './AuthLoading';
+import { Icon } from 'react-native-elements';
+import Profile from './ProfileComponent/ProfileComponent';
+import Preference from './PreferenceComponent/PreferenceComponent';
+import Assignment from './AssignmentComponent/AssignmentComponent';
+import AssignmentDetails from './AssignmentDetailsComponent/AssignmentDetailsComponent';
+import ChangeHandle from './ChangeHandle/ChangeHandleComponent';
+import Logout from './Auth/logoutComponent';
+import Login from './Auth/loginComponent';
+import AuthLoadingScreen from './Auth/AuthLoading';
 
 
 
 const ProfileNavigator = createStackNavigator({
-        Profile: { screen: Profile }
-    },
-    {
-        initialRouteName: 'Profile',
-        navigationOptions: ({ navigation }) => ({
-          headerStyle: {
-              backgroundColor: "#a90201"
-          },
-          headerTitleStyle: {
-              color: "#fff"
-          },
-          headerTintColor: "#fff",
-          headerLeft: <Icon name="menu" size={24}
-            iconStyle={{ color: 'white' }}
-            onPress={ () => navigation.toggleDrawer() } />
-        })
-    }
+    Profile: { screen: Profile }
+  },
+  {
+    initialRouteName: 'Profile',
+    navigationOptions: ({ navigation }) => ({
+      headerStyle: {
+        backgroundColor: "#a90201"
+      },
+      headerTitleStyle: {
+        color: "#fff"
+      },
+      headerTintColor: "#fff",
+      headerLeft: <Icon name="menu" size={24}
+        iconStyle={{ color: 'white' }}
+        onPress={ () => navigation.toggleDrawer() } />
+    })
+  }
 );
 
 const PreferenceNavigator = createStackNavigator({
-        Preference: { screen: Preference }
-    },
-    {
-        initialRouteName: 'Preference',
-        navigationOptions: ({ navigation }) => ({
-          headerStyle: {
-              backgroundColor: "#a90201"
-          },
-          headerTitleStyle: {
-              color: "#fff"
-          },
-          headerTintColor: "#fff",
-          headerLeft: <Icon name="menu" size={24}
-            iconStyle={{ color: 'white' }}
-            onPress={ () => navigation.toggleDrawer() } />
-        })
-    }
+    Preference: { screen: Preference }
+  },
+  {
+    initialRouteName: 'Preference',
+    navigationOptions: ({ navigation }) => ({
+      headerStyle: {
+        backgroundColor: "#a90201"
+      },
+      headerTitleStyle: {
+        color: "#fff"
+      },
+      headerTintColor: "#fff",
+      headerLeft: <Icon name="menu" size={24}
+        iconStyle={{ color: 'white' }}
+        onPress={ () => navigation.toggleDrawer() } />
+    })
+  }
 );
 
 const AssignmentNavigator = createStackNavigator({
-    Assignment: { screen: Assignment }
+    Assignment: { screen: Assignment },
+    Details: {screen: AssignmentDetails },
+    ChangeHandle: {screen: ChangeHandle }
 },
 {
     initialRouteName: 'Assignment',
@@ -65,9 +68,7 @@ const AssignmentNavigator = createStackNavigator({
           color: "#fff"
       },
       headerTintColor: "#fff",
-      headerLeft: <Icon name="menu" size={24}
-        iconStyle={{ color: 'white' }}
-        onPress={ () => navigation.toggleDrawer() } />
+
     })
 }
 );
@@ -123,33 +124,33 @@ const CustomDrawerContentComponent = (props) => (
 );
 
 const MainNavigator = createDrawerNavigator({
-    Home: 
+    Home:
       { screen: AssignmentNavigator,
         navigationOptions: {
           title: 'Assignments',
-          drawerLabel: 'Assignment  '
+          drawerLabel: 'Assignments   '
         }
       },
-    Profile: 
+    Profile:
       { screen: ProfileNavigator,
         navigationOptions: {
           title: 'Profile',
           drawerLabel: 'Profile  '
-        }, 
+        },
       },
-    Logout: 
+    Preference:
+    { screen: PreferenceNavigator,
+      navigationOptions: {
+        title: 'Preference',
+        drawerLabel: 'Preference  '
+      },
+    },
+    Logout:
       { screen: LogoutNavigator,
         navigationOptions: {
           title: 'Logout',
           drawerLabel: 'Logout  '
-      },
-    },
-    Preference: 
-      { screen: PreferenceNavigator,
-        navigationOptions: {
-          title: 'Preference',
-          drawerLabel: 'Preference  '
-        }, 
+        },
       },
 }, {
   drawerBackgroundColor: '#ffffff',
@@ -204,5 +205,5 @@ const styles = StyleSheet.create({
     }
 });
 
-  
+
 export default Main;

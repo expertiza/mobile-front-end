@@ -1,33 +1,39 @@
-import * as actions from '../redux/index'
+import * as actions from './../../redux/index';
 import React, { Component } from 'react';
 import { Text, ScrollView, View, Picker } from 'react-native';
 import { connect } from 'react-redux';
-import {fetchProfile, editProfile} from '../redux/actions/Profile';
-import PreferenceView from './PreferenceComponentView';
+import {fetchProfile, fetchInstitutions, editProfile} from './../../redux/actions/Profile';
+import ProfileView from './ProfileComponentView';
 
 const mapStateToProps = state => {
-  return {
-    profile: state.profile
-  }
+    return {
+      institutions: state.institutions.institutions,
+      profile: state.profile,
+      jwt: state.auth.jwt
+    }
 }
 const mapDispatchToProps = dispatch => ({
-    fetchProfile: () => dispatch(fetchProfile()),
-    editProfile: (profile,aq) =>{dispatch(editProfile(profile,aq))}
+    fetchInstitutions: (jwt) => dispatch(fetchInstitutions(jwt)),
+    fetchProfile: (jwt) => dispatch(fetchProfile(jwt)),
+    editProfile: (profile, aq, jwt) =>{dispatch(editProfile(profile,aq, jwt))}
 })
 
-class Preference extends Component {
+class Profile extends Component {
   constructor(props) {
     super(props);
     this.state= this.propsToState(props);
 
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleBlur = this.handleBlur.bind(this);
+    this.handleConfirmpassword= this.handleConfirmpassword.bind(this);
     this.handleNotificationChange = this.handleNotificationChange.bind(this);
     this.performedit = this.performedit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
-  
+
   static navigationOptions = {
-    title: 'Preference  '
+    title: 'Profile  '
   };
 
   propsToState(props) {
@@ -57,16 +63,38 @@ class Preference extends Component {
   }
 
   componentDidMount(){
-    this.props.fetchProfile()
+    this.props.fetchInstitutions(this.props.jwt);
+    this.props.fetchProfile(this.props.jwt)
       .then(() => {this.setState(this.propsToState(this.props))});
   }
 
+  validate(password, confirmpassword){
+    const errors = {
+      password: '',
+      confirmpassword: ''
+    }
+    if(this.state.profileform.password !== this.state.confirmpassword){
+      errors.confirmpassword = 'passwords do not match';
+    }
+    return errors;
+  }
+
   performedit(){
-    this.props.editProfile(this.state.profileform, this.state.aq);
+    this.props.editProfile(this.state.profileform, this.state.aq, this.props.jwt);
   }
 
   handleSubmit() {
     this.setState({ save: true}, ()=>{console.log(this.state.save); this.performedit()});
+  }
+
+  handleChange = (newValue) => {
+      var profileform = {...this.state.profileform};
+      profileform['timezonepref'] = newValue
+      this.setState({ profileform });
+  }
+
+  handleConfirmpassword(value){
+    this.setState({confirmpassword: value});
   }
 
   handleInputChange = (field) => (value) => {
@@ -82,22 +110,33 @@ class Preference extends Component {
       this.setState({aq});
   }
 
+  handleBlur = (field) => (evt) => {
+    this.setState({
+      touched: { ...this.state.touched, [field]: true },
+    });
+  }
+
   render(){
+    const errors = this.validate(this.state.profileform.password, this.state.confirmpassword);
     if(this.props){
-      console.log('render(): this.state:', this.state);
-      return(<PreferenceView
+      // console.log('render(): this.props:', this.props);
+      return(<ProfileView institutions={this.props.institutions}
           profileform={this.state.profileform}
           handleInputChange={this.handleInputChange}
+          handleBlur={this.handleBlur}
+          handleConfirmpassword={this.handleConfirmpassword}
           handleNotificationChange={this.handleNotificationChange}
+          handleChange={this.handleChange}
           handleSubmit={this.handleSubmit}
+          errors={errors}
       />);
     } else {
       return(
-        <View> 
+        <View>
           LOL
         </View>
       )
     }
   }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(Preference);
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);

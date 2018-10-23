@@ -1,28 +1,29 @@
-import axios from '../../axios-instance'
-import * as actions from '../index'
+import axios from '../../axios-instance';
+import * as actions from '../index';
 
-export const onLoad = (id) => {
+
+export const onLoad = (id, jwt) => {
     return dispatch => {
         console.log('id in actions is :', id)
         axios({
             method: 'post',
             url: 'student_task/view',
             headers: { "Content-Type": "application/json",
-                       AUTHORIZATION: "Bearer " + localStorage.getItem('jwt')},
+                       AUTHORIZATION: "Bearer " + jwt},
             data: { "id": id }
         })
         .then(response => {
-            console.log("data recieved is:", response.data)
+            // console.log("data recieved is:", response.data)
             if(response.data.denied) {
                 dispatch(actions.loadFailure())
             }else {
-                console.log("need to see data here",response.data)
+                // console.log("need to see data here",response.data)
                 dispatch(actions.loadSuccess(response.data));
-                dispatch(actions.submission_allowed(response.data.assignment.id, response.data.topic_id))
-                dispatch(actions.check_reviewable_topics(response.data.assignment.id))
-                dispatch(actions.get_current_stage(response.data.assignment.id, response.data.topic_id))
-                dispatch(actions.quiz_allowed(response.data.assignment.id, response.data.topic_id))   
-                dispatch(actions.unsubmitted_self_review(response.data.participant.id))             
+                dispatch(actions.submission_allowed(response.data.assignment.id, response.data.topic_id, jwt))
+                dispatch(actions.check_reviewable_topics(response.data.assignment.id, jwt))
+                dispatch(actions.get_current_stage(response.data.assignment.id, response.data.topic_id, jwt))
+                dispatch(actions.quiz_allowed(response.data.assignment.id, response.data.topic_id, jwt))
+                dispatch(actions.unsubmitted_self_review(response.data.participant.id, jwt))
             }
         })
         .catch(error => {
@@ -32,12 +33,12 @@ export const onLoad = (id) => {
 }
 
 
-export const unsubmitted_self_review = (participant_id) => {
+export const unsubmitted_self_review = (participant_id, jwt) => {
     return dispatch => {
         axios({
             method: 'post',
             url: 'student_task/unsubmitted_self_review',
-            headers: { "Content-Type": "application/json", AUTHORIZATION: "Bearer " + localStorage.getItem('jwt')},
+            headers: { "Content-Type": "application/json", AUTHORIZATION: "Bearer " + jwt},
             data: { "participant_id": participant_id }
         })
         .then( res => dispatch(actions.unsubmitted_self_review_success(res.data.unsubmitted_self_review)))
@@ -52,12 +53,12 @@ export const unsubmitted_self_review_success = (quiz_allowed) => {
     }
 }
 
-export const quiz_allowed = (assignment_id, topic_id) => {
+export const quiz_allowed = (assignment_id, topic_id, jwt) => {
     return dispatch => {
         axios({
             method: 'post',
             url: 'student_task/quiz_allowed',
-            headers: { "Content-Type": "application/json", AUTHORIZATION: "Bearer " + localStorage.getItem('jwt')},
+            headers: { "Content-Type": "application/json", AUTHORIZATION: "Bearer " + jwt},
             data: { "assignment_id": assignment_id, topic_id: topic_id  }
         })
         .then( res => dispatch(actions.quiz_allowed_success(res.data.quiz_allowed)))
@@ -71,12 +72,12 @@ export const quiz_allowed_success = (quiz_allowed) => {
         quiz_allowed: quiz_allowed
     }
 }
-export const get_current_stage = (assignment_id, topic_id) => {
+export const get_current_stage = (assignment_id, topic_id, jwt) => {
     return dispatch => {
         axios({
             method: 'post',
             url: 'student_task/get_current_stage',
-            headers: { "Content-Type": "application/json", AUTHORIZATION: "Bearer " + localStorage.getItem('jwt')},
+            headers: { "Content-Type": "application/json", AUTHORIZATION: "Bearer " + jwt},
             data: { "assignment_id": assignment_id, topic_id: topic_id  }
         })
         .then( res => dispatch(actions.get_current_stage_success(res.data.check_reviewable_topics)))
@@ -90,12 +91,12 @@ export const get_current_stage_success = (get_current_stage) => {
         get_current_stage: get_current_stage
     }
 }
-export const check_reviewable_topics = (assignment_id) => {
+export const check_reviewable_topics = (assignment_id, jwt) => {
     return dispatch => {
         axios({
             method: 'post',
             url: 'student_task/check_reviewable_topic',
-            headers: { "Content-Type": "application/json", AUTHORIZATION: "Bearer " + localStorage.getItem('jwt')},
+            headers: { "Content-Type": "application/json", AUTHORIZATION: "Bearer " + jwt},
             data: { "assignment_id": assignment_id  }
         })
         .then( res => dispatch(actions.check_reviewable_topics_success(res.data.check_reviewable_topics)))
@@ -110,7 +111,7 @@ export const metareview_allowed = (assignment_id, topic_id) => {
         axios({
             method: 'post',
             url: 'student_task/metareview_allowed',
-            headers: { "Content-Type": "application/json", AUTHORIZATION: "Bearer " + localStorage.getItem('jwt')},
+            headers: { "Content-Type": "application/json", AUTHORIZATION: "Bearer " + jwt},
             data: { "assignment_id": assignment_id , "topic_id": topic_id }
         })
         .then( res => dispatch(actions.metareview_allowed_success(res.data.metareview_allowed)))
@@ -132,13 +133,13 @@ export const check_reviewable_topics_success = (check_reviewable_topics) => {
     }
 }
 
-export const submission_allowed = (assignment_id, topic_id) => {
+export const submission_allowed = (assignment_id, topic_id, jwt) => {
     return dispatch => {
         axios({
             method: 'post',
             url: 'student_task/submission_allowed',
             headers: { "Content-Type": "application/json",
-                       AUTHORIZATION: "Bearer " + localStorage.getItem('jwt')},
+                       AUTHORIZATION: "Bearer " + jwt},
             data: { "assignment_id": assignment_id ,
                     "topic_id": topic_id  }
         })
@@ -154,8 +155,10 @@ export const submission_allowed_success = (submissions_allowed) => {
     }
 }
 export const loadSuccess = (data) => {
+    console.log("Hi loadSuccess")
     return {
         type: actions.STUDENT_TASK_VIEW_SUCCESS,
+
         participant: data.participant,
         can_submit : data.can_submit,
         can_review: data.can_review,
@@ -175,4 +178,12 @@ export const loadFailure = () => {
         type: actions.STUDENT_TASK_VIEW_FAILURE,
         denied: true
     }
+}
+
+export const updateParticipant = (participant) => {
+  // console.log('StudentTaskView.participant: ', participant);
+  return {
+    type: actions.STUDENT_TASK_VIEW_PARTICIPANT,
+    payload: participant
+  }
 }

@@ -1,9 +1,9 @@
 import React from 'react';
 import { ActivityIndicator, StatusBar, StyleSheet, View, Image } from 'react-native';
 import { SecureStore } from 'expo';
-import * as actions from '../redux/index';
+import * as actions from '../../redux/index';
 import { connect } from 'react-redux';
-import FadeInView from './UI/LoadingComponent';
+import FadeInView from '../UI/LoadingComponent';
 
 const mapStatetoProps = state => {
   return {
@@ -46,7 +46,7 @@ class AuthLoadingScreen extends React.Component {
     return (
       <View style={styles.container}>
          <FadeInView>
-          <Image source={require('../assets/images/logo.png')} />
+          <Image source={require('../../assets/images/logo.png')} />
         </FadeInView>
       </View>
     );

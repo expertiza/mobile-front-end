@@ -23,6 +23,7 @@ export {
     STUDENT_TASK_VIEW_GET_CURRENT_STAGE,
     STUDENT_TASK_VIEW_QUIZ_ALLOWED,
     STUDENT_TASK_VIEW_UNSUBMITTED_SELF_REVIEW,
+    STUDENT_TASK_VIEW_PARTICIPANT,
     STUDENTS_TEAM_VIEW_SUCCESS,
     PARTICIPANT_HANDLE_CHANGE,
     FETCH_REVIEW_DATA_SUCCESS,
@@ -76,7 +77,7 @@ export {
     fetchStudentTasks,
     addStudentsTeamedWith,
     addStudentTasks
-} 
+}
 from './actions/StudentTaskList';
 export { fetchStudentsTeamView,
     fetchStudentsTeamViewSuccess,

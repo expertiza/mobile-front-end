@@ -1,31 +1,41 @@
 import React, {Component} from 'react';
-import {ScrollView, View, Text, TextInput, Picker, Switch, Button} from 'react-native';
+import {ScrollView, View, Text, TextInput, Picker, Switch} from 'react-native';
+import {Button} from 'react-native-elements';
 
 const style = {
+  view: {
+    marginTop: 5,
+    marginBottom: 5,
+    marginLeft: 20,
+    marginRight: 20,
+  },
   label:{
     fontWeight: 'bold',
-    marginTop: 10
+    marginTop: 10,
+    fontSize: 16,
   },
   textInput: {
-    borderWidth: 1,
-    marginLeft: 10,
-    marginRight: 10,
-    marginBottom: 10,
     paddingLeft: 10,
-    paddingRight: 10
+    paddingRight: 10,
+    backgroundColor: '#DDDDDD',
+    borderRadius: 5,
+    fontSize: 16,
   },
   picker: {
     border: {
-      marginLeft: 10,
-      marginRight: 10,
-      borderWidth: 1
-    }
+      backgroundColor: '#DDDDDD',
+      borderRadius: 5,
+    },
   },
   submit: {
     view: {
-      marginTop: 50,
-      marginLeft: 10,
-      marginRight: 10
+      marginLeft: 60,
+      marginRight: 60,
+      marginTop: 40,
+      marginBottom: 300
+    },
+    style: {
+      backgroundColor: "#a90201"
     }
   }
 }
@@ -34,53 +44,65 @@ class ProfileView extends Component {
   render() {
     return(
       <ScrollView className="profileform container-fluid">
-        <View>
-          <Text style={style.label}>Name (last, first[ middle]):</Text>
+        <View style={style.view}>
+          <Text style={style.label}>Name</Text>
           <TextInput id='fullname' name='fullname' className='form-control'
           defaultValue={this.props.profileform.fullname}
           onChangeText={this.props.handleInputChange('fullname')}
           style={style.textInput} underlineColorAndroid='transparent' autoCorrect={false}/>
+        </View>
 
-          <Text style={style.label}>Password:</Text>
+        <View style={style.view}>
+          <Text style={style.label}>Password</Text>
           <TextInput id="password" name="password" className='form-control' secureTextEntry={true}
           onChangeText={this.props.handleInputChange('password')} onBlur={this.props.handleBlur('password')}
           style={style.textInput} underlineColorAndroid='transparent'/>
-          <Text style={style.label}>Confirm Password:</Text>
+        </View>
+
+        <View style={style.view}>
+          <Text style={style.label}>Confirm password</Text>
           <TextInput id="confirmpassword" name="confirmpassword" className='form-control'
           secureTextEntry={true} onChangeText={this.props.handleConfirmpassword}
           onBlur={this.props.handleBlur('confirmpassword')}
           style={style.textInput} underlineColorAndroid='transparent'/>
           <Text>If password field is blank, the password will not be updated.</Text>
+        </View>
 
-          <Text style={style.label}>E-mail address:</Text>
+        <View style={style.view}>
+          <Text style={style.label}>E-mail address</Text>
           <TextInput id='email' name='email' className='form-control'
           defaultValue={this.props.profileform.email} onChangeText={this.props.handleInputChange('email')}
           style={style.textInput} underlineColorAndroid='transparent' autoCorrect={false}/>
+        </View>
 
-          <Text style={style.label}>Institution:</Text>
+        <View style={style.view}>
+          <Text style={style.label}>Institution</Text>
           <View style={style.picker.border}>
-            <Picker selectedValue={this.props.profileform.institution_id}
+            <Picker
+            selectedValue={this.props.profileform.institution_id}
             onValueChange={this.props.handleInputChange('institution_id')}>
-              {this.props.institutions.institutions && 
+              {this.props.institutions.institutions &&
                 this.props.institutions.institutions.map((institution) => (
-                  <Picker.Item key={'institution_'+institution.id} 
+                  <Picker.Item key={'institution_'+institution.id}
                   label={institution.name} value={institution.id}/>
-                ))}
+                ))
+              }
             </Picker>
           </View>
         </View>
 
-          <View>
-            <Text style={style.label}>Username:</Text>
-            <TextInput id="handle" name="handle" defaultValue={this.props.profileform.handle} 
-            onChangeText={this.props.handleInputChange('handle')} className='form-control'
-            style={style.textInput} underlineColorAndroid='transparent' autoCorrect={false}/>
-          </View>
+        <View style={style.view}>
+          <Text style={style.label}>Username</Text>
+          <TextInput id="handle" name="handle" defaultValue={this.props.profileform.handle}
+          onChangeText={this.props.handleInputChange('handle')} className='form-control'
+          style={style.textInput} underlineColorAndroid='transparent' autoCorrect={false}/>
+        </View>
 
-          <View style={style.submit.view}>
-            <Button title='Save' disabled={this.props.errors.confirmpassword!==''} 
-              onPress={(e) => {this.props.handleSubmit();}} />
-          </View>
+        <View style={style.submit.view}>
+          <Button title='Save' buttonStyle={style.submit.style}
+          disabled={this.props.errors.confirmpassword!==''}
+          onPress={(e) => {this.props.handleSubmit();}} />
+        </View>
       </ScrollView>
     );
   }

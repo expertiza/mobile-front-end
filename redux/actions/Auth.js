@@ -20,7 +20,7 @@ export const auth = (name, password) => {
     return dispatch => {
         axios({
             method: 'post',
-            url:  'sessions',     
+            url:  'sessions',
             headers: { "Content-Type": "application/json"},
             data: {auth: { name: name, password: password }}
         })
