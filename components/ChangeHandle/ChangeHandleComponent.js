@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {ScrollView, View, Text, TextInput} from 'react-native';
 import {Button} from 'react-native-elements';
 import {editHandle} from '../../redux/actions/ParticipantHandle';
+import {updateParticipant} from '../../redux/actions/StudentTaskView';
 
 const style = {
   caption: {
@@ -31,8 +32,10 @@ const style = {
   },
   button: {
     view: {
-      margin: 60,
-      marginBottom: 250
+      marginLeft: 60,
+      marginRight: 60,
+      marginTop: 40,
+      marginBottom: 300
     },
     style: {
       backgroundColor: "#a90201"
@@ -53,8 +56,9 @@ class ChangeHandle extends Component {
     title: 'Change handle   '
   };
   componentDidMount = () => {
+    // console.log('ChangeHandle.props.participant: ', this.props.participant);
     this.setState({
-      participant_handle: this.props.participant_handle
+      participant_handle: this.props.participant.handle
     });
   }
   handleNameChangeHandler = (value) => {
@@ -64,11 +68,16 @@ class ChangeHandle extends Component {
     });
   }
   onSubmitHandler = (e) => {
-    this.props.editHandle(this.props.paritcipant_id,
-      this.state.participant_handle, this.props.jwt);
+    this.props.editHandle(this.props.participant.id,
+      this.state.participant_handle, this.props.jwt)
+    .then(this.props.updateParticipant({
+      ...this.props.participant, handle: this.state.participant_handle}))
+    .then(() => {
+      console.log('end of editHandle');
+    });
   };
   render() {
-    // console.log('ChangeHandle.props: ', this.props);
+    // console.log('ChangeHandle.props.participant: ', this.props.participant);
     return (
       <ScrollView>
         <Text style={style.caption}>Create or Change Handle for Current Assignment</Text>
@@ -114,15 +123,14 @@ class ChangeHandle extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  participant_handle: state.studentTaskView?
-    state.studentTaskView.participant.handle: '',
-  paritcipant_id: state.studentTaskView?
-    state.studentTaskView.participant.id: 0,
+  participant: state.studentTaskView?
+    state.studentTaskView.participant: {},
   jwt: state.auth.jwt,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  editHandle: (handle, id, jwt) => {dispatch(editHandle(handle, id, jwt))}
+  editHandle: (handle, id, jwt) => (dispatch(editHandle(handle, id, jwt))),
+  updateParticipant: (participant) => (dispatch(updateParticipant(participant)))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChangeHandle);

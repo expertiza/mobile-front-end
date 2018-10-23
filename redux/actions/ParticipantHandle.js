@@ -27,6 +27,7 @@ export const editHandle = (participantid, newhand, jwt)  => (dispatch) => {
     })
     .then(response => {
             if(response.status === 200){
+              console.log('response.status = 200');
                 return {response: response.data, servermsg: response.status};
             }
             else{
