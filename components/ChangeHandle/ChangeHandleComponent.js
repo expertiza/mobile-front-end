@@ -74,6 +74,7 @@ class ChangeHandle extends Component {
       ...this.props.participant, handle: this.state.participant_handle}))
     .then(() => {
       console.log('end of editHandle');
+      this.props.navigation.goBack();
     });
   };
   render() {
