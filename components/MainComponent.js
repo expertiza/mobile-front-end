@@ -9,6 +9,7 @@ import AssignmentDetails from './AssignmentDetailsComponent/AssignmentDetailsCom
 import Logout from './Auth/logoutComponent';
 import Login from './Auth/loginComponent';
 import AuthLoadingScreen from './Auth/AuthLoading';
+import Review from './ReviewComponent/ReviewComponent';
 
 const ProfileNavigator = createStackNavigator({
     Profile: { screen: Profile }
@@ -52,7 +53,8 @@ const PreferenceNavigator = createStackNavigator({
 
 const AssignmentNavigator = createStackNavigator({
     Assignment: { screen: Assignment },
-    Details: {screen: AssignmentDetails }
+    Details: {screen: AssignmentDetails },
+    Review: { screen: Review }
 },
 {
     initialRouteName: 'Assignment',

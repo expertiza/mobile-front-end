@@ -21,7 +21,7 @@ export const auth = (name, password) => {
     return dispatch => {
         axios({
             method: 'post',
-            url:  'http://192.168.1.12:3001/api/v1/sessions',     
+            url:  'http://10.153.35.244:3001/api/v1/sessions',     
             headers: { "Content-Type": "application/json"},
             data: {auth: { name: name, password: password }}
         })

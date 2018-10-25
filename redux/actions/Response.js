@@ -1,14 +1,15 @@
-import  * as actions from '../index'
 import axios from '../../axios-instance';
+import * as actions from '../index';
 
-export const fetchReviewData = (response_id) => {
+export const fetchReviewData = (response_id, jwt) => {
     return dispatch => {
+        console.log(response_id)
         axios({
             method: 'get',
             url: 'response/view?id='+response_id,
             headers: { "Content-Type": "application/json",
-                       AUTHORIZATION: "Bearer " + localStorage.getItem('jwt')},
-            data:{ "id" : response_id }
+                       AUTHORIZATION: "Bearer " + jwt},
+            
         })
         .then(response => {
             dispatch(actions.fetchReviewDataSuccess(response.data))
@@ -21,6 +22,7 @@ export const fetchReviewData = (response_id) => {
 }
 
 export const fetchReviewDataSuccess = (payload) => {
+    console.log("success")
     return {
         type: actions.FETCH_REVIEW_DATA_SUCCESS,
         payload: payload
@@ -28,6 +30,7 @@ export const fetchReviewDataSuccess = (payload) => {
 }
 
 export const fetchReviewDataFailure = () => {
+    console.log('failure')
     return {
         type: actions.FETCH_REVIEW_DATA_FAILURE
     }

@@ -37,8 +37,8 @@ class Assignment extends Component {
         let flags = []
         let i
         let count = 0
-        let r = []
-        let l = []
+        let card_array = []
+        let list_array = []
         {
             this.props.studentTasks.map((studentTask1) => {
 
@@ -78,7 +78,7 @@ class Assignment extends Component {
                     }
 
                     if(studentTask2.course_name == f){
-                           l.push(                       
+                           list_array.push(                       
                             <ListItem 
                                 key ={studentTask2.assignment.id}
                                 containerStyle={{flex:1}}
@@ -89,6 +89,7 @@ class Assignment extends Component {
                                 onPress={ () => {
                                     this.props.navigation.navigate('Details', {
                                         par_id: studentTask2.participant.id,
+                                        ass_name: studentTask2.assignment.name,
                                     }); 
                                 }}
 
@@ -97,7 +98,7 @@ class Assignment extends Component {
                     }
                     )
                     }
-                    r.push(
+                    card_array.push(
                         <Card 
                             title = {f} 
                             key = {i}
@@ -117,20 +118,20 @@ class Assignment extends Component {
                             
                         >
 
-                        {l}
+                        {list_array}
 
                         </Card>
                     );
                 }  
         
         
-        return r;
+        return card_array;
     }
 
     
     static navigationOptions = ({ navigation, navigationOptions }) => {
         return{
-        title: 'Assignments     ',
+        title: 'Assignments',
         headerLeft: <Icon name='menu' size={24}
         iconStyle={{ color: 'white' }}
         onPress={ () => navigation.toggleDrawer() } />
