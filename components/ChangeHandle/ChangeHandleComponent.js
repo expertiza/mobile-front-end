@@ -10,9 +10,11 @@ class ChangeHandle extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      participant_handle: ""
+      participant_handle: "",
+      showHelp: false
     }
     this.handleNameChangeHandler = this.handleNameChangeHandler.bind(this);
+    this.handleHelp = this.handleHelp.bind(this);
     this.onSubmitHandler = this.onSubmitHandler.bind(this);
   }
   static navigationOptions = {
@@ -21,14 +23,22 @@ class ChangeHandle extends Component {
   componentDidMount = () => {
     // console.log('ChangeHandle.props.participant: ', this.props.participant);
     this.setState({
+      ...this.state,
       participant_handle: this.props.participant.handle
     });
   }
   handleNameChangeHandler = (value) => {
     // console.log('handle change: ', value);
     this.setState({
+      ...this.state,
       participant_handle: value
     });
+  }
+  handleHelp = () => {
+    this.setState({
+      ...this.state,
+      showHelp: !this.state.showHelp
+    })
   }
   onSubmitHandler = (e) => {
     this.props.editHandle(this.props.participant.id,
@@ -43,7 +53,9 @@ class ChangeHandle extends Component {
     // console.log('ChangeHandle.props.participant: ', this.props.participant);
     return (
       <ChangeHandleView participant_handle={this.state.participant_handle}
+      showHelp={this.state.showHelp}
       handleNameChangeHandler={this.handleNameChangeHandler}
+      handleHelp={this.handleHelp}
       onSubmitHandler={this.onSubmitHandler} />
     );
   }

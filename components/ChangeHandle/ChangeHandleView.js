@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {ScrollView, View, Text, TextInput} from 'react-native';
+import {ScrollView, View, Text, TextInput, TouchableOpacity} from 'react-native';
 import {Button} from 'react-native-elements';
 
 const style = {
@@ -27,16 +27,76 @@ const style = {
     marginLeft: 20,
     marginRight: 20,
   },
-  button: {
+  submit: {
     view: {
-      marginLeft: 60,
-      marginRight: 60,
+      flex: 1,
+      flexWrap: 'nowrap',
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      marginLeft: 70,
+      marginRight: 20,
       marginTop: 40,
-      marginBottom: 300
+      marginBottom: 40
     },
-    style: {
+    button: {
+      alignItems: 'center',
+      paddingTop: 10,
+      paddingBottom: 10,
+      width: 200,
+      // height: 40,
       backgroundColor: "#a90201"
     }
+  },
+  help: {
+    button: {
+      alignItems: 'center',
+      paddingLeft: 5,
+      paddingRight: 5,
+      borderRadius: 20,
+      width: 30,
+      height: 30,
+      backgroundColor: '#2196F3',
+    },
+    text: {
+      color: '#FFFFFF',
+      fontSize: 20,
+      fontWeight: 'bold',
+    }
+  },
+}
+
+const helpInfo = (show) => {
+  console.log('showHelp', show);
+  if (show) {
+    return (
+      <View style={style.view}>
+        <Text style={style.text}>
+          For example, if you are writing on a wiki, you might not want to use your Expertiza user-ID to show up on the wiki, because then your reviewers would know who they are reviewing. So, you are allowed to set up a handle instead. If you have a handle, then your wiki account is named after your handle, and your reviewers see your handle, but not your user-ID.
+        </Text>
+        <Text style={style.text}>
+          If you do not have a handle, your user-ID will be used instead.
+        </Text>
+        <Text style={style.text}>
+          You can set up a handle in two ways:
+        </Text>
+        <View style={style.view}>
+          <Text style={style.text}>
+            1. You can set up a handle for only this assignment by entering a handle below.
+          </Text>
+          <Text style={style.text}>
+            2. You can set up a "default" handle by editing your Profile
+          </Text>
+        </View>
+        <Text style={style.text}>
+          Note that if you change your handle by editing your profile, your new handle will be used for all future assignments; if you want the change to apply to this assignment too, you must also change it below.
+        </Text>
+      </View>
+    )
+  } else {
+    return (
+      <View>
+      </View>
+    );
   }
 }
 
@@ -49,26 +109,6 @@ export default class ChangeHandleView extends Component {
         <Text style={style.caption}>Create or Change Handle for Current Assignment</Text>
         <View style={style.view}>
           <Text style={style.text}>
-            For example, if you are writing on a wiki, you might not want to use your Expertiza user-ID to show up on the wiki, because then your reviewers would know who they are reviewing. So, you are allowed to set up a handle instead. If you have a handle, then your wiki account is named after your handle, and your reviewers see your handle, but not your user-ID.
-          </Text>
-          <Text style={style.text}>
-            If you do not have a handle, your user-ID will be used instead.
-          </Text>
-          <Text style={style.text}>
-            You can set up a handle in two ways:
-          </Text>
-          <View style={style.view}>
-            <Text style={style.text}>
-              1. You can set up a handle for only this assignment by entering a handle below.
-            </Text>
-            <Text style={style.text}>
-              2. You can set up a "default" handle by editing your Profile
-            </Text>
-          </View>
-          <Text style={style.text}>
-            Note that if you change your handle by editing your profile, your new handle will be used for all future assignments; if you want the change to apply to this assignment too, you must also change it below.
-          </Text>
-          <Text style={style.text}>
             Change handle for current assignment:
           </Text>
           <TextInput style={style.textInput} id='handle' name='handle'
@@ -79,10 +119,17 @@ export default class ChangeHandleView extends Component {
             Warning: You must have a wiki account named after your handle. If you do not, please e-mail your instructor or the course staff.
           </Text>
         </View>
-        <View style={style.button.view}>
-          <Button buttonStyle={style.button.style} title="Save"
-          onPress={this.props.onSubmitHandler} />
+        <View style={style.submit.view}>
+          <TouchableOpacity style={style.submit.button} onPress={this.props.onSubmitHandler} >
+            <Text style={style.help.text}>Save</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={style.help.button} onPress={this.props.handleHelp}>
+            <Text style={style.help.text}>?</Text>
+          </TouchableOpacity>
         </View>
+        <View style={style.help.view}>
+        </View>
+        {helpInfo(this.props.showHelp)}
       </ScrollView>
     )
   }
