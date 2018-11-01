@@ -12,8 +12,6 @@ import Logout from './Auth/logoutComponent';
 import Login from './Auth/loginComponent';
 import AuthLoadingScreen from './Auth/AuthLoading';
 
-
-
 const ProfileNavigator = createStackNavigator({
     Profile: { screen: Profile }
   },
@@ -57,8 +55,8 @@ const PreferenceNavigator = createStackNavigator({
 const AssignmentNavigator = createStackNavigator({
     Assignment: { screen: Assignment },
     Details: {screen: AssignmentDetails },
-    ChangeHandle: {screen: ChangeHandle },
-    StudentTeamComponent: {screen: StudentTeamComponent}
+    ChangeHandle: {screen: ChangeHandle},
+    StudentTeamComponent: {screen: StudentTeamComponent},
 },
 {
     initialRouteName: 'Assignment',
@@ -136,15 +134,15 @@ const MainNavigator = createDrawerNavigator({
     Profile:
       { screen: ProfileNavigator,
         navigationOptions: {
-          title: 'Profile',
-          drawerLabel: 'Profile  '
+          title: 'Setting',
+          drawerLabel: 'Setting  '
         },
       },
     Preference:
     { screen: PreferenceNavigator,
       navigationOptions: {
-        title: 'Setting',
-        drawerLabel: 'Setting  '
+        title: 'Preference',
+        drawerLabel: 'Preference  '
       },
     },
     Logout:
