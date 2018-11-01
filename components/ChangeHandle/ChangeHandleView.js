@@ -9,6 +9,12 @@ const style = {
     marginLeft: 10,
     fontSize: 20,
   },
+  header: {
+    marginLeft: 5,
+    marginRight: 5,
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
   text: {
     marginLeft: 5,
     marginRight: 5,
@@ -61,7 +67,7 @@ const style = {
       color: '#FFFFFF',
       fontSize: 20,
       fontWeight: 'bold',
-    }
+    },
   },
 }
 
@@ -70,8 +76,11 @@ const helpInfo = (show) => {
   if (show) {
     return (
       <View style={style.view}>
+        <Text style={style.header}>
+          Why change handle?
+        </Text>
         <Text style={style.text}>
-          For example, if you are writing on a wiki, you might not want to use your Expertiza user-ID to show up on the wiki, because then your reviewers would know who they are reviewing. So, you are allowed to set up a handle instead. If you have a handle, then your wiki account is named after your handle, and your reviewers see your handle, but not your user-ID.
+          If you are writing on a wiki, you might not want to use your Expertiza user-ID to show up on the wiki, because then your reviewers would know who they are reviewing. So, you are allowed to set up a handle instead. If you have a handle, then your wiki account is named after your handle, and your reviewers see your handle, but not your user-ID.
         </Text>
         <Text style={style.text}>
           If you do not have a handle, your user-ID will be used instead.
