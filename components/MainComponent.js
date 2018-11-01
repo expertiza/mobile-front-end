@@ -7,6 +7,7 @@ import Preference from './PreferenceComponent/PreferenceComponent';
 import Assignment from './AssignmentComponent/AssignmentComponent';
 import AssignmentDetails from './AssignmentDetailsComponent/AssignmentDetailsComponent';
 import ChangeHandle from './ChangeHandle/ChangeHandleComponent';
+import StudentTeamComponent from './studentTeamComponent/StudentTeamComponent';
 import Logout from './Auth/logoutComponent';
 import Login from './Auth/loginComponent';
 import AuthLoadingScreen from './Auth/AuthLoading';
@@ -56,7 +57,8 @@ const PreferenceNavigator = createStackNavigator({
 const AssignmentNavigator = createStackNavigator({
     Assignment: { screen: Assignment },
     Details: {screen: AssignmentDetails },
-    ChangeHandle: {screen: ChangeHandle }
+    ChangeHandle: {screen: ChangeHandle },
+    StudentTeamComponent: {screen: StudentTeamComponent}
 },
 {
     initialRouteName: 'Assignment',

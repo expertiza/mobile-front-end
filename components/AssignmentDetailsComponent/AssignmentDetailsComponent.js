@@ -7,8 +7,6 @@ import Timeline from 'react-native-timeline-listview';
 import Spinner from 'react-native-loading-spinner-overlay';
 
 
-
-
 class AssignmentDetails extends Component {
     constructor(props) {
         super(props);
@@ -55,6 +53,13 @@ class AssignmentDetails extends Component {
                                 desc: "Sign up for a topic"
                             },
                             {
+                                name: "Your team",
+                                desc: "You have to choose a topic first",
+                                handler: ()=>{
+                                  this.props.navigation.navigate('StudentTeamComponent', {});
+                                }
+                            },
+                            {
                                 name: "Your work",
                                 desc: "You have to choose a topic first"
                             },
@@ -72,8 +77,8 @@ class AssignmentDetails extends Component {
                         ]
 
 
+console.log('AssignmentDetails.props: ', this.props);
             return(
-
                 <ScrollView>
 
                 <View style ={styles.container}>
