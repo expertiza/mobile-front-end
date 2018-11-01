@@ -134,15 +134,15 @@ const MainNavigator = createDrawerNavigator({
     Profile:
       { screen: ProfileNavigator,
         navigationOptions: {
-          title: 'Setting',
-          drawerLabel: 'Setting  '
+          title: 'Profile',
+          drawerLabel: 'Profile  '
         },
       },
     Preference:
     { screen: PreferenceNavigator,
       navigationOptions: {
-        title: 'Preference',
-        drawerLabel: 'Preference  '
+        title: 'Setting',
+        drawerLabel: 'Setting  '
       },
     },
     Logout:
