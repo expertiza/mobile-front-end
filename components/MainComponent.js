@@ -143,8 +143,8 @@ const MainNavigator = createDrawerNavigator({
     Preference:
     { screen: PreferenceNavigator,
       navigationOptions: {
-        title: 'Preference',
-        drawerLabel: 'Preference  '
+        title: 'Setting',
+        drawerLabel: 'Setting  '
       },
     },
     Logout:

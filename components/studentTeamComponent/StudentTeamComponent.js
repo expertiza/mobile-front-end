@@ -81,7 +81,7 @@ class StudentTeamComponent extends Component {
   }
 
   static navigationOptions = {
-    title: 'StudentTeamComponent  '
+    title: 'Your team  '
   };
 
   componentDidMount(){

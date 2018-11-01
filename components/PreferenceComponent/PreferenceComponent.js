@@ -46,6 +46,10 @@ class Preference extends Component {
     };
   }
 
+  static navigationOptions = {
+    title: 'Setting  '
+  };
+
   componentDidMount(){
     this.props.fetchProfile(this.props.jwt)
       .then(() => {this.setState(this.propsToState(this.props))});
