@@ -17,10 +17,15 @@
     "react": "16.3.1",
     "react-native": "~0.55.2",
     "react-native-elements": "^1.0.0-beta5",
+<<<<<<< HEAD
     "react-native-fontawesome": "^5.7.0",
     "react-native-keyboard-aware-scroll-view": "^0.7.4",
     "react-native-loading-spinner-overlay": "^1.0.1",
     "react-native-mask-loader": "0.0.3",
+=======
+    "react-native-mask-loader": "0.0.3",
+    "react-native-loading-spinner-overlay": "^1.0.1",
+>>>>>>> 5bf56b3d52dd1a7063c88265151d638422de72bb
     "react-native-timeline-listview": "^0.2.3",
     "react-navigation": "^2.16.0",
     "react-redux": "^5.0.7",
