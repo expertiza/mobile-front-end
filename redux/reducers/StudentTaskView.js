@@ -58,6 +58,8 @@ const studentTaskViewReducer = (state = initialize2, action) => {
             return updateObject(state, {quiz_allowed: action.quiz_allowed})
         case actions.STUDENT_TASK_VIEW_UNSUBMITTED_SELF_REVIEW:
             return updateObject(state, {unsubmitted_self_review: action.unsubmitted_self_review})
+        case actions.STUDENT_TASK_VIEW_PARTICIPANT:
+            return updateObject(state, {participant: action.payload})
         default:
             return state;
     }

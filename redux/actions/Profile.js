@@ -16,9 +16,9 @@ export const fetchInstitutions = (jwt) =>(dispatch) => {
     return axios({
         method: 'get',
         url: 'institution',
-        headers: { AUTHORIZATION: "Bearer " +  jwt}
+        headers: { AUTHORIZATION: "Bearer " + jwt }
     })
-    .then((response)=>response.data)
+    .then(response => response.data)
     .then(institutions => dispatch(addInstitutions(institutions)))
     .catch(error => console.log(error));
 };

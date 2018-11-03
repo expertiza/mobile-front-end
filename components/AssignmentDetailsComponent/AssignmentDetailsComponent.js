@@ -7,21 +7,12 @@ import Timeline from 'react-native-timeline-listview';
 import Spinner from 'react-native-loading-spinner-overlay';
 
 
-
-
 class AssignmentDetails extends Component {
     constructor(props) {
         super(props);
+        this.state = {
 
-        this.data = [
-          {time: '09:00', title: 'Event 1', description: 'Event 1 Description'},
-          {time: '10:45', title: 'Event 2', description: 'Event 2 Description'},
-          {time: '12:00', title: 'Event 3', description: 'Event 3 Description'},
-          {time: '14:00', title: 'Event 4', description: 'Event 4 Description'},
-          {time: '16:30', title: 'Event 5', description: 'Event 5 Description'}
-        ]
-
-        
+        }
     }
 
 
@@ -29,30 +20,141 @@ class AssignmentDetails extends Component {
 
     const {navigation} = this.props;
     const part_id = navigation.getParam('par_id', 'NO-ID');
-    
-    this.props.onLoad(part_id, this.props.jwt)
+    const part_id_string = JSON.stringify(part_id)
+
+   this.props.onLoad(part_id, this.props.jwt)
 
   }
 
-    static navigationOptions = {
-        title: 'Assignment 1     '
-    };
-    
+  author_review_table = () => {
+
+    options_available = []
+    temp_object = {}
+
+
+
+    return options_available
+  }
+
+    get_timeline = () => {
+
+        let timeline_print = []
+        let timeline_array = []
+        let data = {}
+        let i = 0
+        let time
+        let temp_id
+
+        {
+
+            this.props.timeline_list.map((timelineitem) => {
+
+                data["title"] = timelineitem.label
+
+                time =  timelineitem.updated_at.split("," , 2)
+
+                data["time"] = time[1].toString();
+
+                if(timelineitem.id)
+                {
+                    data["description"] = 'Id:' + timelineitem.id
+                }
+
+                else if(timelineitem.link){
+                    data["description"] = 'Link:' + timelineitem.link
+                }
+
+                else
+                {
+                    data["description"] = 'Id not available'
+                }
+                timeline_array.push(data)
+
+                data = {}
+
+            }
+
+            );
+
+        }
+
+        timeline_print.push(
+
+                <Timeline
+                  style={{flex:1, margin:10}}
+                  key = {i++}
+                  data={timeline_array}
+                  separator = 'true'
+                  circleSize={20}
+                  circleColor='black'
+                  lineColor='red'
+                  lineWidth={1}
+                  timeContainerStyle={{minWidth:25, marginTop: -5}}
+                  detailContainerStyle={{minWidth:35, marginTop: -5}}
+
+                  onEventPress = { (e) => {
+
+                                    temp_id = e.description.split(":")
+
+                                    if( temp_id[0] == "Id"){
+                                        console.log(e.title)
+                                        console.log(temp_id[1])
+                                        this.props.navigation.navigate('Review', {
+                                        r_id: Number(temp_id[1]),
+                                        title_name: e.title,
+                                        });
+                                    }
+
+                                    else{
+                                        console.log('No id available')
+                                    }
+
+                                }}
+
+                  timeStyle={{textAlign: 'center', color:'red', padding:5, fontSize:9}}
+                  titleStyle={{color:'black', padding:5,fontSize:12}}
+                  descriptionStyle={{color:'gray'}}
+                  options={{
+                    style:{paddingTop:5}
+                  }}
+                  innerCircle={'dot'}
+
+                />
+
+            );
+
+        return timeline_print;
+    }
+
+    static navigationOptions = ({ navigation }) => {
+    const { params } = navigation.state;
+
+    return {
+      title: params ? params.ass_name : 'Assignment Info',
+    }
+  };
+
     render(){
 
-        let i = true
+
         if(this.props.loaded){
 
 
-            const {navigation} = this.props
-                const part_id = navigation.getParam('par_id', 'NO-ID')
-                const part_id_string = JSON.stringify(part_id)
+            let temp_print = []
+            temp_print = this.get_timeline()
 
-                const list = [
-                            
+            const list = [
+
                             {
                                 name: "Signup sheet",
                                 desc: "Sign up for a topic"
+                            },
+                            {
+                                name: "Your team",
+                                desc: "You have to choose a topic first",
+                                handler: ()=>{
+                                  this.props.navigation.navigate('StudentTeamComponent', {});
+                                }
                             },
                             {
                                 name: "Your work",
@@ -64,64 +166,84 @@ class AssignmentDetails extends Component {
                             },
                             {
                                 name: "Change handle",
-                                desc: "Provide a different handle for this assignment"
+                                desc: "Provide a different handle for this assignment",
+                                handler: ()=>{
+                                  this.props.navigation.navigate('ChangeHandle', {});
+                                }
                             },
                         ]
 
+// Implement a spinner so that it loads until the new timeine is printed
 
-            return(
+            if(temp_print)
+            {
+                return(
 
-                <ScrollView>
+                    <ScrollView>
 
-                <View style ={styles.container}>
+                    <View style ={styles.container}>
 
-                <Card
+                    <Card
 
-                            containerStyle={{
+                                containerStyle={{
 
-                                borderWidth: 1, 
-                                borderColor: 'gray',
-                                marginRight:20,
-                                marginLeft:20,
-                                marginTop:10,
-                                paddingTop:10,
-                                paddingBottom:10,
-                                paddingRight:1,
-                                paddingLeft:10,
-                                borderRadius:10,
-            
-                        }}
+                                    borderWidth: 1,
+                                    borderColor: 'gray',
+                                    marginRight:20,
+                                    marginLeft:20,
+                                    marginTop:10,
+                                    paddingTop:10,
+                                    paddingBottom:10,
+                                    paddingRight:1,
+                                    paddingLeft:10,
+                                    borderRadius:10,
 
-                >
+                            }}
 
-                    {
-                        
-                        list.map((l,i) => (
-                        <ListItem 
-                                key ={i}
-                                containerStyle={{flex:1, padding:1, paddingBottom:5}}
-                                title={l.name}
-                                titleStyle={{ color: 'black', fontSize:13, textAlign: 'left' }}
-                                subtitle={l.desc}
-                                subtitleStyle={{ color: 'red', fontSize:10 }}
-                                
+                    >
 
-                            />
-                        ))
-                    }
+                        {
 
-                </Card>
-                <Text> {"\n"} </Text>
-                    
-               
-                <Timeline data = {this.data} />
+                            list.map((l,i) => (
+                            <ListItem
+                                    key ={i}
+                                    containerStyle={{flex:1, padding:1, paddingBottom:5}}
+                                    title={l.name}
+                                    titleStyle={{ color: 'black', fontSize:13, textAlign: 'left' }}
+                                    subtitle={l.desc}
+                                    subtitleStyle={{ color: 'red', fontSize:10 }}
+                                    onPress={l.handler}
 
-                </View>
 
-                </ScrollView>
-                
-            )
-                
+                                />
+                            ))
+                        }
+
+                    </Card>
+
+
+
+                    {temp_print}
+
+                    </View>
+
+                    </ScrollView>
+
+                )
+
+            }
+
+            else{
+                return(
+
+                <Spinner
+                  visible={true}
+                  textContent={'Loading...'}
+                />
+
+                )
+            }
+
         }
 
             else{
@@ -135,15 +257,15 @@ class AssignmentDetails extends Component {
 
                 )
 
-                
+
             }
         }
-            
+
     }
 
 const mapStateToProps = state => {
     return {
-        
+
         participant: state.studentTaskView.participant,
         can_submit : state.studentTaskView.can_submit,
         can_review: state.studentTaskView.can_review,
@@ -162,6 +284,8 @@ const mapStateToProps = state => {
         metareview_allowed: state.studentTaskView.metareview_allowed,
         get_current_stage: state.studentTaskView.get_current_stage,
         jwt: state.auth.jwt
+
+
     }
 }
 
@@ -179,16 +303,3 @@ const mapDispatchToProps = dispatch => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(AssignmentDetails);
-
-
-       
-    //     , function(something) {
-    //   this.setState({ spinner: !this.state.spinner});
-    // }.bind(this));
-
-    // this.state={
-    //         spinner: true
-    //     }
-
-
-

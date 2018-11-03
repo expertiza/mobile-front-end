@@ -5,16 +5,6 @@ import { connect } from 'react-redux';
 import {fetchProfile, editProfile} from '../../redux/actions/Profile';
 import PreferenceView from './PreferenceComponentView';
 
-const mapStateToProps = state => {
-  return {
-    profile: state.profile
-  }
-}
-const mapDispatchToProps = dispatch => ({
-    fetchProfile: () => dispatch(fetchProfile()),
-    editProfile: (profile,aq) =>{dispatch(editProfile(profile,aq))}
-})
-
 class Preference extends Component {
   constructor(props) {
     super(props);
@@ -56,13 +46,17 @@ class Preference extends Component {
     };
   }
 
+  static navigationOptions = {
+    title: 'Setting  '
+  };
+
   componentDidMount(){
-    this.props.fetchProfile()
+    this.props.fetchProfile(this.props.jwt)
       .then(() => {this.setState(this.propsToState(this.props))});
   }
 
   performedit(){
-    this.props.editProfile(this.state.profileform, this.state.aq);
+    this.props.editProfile(this.state.profileform, this.state.aq, this.props.jwt);
   }
 
   handleSubmit() {
@@ -100,4 +94,16 @@ class Preference extends Component {
     }
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    profile: state.profile,
+    jwt: state.auth.jwt
+  }
+}
+const mapDispatchToProps = dispatch => ({
+    fetchProfile: (jwt) => dispatch(fetchProfile(jwt)),
+    editProfile: (profile,aq, jwt) =>{dispatch(editProfile(profile,aq, jwt))}
+})
+
 export default connect(mapStateToProps, mapDispatchToProps)(Preference);

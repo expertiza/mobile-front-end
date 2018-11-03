@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import {ScrollView, View, Text, TextInput, Picker, Switch, Button} from 'react-native';
+import {ScrollView, View, Text, TextInput, Picker, Switch} from 'react-native';
+import {Button} from 'react-native-elements';
 
 const style = {
   view: {
@@ -28,9 +29,13 @@ const style = {
   },
   submit: {
     view: {
-      marginTop: 50,
-      marginLeft: 10,
-      marginRight: 10,
+      marginLeft: 60,
+      marginRight: 60,
+      marginTop: 40,
+      marginBottom: 300
+    },
+    style: {
+      backgroundColor: "#a90201"
     }
   }
 }
@@ -94,8 +99,9 @@ class ProfileView extends Component {
         </View>
 
         <View style={style.submit.view}>
-          <Button title='Save' disabled={this.props.errors.confirmpassword!==''}
-            onPress={(e) => {this.props.handleSubmit();}} />
+          <Button title='Save' buttonStyle={style.submit.style}
+          disabled={this.props.errors.confirmpassword!==''}
+          onPress={(e) => {this.props.handleSubmit();}} />
         </View>
       </ScrollView>
     );

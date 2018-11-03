@@ -6,6 +6,8 @@ import Profile from './ProfileComponent/ProfileComponent';
 import Preference from './PreferenceComponent/PreferenceComponent';
 import Assignment from './AssignmentComponent/AssignmentComponent';
 import AssignmentDetails from './AssignmentDetailsComponent/AssignmentDetailsComponent';
+import ChangeHandle from './ChangeHandle/ChangeHandleComponent';
+import StudentTeamComponent from './studentTeamComponent/StudentTeamComponent';
 import Logout from './Auth/logoutComponent';
 import Login from './Auth/loginComponent';
 import AuthLoadingScreen from './Auth/AuthLoading';
@@ -52,7 +54,9 @@ const PreferenceNavigator = createStackNavigator({
 
 const AssignmentNavigator = createStackNavigator({
     Assignment: { screen: Assignment },
-    Details: {screen: AssignmentDetails }
+    Details: {screen: AssignmentDetails },
+    ChangeHandle: {screen: ChangeHandle},
+    StudentTeamComponent: {screen: StudentTeamComponent},
 },
 {
     initialRouteName: 'Assignment',
@@ -64,7 +68,7 @@ const AssignmentNavigator = createStackNavigator({
           color: "#fff"
       },
       headerTintColor: "#fff",
-      
+
     })
 }
 );
@@ -132,21 +136,21 @@ const MainNavigator = createDrawerNavigator({
         navigationOptions: {
           title: 'Profile',
           drawerLabel: 'Profile  '
-        }, 
+        },
       },
     Preference:
     { screen: PreferenceNavigator,
       navigationOptions: {
-        title: 'Preference',
-        drawerLabel: 'Preference  '
+        title: 'Setting',
+        drawerLabel: 'Setting  '
       },
     },
-    Logout: 
+    Logout:
       { screen: LogoutNavigator,
         navigationOptions: {
           title: 'Logout',
           drawerLabel: 'Logout  '
-        }, 
+        },
       },
 }, {
   drawerBackgroundColor: '#ffffff',

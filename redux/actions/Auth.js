@@ -1,6 +1,5 @@
 import  * as actions from '../index'
 import axios from '../../axios-instance';
-// import axios from 'axios';
 import { SecureStore } from 'expo';
 
 export const authSuccess = (jwt) => {
@@ -25,12 +24,6 @@ export const auth = (name, password) => {
             headers: { "Content-Type": "application/json"},
             data: {auth: { name: name, password: password }}
         })
-        // axios({
-        //     method: 'post',
-        //     url: 'sessions',
-        //     headers: { "Content-Type": "application/json"},
-        //     data: {auth: { name: name, password: password }}
-        // })
         .then(response => {
             SecureStore.setItemAsync('jwt', JSON.stringify(response.data))
         })
