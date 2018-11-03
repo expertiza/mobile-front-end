@@ -6,11 +6,13 @@ import Profile from './ProfileComponent/ProfileComponent';
 import Preference from './PreferenceComponent/PreferenceComponent';
 import Assignment from './AssignmentComponent/AssignmentComponent';
 import AssignmentDetails from './AssignmentDetailsComponent/AssignmentDetailsComponent';
-import ChangeHandle from './ChangeHandle/ChangeHandleComponent';
-import StudentTeamComponent from './studentTeamComponent/StudentTeamComponent';
 import Logout from './Auth/logoutComponent';
 import Login from './Auth/loginComponent';
 import AuthLoadingScreen from './Auth/AuthLoading';
+import Review from './ReviewComponent/ReviewComponent';
+import YourScores from './YourScoresComponent/YourScoresComponent';
+import ScoresbyQuestion from './YourScoresComponent/ScoresbyQuestion';
+import SignUp from './SignUpComponent/SignUpComponent';
 
 const ProfileNavigator = createStackNavigator({
     Profile: { screen: Profile }
@@ -55,8 +57,11 @@ const PreferenceNavigator = createStackNavigator({
 const AssignmentNavigator = createStackNavigator({
     Assignment: { screen: Assignment },
     Details: {screen: AssignmentDetails },
-    ChangeHandle: {screen: ChangeHandle},
-    StudentTeamComponent: {screen: StudentTeamComponent},
+    Review: { screen: Review },
+    Scores: { screen: YourScores },
+    ScoresbyQuestion: {screen: ScoresbyQuestion},
+    Signup: {screen: SignUp}
+
 },
 {
     initialRouteName: 'Assignment',
@@ -68,7 +73,7 @@ const AssignmentNavigator = createStackNavigator({
           color: "#fff"
       },
       headerTintColor: "#fff",
-
+      
     })
 }
 );
@@ -136,21 +141,21 @@ const MainNavigator = createDrawerNavigator({
         navigationOptions: {
           title: 'Profile',
           drawerLabel: 'Profile  '
-        },
+        }, 
       },
     Preference:
     { screen: PreferenceNavigator,
       navigationOptions: {
-        title: 'Setting',
-        drawerLabel: 'Setting  '
+        title: 'Preference',
+        drawerLabel: 'Preference  '
       },
     },
-    Logout:
+    Logout: 
       { screen: LogoutNavigator,
         navigationOptions: {
           title: 'Logout',
           drawerLabel: 'Logout  '
-        },
+        }, 
       },
 }, {
   drawerBackgroundColor: '#ffffff',

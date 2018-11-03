@@ -150,13 +150,13 @@ class Review extends Component {
                             
                                 <ListItem 
                                     key ={index}
-                                    containerStyle={{flex:1, padding:1}}
+                                    containerStyle={{flex:1, padding: 0, margin: 5}}
                                         
                                     title={title_string}
                                     titleStyle={{ color: 'black', fontSize:15, textAlign: 'left', fontWeight:'bold'}}
 
                                     subtitle={subtitle_string}
-                                    subtitleStyle={{ color: 'red', fontSize:13, }}
+                                    subtitleStyle={{ color: 'red', fontSize:13 }}
                                 />
 
                             ) 
@@ -169,17 +169,24 @@ class Review extends Component {
                                 {
                                     subtitle_string = "No answer"
                                 }
-                                else if(this.props.answers[index].answer == 1){
-                                    subtitle_string = "Yes"
-                                }
+
+
+                                // else if(this.props.answers[index].answer == 1){
+                                //     subtitle_string = "Yes"
+                                // }
+                                // else{
+                                //     subtitle_string = "No"
+                                // }
+
                                 else{
-                                    subtitle_string = "No"
+                                    subtitle_string = "(" + this.props.answers[index].answer + ")"
                                 }
+
                                 list_array.push(                       
                             
                                 <ListItem 
                                     key ={index}
-                                    containerStyle={{flex:1}}
+                                    containerStyle={{flex:1, padding: 0, margin: 5}}
                                         
                                     title={title_string}
                                     titleStyle={{ color: 'black', fontSize:13, textAlign: 'left' }}
@@ -199,18 +206,18 @@ class Review extends Component {
                                     lefticon = ""
                                 }
                                 else{
-                                    lefticon = "(" + this.props.answers[index].answer + ")"
+                                    lefticon = "(" + this.props.answers[index].answer + ") - "
                                 }
                                 list_array.push(                       
                             
                                 <ListItem 
                                     key ={index}
-                                    containerStyle={{flex:1}}
+                                    containerStyle={{flex:1, padding: 0, margin: 5 }}
                                         
                                     title={title_string}
                                     titleStyle={{ color: 'black', fontSize:13, textAlign: 'left' }}
 
-                                    subtitle={subtitle_string + lefticon}
+                                    subtitle={lefticon + subtitle_string}
                                     subtitleStyle={{ color: 'red', fontSize:11 }}
                                 />
 
@@ -227,7 +234,7 @@ class Review extends Component {
 
                                 <ListItem 
                                     key ={index}
-                                    containerStyle={{flex:1}}
+                                    containerStyle={{flex:1, padding: 0, margin: 5}}
                                         
                                     title={"Additional Comments"}
                                     titleStyle={{ color: 'black', fontSize:13, textAlign: 'left', fontWeight:'bold' }}
@@ -266,7 +273,10 @@ class Review extends Component {
 
     render(){
 
-        if(!this.props.loading){
+        const {navigation} = this.props;
+        const rid = navigation.getParam('r_id', 'NO-ID');
+
+        if(!this.props.loading && this.props.response.id == rid ){
 
             if ( this.props.survey ) {
                 // return(
@@ -302,15 +312,15 @@ class Review extends Component {
 
                 }
 
-                else{
-                    return(
+                // else{
+                //     return(
 
-                        <Spinner
-                          visible={true}
-                          textContent={'Loading...'}
-                        />
-                    )
-                }
+                //         <Spinner
+                //           visible={true}
+                //           textContent={'Loading...'}
+                //         />
+                //     )
+                // }
 
             }
 

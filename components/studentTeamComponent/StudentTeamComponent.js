@@ -4,49 +4,6 @@ import { Button, Text, ScrollView, View, Picker } from 'react-native';
 import { connect } from 'react-redux';
 import StudentTeamView from './StudentTeamComponentView';
 
-const mock = {
-  teamName: "OSS project/Writing assignment 2_Team20",
-  members: [
-    {
-      id: 6362,
-      name: 'student6362',
-      actions: []
-    }, {
-      id: 6433,
-      name: 'student6433',
-      actions: [
-        {
-          id: 0,
-          name: 'View',
-          handler: () => {}
-        }, {
-          id: 1,
-          name: 'Edit',
-          handler: () => {}
-        }
-      ]
-    }, {
-      id: 6420,
-      name: 'student6420',
-      actions: [
-        {
-          id: 0,
-          name: 'View',
-          handler: () => {}
-        }, {
-          id: 1,
-          name: 'Edit',
-          handler: () => {}
-        }
-      ]
-    },
-  ],
-  invitations: [
-    {id: 6433, name: 'student6433', status: 'accept'},
-    {id: 6420, name: 'student6420', status: 'accept'},
-  ],
-}
-
 const mapStateToProps = state => ({
     profile: state.profile,
     student: state.studentTeamView.student,
@@ -81,7 +38,7 @@ class StudentTeamComponent extends Component {
   }
 
   static navigationOptions = {
-    title: 'Your team  '
+    title: 'StudentTeamComponent  '
   };
 
   componentDidMount(){
@@ -91,9 +48,6 @@ class StudentTeamComponent extends Component {
   render(){
     return(
       <StudentTeamView profile={this.props.profile}
-      teamName={mock.teamName}
-      members={mock.members}
-      invitations={mock.invitations}
       />
     )
   }
