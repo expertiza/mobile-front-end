@@ -92,12 +92,12 @@ class SignUp extends Component {
             
                 <View style={styles.container}>
 
-
+                    <Text style = {{fontSize:15, fontWeight: 'bold', marginLeft: 2}}> {'\n'}Your Topic(s){'\n'} </Text> 
                     <ScrollView horizontal = {true}>
                     
-                        <View>
+                        <View >
 
-                            <Table borderStyle={{borderWidth: 2, borderColor: '#c8e1ff'}}>
+                            <Table borderStyle={{borderWidth: 1, borderColor: 'black'}}>
                                     <Row 
                                         data={table_head} 
                                         style={styles.head} 
@@ -106,9 +106,9 @@ class SignUp extends Component {
                                     />
                             </Table>          
                         
-                            <ScrollView style={styles.dataWrapper}>
+                            <ScrollView style={[styles.dataWrapper, {backgroundColor: 'white'}]}>
 
-                                <Table borderStyle={{borderWidth: 2, borderColor: '#c8e1ff'}}>
+                                <Table borderStyle={{borderWidth: 1, borderColor: 'black'}}>
                                     {
                                       table_data.map((table_row, index) => (
 
@@ -149,8 +149,8 @@ class SignUp extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 16, paddingTop: 15, backgroundColor: '#fff' },
-  head: { height: 40, backgroundColor: '#f1f8ff' },
+  container: { flex: 1, padding: 16, paddingTop: 15},
+  head: { height: 40, backgroundColor: 'white' },
   dataWrapper: { marginTop: -1 },
   text: { fontWeight: 'bold', margin: 6, textAlign: 'center' }
 });
@@ -172,12 +172,4 @@ const mapDispatchToProps = dispatch => {
         onDelete: (id, topic_id, assignment_id, jwt) => {dispatch(actions.onDelete(id, topic_id, assignment_id, jwt))}
     }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(SignUp);
-
-
-
-// <Rows 
-//                                         data={table_data} 
-//                                         textStyle={{margin: 6}}
-//                                         widthArr={widthArr}
-//                                     />
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp); 
