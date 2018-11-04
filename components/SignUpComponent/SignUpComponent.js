@@ -9,14 +9,6 @@ import Spinner from 'react-native-loading-spinner-overlay';
 
 class SignUp extends Component {
 
-    constructor(props) {
-        super(props);
-        const {navigation} = this.props;
-        const part_id = navigation.getParam('par_id', 'NO-ID');        
-        this.state={
-
-        }
-    }
     
     componentDidMount () {
 
@@ -67,71 +59,100 @@ class SignUp extends Component {
 
     render() {
         
-        table_head = ['Topic #', 'Topic_Name', 'No_of_Slots', 'Available_Slots', 'No_on_Waitlist' ]
+        table_head = ['Topic #', 'Topic_Name', 'No_of_Slots', 'Available_Slots', 'No_on_Waitlist', 'Bookmarks', 'Actions', 'Advertisement' ]
         table_data = []
         table_row = []
+        widthArr = [65, 150, 100, 120, 120, 120, 120, 120,]
+        i = 0
+        row_color = []
+        
+        const {navigation} = this.props;
+        const ass_name = navigation.getParam('ass_name', 'No-ass-name');
+        
+        if(this.props.loaded && this.props.assignment.name == ass_name){
 
-        if(this.props.loaded)
-        {
+            this.props.sign_up_topics.map(sign_up_topic =>(
+                    table_row[i++] = sign_up_topic.topic.topic_identifier,
+                    table_row[i++] = sign_up_topic.topic.topic_name,
+                    table_row[i++] = sign_up_topic.topic.max_choosers.toString(),
+                    table_row[i++] = sign_up_topic.available_slots.toString(),
+                    table_row[i++] = sign_up_topic.num_waiting.toString(),
+                    table_row[i++] = sign_up_topic.topic.max_choosers.toString(),
+                    table_row[i++] = sign_up_topic.available_slots.toString(),
+                    table_row[i++] = sign_up_topic.num_waiting.toString(),
 
-            {
-                this.props.sign_up_topics.map(sign_up_topic =>(
-                    table_row.push(sign_up_topic.topic_identifier)
-                    table_row.push(sign_up_topic.topic_name)
-                    table_row.push(sign_up_topic.topic_max_choosers)
-                    table_row.push(sign_up_topic.available_slots)
-                    table_row.push(sign_up_topic.num_waiting)
+                    table_data.push(table_row),
+                    row_color.push(sign_up_topic.color),
+                    table_row = [],
+                    i = 0
 
-                    table_data.push(table_row)
-                    table_row = []
+            )
+        )
+            return(
+            
+                <View style={styles.container}>
 
-                )
-                )
-            }
 
-            return 
-            (
+                    <ScrollView horizontal = {true}>
+                    
+                        <View>
 
-                <ScrollView>
+                            <Table borderStyle={{borderWidth: 2, borderColor: '#c8e1ff'}}>
+                                    <Row 
+                                        data={table_head} 
+                                        style={styles.head} 
+                                        textStyle={styles.text}
+                                        widthArr={widthArr}
+                                    />
+                            </Table>          
+                        
+                            <ScrollView style={styles.dataWrapper}>
 
-                <View>
+                                <Table borderStyle={{borderWidth: 2, borderColor: '#c8e1ff'}}>
+                                    {
+                                      table_data.map((table_row, index) => (
 
-                <Text> Hi I am working fine dude </Text>
+                                        color = row_color[index],
+                                        <Row
+                                          key={index}
+                                          data={table_row}
+                                          widthArr={widthArr}
+                                          style={ color == 'yellow' && {backgroundColor: 'yellow'}}
+                                          textStyle={{margin:6, textAlign: 'center'}}
+                                        />
+                                      ))
+                                    }
 
-                <Table borderStyle={{borderWidth: 2, borderColor: '#c8e1ff'}}>
+                                </Table>                                    
 
-                    <Row data={state.tableHead} style={styles.head} textStyle={styles.text}/>
-                    <Rows data={state.tableData} textStyle={styles.text}/>
+                            </ScrollView>
 
-                </Table>
+                        </View>
+
+                    </ScrollView>
 
                 </View>
 
-                </ScrollView>
-
             )
         }
-
+        
         else{
-
-                return(
+            return(
 
                 <Spinner
                   visible={true}
                   textContent={'Loading...'}
                 />
-
-                )
-
-                
-            }
+            )
+        }
     }
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 16, paddingTop: 30, backgroundColor: '#fff' },
+  container: { flex: 1, padding: 16, paddingTop: 15, backgroundColor: '#fff' },
   head: { height: 40, backgroundColor: '#f1f8ff' },
-  text: { margin: 6 }
+  dataWrapper: { marginTop: -1 },
+  text: { fontWeight: 'bold', margin: 6, textAlign: 'center' }
 });
 
 const mapStateToProps = state => {
@@ -152,3 +173,11 @@ const mapDispatchToProps = dispatch => {
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(SignUp);
+
+
+
+// <Rows 
+//                                         data={table_data} 
+//                                         textStyle={{margin: 6}}
+//                                         widthArr={widthArr}
+//                                     />
