@@ -158,7 +158,10 @@ class AssignmentDetails extends Component {
                             },
                             {
                                 name: "Your work",
-                                desc: "You have to choose a topic first"
+                                desc: "You have to choose a topic first",
+                                handler: ()=>{
+                                  this.props.navigation.navigate('SubmittedContentEditComponent', {});
+                                }
                             },
                             {
                                 name: "Others Work",

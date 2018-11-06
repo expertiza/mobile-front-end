@@ -8,6 +8,7 @@ import Assignment from './AssignmentComponent/AssignmentComponent';
 import AssignmentDetails from './AssignmentDetailsComponent/AssignmentDetailsComponent';
 import ChangeHandle from './ChangeHandle/ChangeHandleComponent';
 import StudentTeamComponent from './studentTeamComponent/StudentTeamComponent';
+import SubmittedContentEditComponent from './submittedContentEdit/SubmittedContentEditComponent';
 import Logout from './Auth/logoutComponent';
 import Login from './Auth/loginComponent';
 import AuthLoadingScreen from './Auth/AuthLoading';
@@ -57,6 +58,7 @@ const AssignmentNavigator = createStackNavigator({
     Details: {screen: AssignmentDetails },
     ChangeHandle: {screen: ChangeHandle},
     StudentTeamComponent: {screen: StudentTeamComponent},
+    SubmittedContentEditComponent: {screen: SubmittedContentEditComponent},
 },
 {
     initialRouteName: 'Assignment',
