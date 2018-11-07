@@ -33,7 +33,6 @@ class SubmittedContentEditComponent extends Component {
       });
     },
     deleteLink: (index) => () => {
-      console.log('delete link');
       this.state.linkArray.splice(index, 1);
       this.setState(this.state);
       this.props.updateTeam({...this.props.team,
@@ -54,7 +53,7 @@ class SubmittedContentEditComponent extends Component {
   }
 
   render() {
-    console.log("hyperlinks",this.props.team.submitted_hyperlinks);
+    //console.log("hyperlinks",this.props.team.submitted_hyperlinks);
     return (
       <SubmittedContentEditView assignment={this.props.assignment}
       links={this.state.linkArray} newLink={this.state.newLink}
