@@ -2,8 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {ScrollView, View, Text, TextInput} from 'react-native';
 import {Button} from 'react-native-elements';
-import {editHandle} from '../../redux/actions/ParticipantHandle';
-import {updateParticipant} from '../../redux/actions/StudentTaskView';
+import * as actions from '../../redux/index';
 import ChangeHandleView from './ChangeHandleView';
 
 class ChangeHandle extends Component {
@@ -68,8 +67,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  editHandle: (handle, id, jwt) => (dispatch(editHandle(handle, id, jwt))),
-  updateParticipant: (participant) => (dispatch(updateParticipant(participant)))
+  editHandle: (handle, id, jwt) => (dispatch(actions.editHandle(handle, id, jwt))),
+  updateParticipant: (participant) => (dispatch(actions.updateParticipant(participant)))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChangeHandle);

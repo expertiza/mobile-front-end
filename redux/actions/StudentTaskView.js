@@ -187,3 +187,11 @@ export const updateParticipant = (participant) => {
     payload: participant
   }
 }
+
+export const updateTeam = (team) => {
+  // console.log('StudentTaskView.participant: ', participant);
+  return {
+    type: actions.STUDENT_TASK_VIEW_UPDATE_TEAM,
+    payload: team
+  }
+}

@@ -56,8 +56,8 @@ export default class SubmitedContentEditView extends Component {
         <Text style={style.label}>Submit a hyperlink:</Text>
         <View>
           <TextInput style={style.textInput}
-          autoCorrect={false}
-          defaultValue = 'http://'/>
+          onChangeText={this.props.handle.inputChange('newLink')}
+          autoCorrect={false} defaultValue={this.props.newLink}/>
           <TouchableOpacity style={{...style.button, width: 95}}
           onPress={this.props.handle.uploadLink}>
             <Text style={style.buttonText}>Upload link</Text>
@@ -71,7 +71,7 @@ export default class SubmitedContentEditView extends Component {
             <Text style={style.link}>{l}</Text>
             </TouchableOpacity>
             <TouchableOpacity style={style.button}
-            onPress={this.props.handle.deleteLink}>
+            onPress={this.props.handle.deleteLink(i)}>
               <Text style={style.buttonText}>Delete</Text>
             </TouchableOpacity>
           </View>
