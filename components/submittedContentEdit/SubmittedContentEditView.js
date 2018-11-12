@@ -25,6 +25,14 @@ const style = {
     marginTop: 10,
     marginRight: 20,
   },
+  checkBox: {
+    marginLeft: -18,
+    marginRight: -4,
+    paddingLeft: 0,
+    paddingRight: 0,
+    width: 50,
+    height: 45,
+  },
   link: {
     color: '#FF0000',
     fontSize: 16,
@@ -44,18 +52,21 @@ const style = {
   },
   button: {
     alignItems: 'center',
+    marginTop: 5,
     marginRight: 5,
+    paddingTop: 5,
+    paddingBottom: 5,
     paddingLeft: 5,
     paddingRight: 5,
     borderRadius: 5,
-    width: 95,
+    width: 70,
     backgroundColor: '#A90201',
   },
   buttonText: {
     color: '#FFFFFF',
     fontSize: 16,
     fontWeight: 'bold',
-  }
+  },
 }
 
 export default class SubmitedContentEditView extends Component {
@@ -71,14 +82,16 @@ export default class SubmitedContentEditView extends Component {
           autoCorrect={false} defaultValue={this.props.newLink}/>
           <TouchableOpacity style={style.button}
           onPress={this.props.handle.uploadLink}>
-            <Text style={style.buttonText}>Upload link</Text>
+            <Text style={style.buttonText}>Upload</Text>
           </TouchableOpacity>
         </View>
 
         <Text style={style.label}>Hyperlinks</Text>
         {this.props.links.map((l, i) => (
           <View style={style.linkView} key={'link_' + i}>
-            <CheckBox checked={l.check} onPress={this.props.handle.checkLink(l)}/>
+            <View style={style.checkBox}>
+              <CheckBox checked={l.check} onPress={this.props.handle.checkLink(l)}/>
+            </View>
             <TouchableOpacity onPress={this.props.handle.openLink(l)}>
               <Text style={style.link}>{l.link}</Text>
             </TouchableOpacity>
@@ -87,7 +100,7 @@ export default class SubmitedContentEditView extends Component {
         )}
         <TouchableOpacity style={style.button}
         onPress={this.props.handle.alertDelete}>
-          <Text style={style.buttonText}>Delete link</Text>
+          <Text style={style.buttonText}>Delete</Text>
         </TouchableOpacity>
       </ScrollView>
     );
