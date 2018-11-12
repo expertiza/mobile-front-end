@@ -33,16 +33,12 @@ class SubmittedContentEditComponent extends Component {
     uploadLink: () => {
       this.state.linkArray.push({link: this.state.newLink, check: false});
       this.setState(this.state);
-      this.props.updateTeam({...this.props.team,
-        submitted_hyperlinks: this.toLinkString(this.state.linkArray)
-      });
+      this.updateHyperlinks();
     },
     deleteLinks: () => {
       this.state.linkArray = this.state.linkArray.filter(l=>!l.check);
       this.setState(this.state);
-      this.props.updateTeam({...this.props.team,
-        submitted_hyperlinks: this.toLinkString(this.state.linkArray)
-      });
+      this.updateHyperlinks();
     },
     checkLink: (link) => () => {
       link.check = !link.check;
@@ -65,17 +61,27 @@ class SubmittedContentEditComponent extends Component {
     }
   }
 
+  updateHyperlinks() {
+      this.props.onUpdateSubmittedHyperlinks({
+        id: this.props.team.id,
+        submitted_hyperlinks: this.toLinkString(this.state.linkArray),
+      }, this.props.jwt)
+      .then((team) => {
+        this.props.updateTeam(team);
+      });
+  }
+
   toLinkArray(links) {
     return links.split('-').map(l=>l.trim()).filter(l=>l!=="")
       .map(s=>({link: s, check: false}));
   }
 
   toLinkString(linkArray) {
-    return '---\r\n- '+linkArray.map(o=>o.link).join('\r\n-');
+    return '---\r\n- '+linkArray.map(o=>o.link).join('\r\n- ') + '\r\n';
   }
 
   render() {
-    //console.log("hyperlinks",this.props.team.submitted_hyperlinks);
+    // console.log("hyperlinks",this.props.team);
     return (
       <SubmittedContentEditView assignment={this.props.assignment}
       links={this.state.linkArray} newLink={this.state.newLink}
@@ -86,6 +92,7 @@ class SubmittedContentEditComponent extends Component {
 
 const mapStateToProps = (state) => {
   return {
+    jwt: state.auth.jwt,
     assignment: state.studentTaskView.assignment,
     participant: state.studentTaskView.participant,
     team: state.studentTaskView.team,
@@ -95,7 +102,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     updateTeam: (team) => dispatch(actions.updateTeam(team)),
-    onSubmittedContentLoad: (id, jwt) => dispatch(actions.onSubmittedContentLoad(id, jwt)),
+    onUpdateSubmittedHyperlinks: (team, jwt) => dispatch(actions.onUpdateSubmittedHyperlinks(team, jwt)),
   };
 }
 

@@ -107,5 +107,6 @@ export  { fetchReviewData,
 export {editHandle
 } from './actions/ParticipantHandle';
 
-export {onSubmittedContentLoad
+export {onSubmittedContentLoad,
+  onUpdateSubmittedHyperlinks,
 } from './actions/SubmittedContent';

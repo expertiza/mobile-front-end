@@ -19,6 +19,29 @@ export const onSubmittedContentLoad = (id) => {
     }
 }
 
+export const onUpdateSubmittedHyperlinks = (team, jwt) => (dispatch) => {
+  console.log("onUpdateSubmittedHyperlinks");
+  return axios({
+      method: 'post',
+      url: 'student_teams/update_submitted_hyperlinks',
+      headers: {
+        'Content-Type': 'application/json',
+        HTTP_ACCEPT: 'application/json',
+        AUTHORIZATION: "Bearer " + jwt,
+      },
+      data: {"team": team},
+    })
+    .then(response => {
+      if (response.status === 200) {
+        console.log("response new team: ", response.data.team);
+        return response.data.team;
+      }
+    })
+    .catch(error => {
+      console.log(error);
+    });
+  }
+
 // export const onSignUp = (id, topic_id, assignment_id) => {
 //     return dispatch => {
 //         console.log('id in actions is :', id, topic_id, assignment_id)
