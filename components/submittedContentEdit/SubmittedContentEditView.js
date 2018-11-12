@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {ScrollView, View, Text, TextInput, TouchableOpacity} from 'react-native';
+import {CheckBox} from 'react-native-elements';
 
 const style = {
   caption: {
@@ -14,6 +15,15 @@ const style = {
   },
   text: {
     fontSize: 16,
+  },
+  linkView: {
+    flex: 1,
+    flexDirection: 'row',
+    flexWrap: 'nowrap',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    marginTop: 10,
+    marginRight: 20,
   },
   link: {
     color: '#FF0000',
@@ -38,7 +48,7 @@ const style = {
     paddingLeft: 5,
     paddingRight: 5,
     borderRadius: 5,
-    width: 60,
+    width: 95,
     backgroundColor: '#A90201',
   },
   buttonText: {
@@ -53,30 +63,32 @@ export default class SubmitedContentEditView extends Component {
     return (
       <ScrollView style={style.view}>
         <Text style={style.caption}>Submit work for {this.props.assignment.name}</Text>
-        <Text style={style.label}>Submit a hyperlink:</Text>
+        <Text style={style.label}>Submit a hyperlink</Text>
         <View>
           <TextInput style={style.textInput}
           onChangeText={this.props.handle.inputChange('newLink')}
+          underlineColorAndroid='transparent'
           autoCorrect={false} defaultValue={this.props.newLink}/>
-          <TouchableOpacity style={{...style.button, width: 95}}
+          <TouchableOpacity style={style.button}
           onPress={this.props.handle.uploadLink}>
             <Text style={style.buttonText}>Upload link</Text>
           </TouchableOpacity>
         </View>
 
-        <Text style={style.label}>Hyperlinks:</Text>
+        <Text style={style.label}>Hyperlinks</Text>
         {this.props.links.map((l, i) => (
-          <View key={'link_' + i}>
+          <View style={style.linkView} key={'link_' + i}>
+            <CheckBox checked={l.check} onPress={this.props.handle.checkLink(l)}/>
             <TouchableOpacity onPress={this.props.handle.openLink(l)}>
-            <Text style={style.link}>{l}</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={style.button}
-            onPress={this.props.handle.deleteLink(i)}>
-              <Text style={style.buttonText}>Delete</Text>
+              <Text style={style.link}>{l.link}</Text>
             </TouchableOpacity>
           </View>
           )
         )}
+        <TouchableOpacity style={style.button}
+        onPress={this.props.handle.alertDelete}>
+          <Text style={style.buttonText}>Delete link</Text>
+        </TouchableOpacity>
       </ScrollView>
     );
   }

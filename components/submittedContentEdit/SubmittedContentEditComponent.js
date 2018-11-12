@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Alert} from 'react-native';
 import {Linking} from 'react-native';
 import * as actions from '../../redux/index';
 import {connect} from 'react-redux';
@@ -11,9 +12,13 @@ class SubmittedContentEditComponent extends Component {
       newLink: 'http://',
       linkArray: this.toLinkArray(this.props.team.submitted_hyperlinks),
     }
-    this.handle.inputChange = this.handle.inputChange.bind(this);
-    this.handle.uploadLink = this.handle.uploadLink.bind(this);
-    this.handle.deleteLink = this.handle.deleteLink.bind(this);
+    for (func in this.handle) {
+      this.handle[func] = this.handle[func].bind(this);
+    }
+    // this.handle.inputChange = this.handle.inputChange.bind(this);
+    // this.handle.uploadLink = this.handle.uploadLink.bind(this);
+    // this.handle.deleteLinks = this.handle.deleteLinks.bind(this);
+    // this.handle.checkLink = this.handle.checkLink.bind(this);
   }
 
   static navigationOptions = {
@@ -26,30 +31,47 @@ class SubmittedContentEditComponent extends Component {
       this.setState(this.state);
     },
     uploadLink: () => {
-      this.state.linkArray.push(this.state.newLink);
+      this.state.linkArray.push({link: this.state.newLink, check: false});
       this.setState(this.state);
       this.props.updateTeam({...this.props.team,
         submitted_hyperlinks: this.toLinkString(this.state.linkArray)
       });
     },
-    deleteLink: (index) => () => {
-      this.state.linkArray.splice(index, 1);
+    deleteLinks: () => {
+      this.state.linkArray = this.state.linkArray.filter(l=>!l.check);
       this.setState(this.state);
       this.props.updateTeam({...this.props.team,
         submitted_hyperlinks: this.toLinkString(this.state.linkArray)
       });
+    },
+    checkLink: (link) => () => {
+      link.check = !link.check;
+      this.setState(this.state);
     },
     openLink: (link) => () => {
-      Linking.openURL(link);
+      Linking.openURL(link.link);
     },
+    alertDelete: () => {
+      links = this.state.linkArray.filter(l=>l.check);
+      if (0 === links.length) return;
+      Alert.alert("Warning!",
+        "The following links will be deleted:\r\n"+
+          links.map(l=>l.link).join("\r\n"),
+        [
+          {text: 'Ok', onPress: this.handle.deleteLinks},
+          {text: 'Cancel', onPress: () => {}},
+        ],
+      );
+    }
   }
 
   toLinkArray(links) {
-    return links.split('-').map(l=>l.trim()).filter(l=>l!=="");
+    return links.split('-').map(l=>l.trim()).filter(l=>l!=="")
+      .map(s=>({link: s, check: false}));
   }
 
   toLinkString(linkArray) {
-    return '---\r\n-'+linkArray.join('\r\n-');
+    return '---\r\n- '+linkArray.map(o=>o.link).join('\r\n-');
   }
 
   render() {
