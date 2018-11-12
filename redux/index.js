@@ -108,5 +108,5 @@ export {editHandle
 } from './actions/ParticipantHandle';
 
 export {onSubmittedContentLoad,
-  onUpdateSubmittedHyperlinks,
+    onUpdateSubmittedHyperlinks,
 } from './actions/SubmittedContent';

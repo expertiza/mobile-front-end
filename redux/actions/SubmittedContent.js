@@ -33,10 +33,11 @@ export const onUpdateSubmittedHyperlinks = (team, jwt) => (dispatch) => {
     })
     .then(response => {
       if (response.status === 200) {
-        console.log("response new team: ", response.data.team);
+        // console.log("response new team: ", response.data.team);
         return response.data.team;
       }
     })
+    .then(team => dispatch(actions.updateTeam(team)))
     .catch(error => {
       console.log(error);
     });

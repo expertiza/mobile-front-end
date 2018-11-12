@@ -65,10 +65,7 @@ class SubmittedContentEditComponent extends Component {
       this.props.onUpdateSubmittedHyperlinks({
         id: this.props.team.id,
         submitted_hyperlinks: this.toLinkString(this.state.linkArray),
-      }, this.props.jwt)
-      .then((team) => {
-        this.props.updateTeam(team);
-      });
+      }, this.props.jwt);
   }
 
   toLinkArray(links) {
@@ -101,7 +98,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    updateTeam: (team) => dispatch(actions.updateTeam(team)),
     onUpdateSubmittedHyperlinks: (team, jwt) => dispatch(actions.onUpdateSubmittedHyperlinks(team, jwt)),
   };
 }
