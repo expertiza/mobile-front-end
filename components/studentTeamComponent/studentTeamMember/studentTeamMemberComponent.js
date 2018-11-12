@@ -34,7 +34,7 @@ const style = {
     paddingLeft: 5,
     paddingRight: 5,
     borderRadius: 10,
-    backgroundColor: '#2196F3',
+    backgroundColor: "#a90201",
   },
   buttonText: {
     color: '#FFFFFF',
