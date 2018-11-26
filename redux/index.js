@@ -16,7 +16,6 @@ export {
     STUDENT_TASK_VIEW_FAILURE,
     ADD_STUDENTSTEAMEDWITH,
     ADD_STUDENTTASKS,
-    ADD_SUBMITTEDCONTENT,
     CHANGE_HANDLE,
     STUDENT_TASK_VIEW_SUBMISSION_ALLOWED,
     STUDENT_TASK_VIEW_CHECK_REVIEWABLE_TOPICS,
@@ -25,7 +24,6 @@ export {
     STUDENT_TASK_VIEW_QUIZ_ALLOWED,
     STUDENT_TASK_VIEW_UNSUBMITTED_SELF_REVIEW,
     STUDENT_TASK_VIEW_PARTICIPANT,
-    STUDENT_TASK_VIEW_UPDATE_TEAM,
     STUDENTS_TEAM_VIEW_SUCCESS,
     PARTICIPANT_HANDLE_CHANGE,
     FETCH_REVIEW_DATA_SUCCESS,
@@ -66,9 +64,7 @@ export {
     quiz_allowed,
     quiz_allowed_success,
     unsubmitted_self_review,
-    unsubmitted_self_review_success,
-    updateParticipant,
-    updateTeam,
+    unsubmitted_self_review_success
 } from './actions/StudentTaskView';
 export {
     fetchProfile,
@@ -103,10 +99,3 @@ export  { fetchReviewData,
     fetchReviewDataFailure,
     retractInvitation
 } from './actions/Response'
-
-export {editHandle
-} from './actions/ParticipantHandle';
-
-export {onSubmittedContentLoad,
-    onUpdateSubmittedHyperlinks,
-} from './actions/SubmittedContent';

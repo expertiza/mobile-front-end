@@ -9,6 +9,7 @@ import AssignmentDetails from './AssignmentDetailsComponent/AssignmentDetailsCom
 import ChangeHandle from './ChangeHandle/ChangeHandleComponent';
 import StudentTeamComponent from './studentTeamComponent/StudentTeamComponent';
 import SubmittedContentEditComponent from './submittedContentEdit/SubmittedContentEditComponent';
+import ResponseViewComponent from './responseView/responseViewComponent';
 import Logout from './Auth/logoutComponent';
 import Login from './Auth/loginComponent';
 import AuthLoadingScreen from './Auth/AuthLoading';
@@ -38,6 +39,26 @@ const PreferenceNavigator = createStackNavigator({
   },
   {
     initialRouteName: 'Preference',
+    navigationOptions: ({ navigation }) => ({
+      headerStyle: {
+        backgroundColor: "#a90201"
+      },
+      headerTitleStyle: {
+        color: "#fff"
+      },
+      headerTintColor: "#fff",
+      headerLeft: <Icon name="menu" size={24}
+        iconStyle={{ color: 'white' }}
+        onPress={ () => navigation.toggleDrawer() } />
+    })
+  }
+);
+
+const TempNavigator = createStackNavigator({
+    ResponseViewComponent: {screen: ResponseViewComponent},
+  },
+  {
+    initialRouteName: 'ResponseViewComponent',
     navigationOptions: ({ navigation }) => ({
       headerStyle: {
         backgroundColor: "#a90201"
@@ -131,6 +152,13 @@ const MainNavigator = createDrawerNavigator({
         navigationOptions: {
           title: 'Assignments',
           drawerLabel: 'Assignments   '
+        }
+      },
+    Temp:
+      { screen: TempNavigator,
+        navigationOptions: {
+          title: 'Temp',
+          drawerLabel: 'Temp   '
         }
       },
     Profile:

@@ -78,7 +78,7 @@ class SubmittedContentEditComponent extends Component {
   }
 
   render() {
-    // console.log("hyperlinks",this.props.team);
+    console.log("hyperlinks",this.props.team);
     return (
       <SubmittedContentEditView assignment={this.props.assignment}
       links={this.state.linkArray} newLink={this.state.newLink}

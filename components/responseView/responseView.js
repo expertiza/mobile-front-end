@@ -15,7 +15,12 @@ const style = {
   text: {
     fontSize: 16,
   },
-  linkView: {
+  questionView: {
+    marginBottom: 15,
+    backgroundColor: '#DDDDDD',
+    borderRadius: 10,
+  },
+  reviewView: {
     flex: 1,
     flexDirection: 'row',
     flexWrap: 'nowrap',
@@ -29,13 +34,6 @@ const style = {
     color: '#FF0000',
     fontSize: 16,
     textDecorationLine: 'underline',
-  },
-  textInput: {
-    paddingLeft: 10,
-    paddingRight: 10,
-    backgroundColor: '#DDDDDD',
-    borderRadius: 5,
-    fontSize: 16,
   },
   view: {
     marginTop: 10,
@@ -52,10 +50,9 @@ const style = {
     paddingRight: 5,
     borderRadius: 20,
     width: 30,
-    backgroundColor: '#00BF00',
   },
   scoreText: {
-    color: '#FFFFFF',
+    // color: '#FFFFFF',
     fontSize: 16,
     fontWeight: 'bold',
   },
@@ -78,14 +75,23 @@ export default class ResponseView extends Component {
           ))}
           <Text style={style.label}>Review</Text>
           {this.props.response.questions.map((q, i) => (
-            <View key={'review_' + i}>
-              <Text>{i + 1}. {q.txt}</Text>
-              <TouchableOpacity style={style.score}>
-                <Text style={style.scoreText}>{q.ans.answer}</Text>
-              </TouchableOpacity>
-              <Text>{q.ans.comments}</Text>
+            <View style={style.questionView} key={'review_' + i}>
+              <Text style={style.label}>{i + 1}. {q.txt}</Text>
+              <View style={style.reviewView}>
+                <TouchableOpacity style={{...style.score,
+                  backgroundColor: q.ans.color}}>
+                  <Text style={style.scoreText}>{q.ans.answer}</Text>
+                </TouchableOpacity>
+                <Text>{q.ans.comments}</Text>
+              </View>
             </View>
           ))}
+          <View style={style.questionView}>
+            <Text style={style.label}>Additional Comment</Text>
+            <Text>{this.props.response.additional_comment}</Text>
+          </View>
+          <View style={{marginBottom: 200}}>
+          </View>
         </ScrollView>
     );
   }

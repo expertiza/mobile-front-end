@@ -4,14 +4,15 @@ import * as actions from '../index';
 export const fetchReviewData = (response_id, jwt) => {
     return dispatch => {
         console.log(response_id)
-        axios({
+        return axios({
             method: 'get',
             url: 'response/view?id='+response_id,
             headers: { "Content-Type": "application/json",
                        AUTHORIZATION: "Bearer " + jwt},
-            
+
         })
         .then(response => {
+          // console.log("fetchReviewData:", response);
             dispatch(actions.fetchReviewDataSuccess(response.data))
         })
         .catch(error => {
