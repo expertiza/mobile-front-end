@@ -8,8 +8,7 @@ const initialize={
     }
 
 const signUpSheetList = (state = initialize, action) => {
-    console.log("signUpList")
-    console.log("hi" + action.flag)
+    console.log("Reducer start: Flag = " + action.flag)
 
     switch(action.type){
         case actions.ADD_SIGNUPSHEETLIST:
@@ -36,6 +35,7 @@ const signUpSheetList = (state = initialize, action) => {
             ...state, alertMsg: action.payload
         }
         default: 
+            console.log("No change in state by signup reducer")
             return state;
     }
 };

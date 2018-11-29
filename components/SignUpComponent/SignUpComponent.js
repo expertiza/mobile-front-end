@@ -3,24 +3,24 @@ import { connect } from 'react-redux'
 import * as actions from '../../redux'
 import { StyleSheet, Text, View, ScrollView } from 'react-native'
 import { Card, ListItem, Button, Icon } from 'react-native-elements'
-import { Table, Row, Rows } from 'react-native-table-component';
+import { Table, Row, Rows, Col, Cols } from 'react-native-table-component';
 import Spinner from 'react-native-loading-spinner-overlay';
 
 
 class SignUp extends Component {
 
-    
     componentDidMount () {
 
 
         const {navigation} = this.props;
         const part_id = navigation.getParam('par_id', 'NO-ID');
         this.props.onSignUpSheetLoad(part_id, true, this.props.jwt);
-        console.log(this.props.loaded);
+        console.log("Didmount done");
     }
 
     componentDidUpdate (prevProps) {
 
+        console.log("Component is updated (Compdidupdate)")
         console.log("PrePropsmsg",prevProps.error_msg)
         console.log("CurrProps", this.props.error_msg)
 
@@ -28,7 +28,7 @@ class SignUp extends Component {
         const part_id = navigation.getParam('par_id', 'NO-ID');
 
         if (this.props.error_msg != prevProps.error_msg){
-            this.props.onSignUpSheetLoad(part_id, false);
+            this.props.onSignUpSheetLoad(part_id, false, this.props.jwt);
         }
     }
 
@@ -59,13 +59,21 @@ class SignUp extends Component {
 
     render() {
         
-        table_head = ['Topic #', 'Topic_Name', 'No_of_Slots', 'Available_Slots', 'No_on_Waitlist', 'Bookmarks', 'Actions', 'Advertisement' ]
+        table_head = ['Topic #', 'Topic Name', 'No_on_Waitlist', 'Actions', 'Bookmarks', 'Advertisement' ]
         table_data = []
         table_row = []
-        widthArr = [65, 150, 100, 120, 120, 120, 120, 120,]
+        widthArr = [65, 150, 120, 120, 120, 120,]
+
         i = 0
-        row_color = []
+        k = 0 
         
+        row_color = []
+        table_col = []
+        height_arr = []
+
+        height_arr.push(120)
+        table_col.push('Topic Name')
+
         const {navigation} = this.props;
         const ass_name = navigation.getParam('ass_name', 'No-ass-name');
         
@@ -74,12 +82,57 @@ class SignUp extends Component {
             this.props.sign_up_topics.map(sign_up_topic =>(
                     table_row[i++] = sign_up_topic.topic.topic_identifier,
                     table_row[i++] = sign_up_topic.topic.topic_name,
-                    table_row[i++] = sign_up_topic.topic.max_choosers.toString(),
-                    table_row[i++] = sign_up_topic.available_slots.toString(),
+                    table_col.push(sign_up_topic.topic.topic_name),
+                    height_arr.push(120),
                     table_row[i++] = sign_up_topic.num_waiting.toString(),
-                    table_row[i++] = sign_up_topic.topic.max_choosers.toString(),
-                    table_row[i++] = sign_up_topic.available_slots.toString(),
-                    table_row[i++] = sign_up_topic.num_waiting.toString(),
+
+                    table_row[i++] = sign_up_topic.color == ""  ?
+                     <Button
+                            key = {k++}
+                            title={"Sign Up"}
+                            titleStyle = {{fontSize: 10, textAlign: 'center', fontWeight: 'bold', margin: 2}}
+                            
+                            buttonStyle={{
+                            backgroundColor: 'red',
+                            margin: 15,
+                            width: 80,
+                            height: 30,
+                            borderColor: "transparent",
+                            borderWidth: 1,
+                            borderRadius: 5
+                            
+                            }}
+
+                            onPress={ () => {
+                                    this.onSignUp(sign_up_topic.topic.id)
+                                }
+                            }
+
+
+                        /> : <Button
+                            key = {k++}
+                            title={"Delete"}
+                            titleStyle = {{fontSize: 10, textAlign: 'center', fontWeight: 'bold', margin: 2}}
+
+                            buttonStyle={{
+                            backgroundColor: 'red',
+                            margin: 15,
+                            width: 80,
+                            height: 30,
+                            borderColor: "transparent",
+                            borderWidth: 1,
+                            borderRadius: 5
+                            
+                            }}
+
+                            onPress={ () => {
+                                    this.onDelete(sign_up_topic.topic.id)
+                                }
+                            }
+                       />,
+
+                    table_row[i++] = "bookmark",
+                    table_row[i++] = "Advertisement",
 
                     table_data.push(table_row),
                     row_color.push(sign_up_topic.color),
@@ -97,14 +150,15 @@ class SignUp extends Component {
                     
                         <View >
 
-                            <Table borderStyle={{borderWidth: 1, borderColor: 'black'}}>
+                             <Table borderStyle={{borderWidth: 1, borderColor: 'black'}}>
                                     <Row 
                                         data={table_head} 
                                         style={styles.head} 
                                         textStyle={styles.text}
                                         widthArr={widthArr}
                                     />
-                            </Table>          
+                            </Table>      
+                           
                         
                             <ScrollView style={[styles.dataWrapper, {backgroundColor: 'white'}]}>
 
@@ -117,7 +171,7 @@ class SignUp extends Component {
                                           key={index}
                                           data={table_row}
                                           widthArr={widthArr}
-                                          style={ color == 'yellow' && {backgroundColor: 'yellow'}}
+                                          style={ [color == 'yellow' && {backgroundColor: 'yellow'}, color == 'lightgray' && {backgroundColor: 'gray'}] }
                                           textStyle={{margin:6, textAlign: 'center'}}
                                         />
                                       ))

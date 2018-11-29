@@ -8,7 +8,7 @@ export const fetchReviewData = (response_id, jwt) => {
             method: 'get',
             url: 'response/view?id='+response_id,
             headers: { "Content-Type": "application/json",
-                       AUTHORIZATION: "Bearer " + jwt},
+                       AUTHORIZATION: "Bearer " + jwt}
             
         })
         .then(response => {

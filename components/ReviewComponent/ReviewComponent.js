@@ -54,6 +54,27 @@ class Review extends Component {
   };
 
 
+    score_button = (score) => {
+        return(
+
+                <Button
+                    title={score}
+                    titleStyle = {{fontSize: 10, textAlign: 'center', fontWeight: 'bold', margin: 2}}
+
+                    buttonStyle={{
+                    backgroundColor: 'red',
+                    margin: 10,
+                    width: 30,
+                    height: 30,
+                    borderColor: "transparent",
+                    borderWidth: 1,
+                    borderRadius: 50
+                            
+                    }}
+                />
+            )
+    }
+
     author_review_table = () => {
 
                     let i = 0
@@ -74,18 +95,22 @@ class Review extends Component {
                                     
                                 
                                 title_string = index+1 +". "+question.txt
-                                subtitle_string = this.props.author_answers[index].answer.toString()                             
+                                if(this.props.author_answers[index].answer)
+                                {
+                                    subtitle_string = this.props.author_answers[index].answer.toString() 
+                                }
+                                                            
                                 
                                 list_array.push(
 
                                     <ListItem 
                                         key ={index}
-                                        containerStyle={{flex:1}}
+                                        containerStyle={{ flex:1, padding: 0, margin: 5 }}
                                             
                                         title={title_string}
                                         titleStyle={{ color: 'black', fontSize:13, textAlign: 'left' }}
 
-                                        subtitle={subtitle_string}
+                                        subtitle={this.score_button(subtitle_string)}
                                         subtitleStyle={{ color: 'red', fontSize:11, fontWeight: 'bold' }}
                                     />
 
@@ -100,7 +125,7 @@ class Review extends Component {
 
                         card_array.push(
                             <Card 
-                                title = {"Author Review"} 
+                                title = {"Feedback to Reviewer"} 
                                 key = {i++}
                                 containerStyle={{
 
@@ -311,17 +336,6 @@ class Review extends Component {
                     )
 
                 }
-
-                // else{
-                //     return(
-
-                //         <Spinner
-                //           visible={true}
-                //           textContent={'Loading...'}
-                //         />
-                //     )
-                // }
-
             }
 
         }

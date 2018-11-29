@@ -4,8 +4,8 @@ import * as actions from '../index'
 export const onSignUpSheetLoad = (id,flag, jwt) => {
 
     return dispatch => {
-        console.log('id in actions is :', id)
-        console.log('flag', flag)
+        console.log('id in onSignUpSheetLoad : ', id)
+        console.log('Corresponding flag : ', flag)
         axios({
             method: 'post',
             url: 'sign_up_sheet/list',
@@ -13,8 +13,12 @@ export const onSignUpSheetLoad = (id,flag, jwt) => {
                        AUTHORIZATION: "Bearer " + jwt},
             data: { "id": id }
         })
-        .then(response => dispatch(actions.addSignUpSheetList(response.data, flag)))
+        .then(response => {
+            dispatch(actions.addSignUpSheetList(response.data, flag))
+            console.log("onSignUpSheetLoad data is ", response.data)
+        })
         .catch(error => {
+                console.log("got error")
                 console.log(error)
         } )
     }
@@ -22,7 +26,7 @@ export const onSignUpSheetLoad = (id,flag, jwt) => {
 
 export const onSignUp = (id, topic_id, assignment_id, jwt) => {
     return dispatch => {
-        console.log('id in actions is :', id, topic_id, assignment_id)
+        console.log('id in onSignUp is :', id, topic_id, assignment_id)
         axios({
             method: 'get',
             url: 'sign_up_sheet/sign_up',
@@ -30,7 +34,11 @@ export const onSignUp = (id, topic_id, assignment_id, jwt) => {
                        AUTHORIZATION: "Bearer " + jwt},
             params: { "id": id, "topic_id": topic_id, "assignment_id": assignment_id }
         })
-        .then(response => dispatch(actions.addSignUp(response.data)))
+        .then(response => {
+            dispatch(actions.addSignUp(response.data))
+            console.log("onSignup data is ", response.data)
+        })
+        
         .catch(error => {
                 console.log(error)
         } )
@@ -39,7 +47,7 @@ export const onSignUp = (id, topic_id, assignment_id, jwt) => {
 
 export const onDelete = (id, topic_id, assignment_id, jwt) => {
     return dispatch => {
-        console.log('id in actions is :', id, topic_id, assignment_id)
+        console.log('id in onDelete is :', id, topic_id, assignment_id)
         axios({
             method: 'get',
             url: 'sign_up_sheet/delete_signup',
@@ -47,7 +55,10 @@ export const onDelete = (id, topic_id, assignment_id, jwt) => {
                        AUTHORIZATION: "Bearer " + jwt},
             params: { "id": id, "topic_id": topic_id, "assignment_id": assignment_id }
         })
-        .then(response => dispatch(actions.addDelete(response.data)))
+        .then(response => {
+            dispatch(actions.addDelete(response.data))
+            console.log("onDelete data is ", response.data)
+        })
         .catch(error => {
                 console.log(error)
         } )
