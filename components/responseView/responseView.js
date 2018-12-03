@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
-import {ScrollView, View, Text, TouchableOpacity} from 'react-native';
+import {ScrollView, View, Text, TouchableOpacity, Picker} from 'react-native';
+import ModalDropdown from 'react-native-modal-dropdown';
+import ResponseEditComponent from './responseEdit/responseEditComponent';
 
 const style = {
   caption: {
@@ -12,22 +14,20 @@ const style = {
     marginTop: 10,
     fontSize: 16,
   },
+  question: {
+    color: '#0000FF',
+    marginTop: 10,
+    fontSize: 16,
+  },
   text: {
     fontSize: 16,
   },
   questionView: {
     marginBottom: 15,
+    paddingLeft: 5,
+    paddingRight: 5,
     backgroundColor: '#DDDDDD',
     borderRadius: 10,
-  },
-  reviewView: {
-    flex: 1,
-    flexDirection: 'row',
-    flexWrap: 'nowrap',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    marginTop: 10,
-    marginRight: 20,
   },
   link: {
     marginBottom: 15,
@@ -40,6 +40,15 @@ const style = {
     marginLeft: 20,
     marginRight: 20,
   },
+  reviewView: {
+    flex: 1,
+    flexDirection: 'row',
+    flexWrap: 'nowrap',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    marginTop: 10,
+    marginBottom: 10,
+  },
   score: {
     alignItems: 'center',
     marginTop: 5,
@@ -48,13 +57,24 @@ const style = {
     paddingBottom: 5,
     paddingLeft: 5,
     paddingRight: 5,
-    borderRadius: 20,
-    width: 30,
+    borderRadius: 80,
+    backgroundColor: '#DDDDDD',
+    width: 35,
   },
   scoreText: {
     // color: '#FFFFFF',
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: 'bold',
+  },
+  scoreDrop: {
+    marginLeft: -18,
+    // marginTop: -50,
+    paddingLeft: 5,
+    paddingRight: 5,
+    width: 46,
+    height: 205,
+    borderRadius: 80,
+    // backgroundColor: 'rgba(255,255,255,0)',
   },
 }
 
@@ -76,13 +96,28 @@ export default class ResponseView extends Component {
           <Text style={style.label}>Review</Text>
           {this.props.response.questions.map((q, i) => (
             <View style={style.questionView} key={'review_' + i}>
-              <Text style={style.label}>{i + 1}. {q.txt}</Text>
+              <Text style={style.question}>{i + 1}. {q.txt}</Text>
               <View style={style.reviewView}>
-                <TouchableOpacity style={{...style.score,
-                  backgroundColor: q.ans.color}}>
-                  <Text style={style.scoreText}>{q.ans.answer}</Text>
-                </TouchableOpacity>
-                <Text>{q.ans.comments}</Text>
+                <View style={{...style.score,
+                  backgroundColor: this.props.handle.calcColor(q.ans.answer)}} >
+                  <ModalDropdown textStyle={style.scoreText}
+                  dropdownStyle={style.scoreDrop}
+                  defaultValue={q.ans.answer.toString()}
+                  options={['1', '2', '3', '4', '5']}
+                  renderRow={(val) => (
+                    <View style={{...style.score,
+                      backgroundColor: this.props.handle.calcColor(Number(val))}}>
+                      <Text style={style.scoreText}>
+                        {val}
+                      </Text>
+                    </View>
+                  )}
+                  renderSeparator={() => (<View></View>)}
+                  onSelect={this.props.handle.editScore(i)}
+                  />
+                </View>
+                <ResponseEditComponent ans={q.ans}
+                editComment={this.props.handle.editComment(i)}/>
               </View>
             </View>
           ))}

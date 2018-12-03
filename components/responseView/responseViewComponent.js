@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Text, ScrollView, View, Picker, Linking } from 'react-native';
+import { ScrollView, Alert } from 'react-native';
 import {connect} from 'react-redux';
 import * as actions from '../../redux/index';
 import ResponseView from './responseView';
@@ -38,7 +38,38 @@ class  ResponseViewComponent extends Component {
     openLink: (link) => () => {
       Linking.openURL(link.link);
     },
+    editComment: (idx) => (value) => {
+      this.state.response.questions[idx].ans.comments = value;
+      // TODO: update database
+      this.setState(this.state);
+    },
+    editScore: (idx) => (i, value) => {
+      this.state.response.questions[idx].ans.answer = Number(value);
+      this.state.response.questions[idx].ans.color =
+        this.handle.calcColor(this.state.response.questions[idx].ans.answer);
+      // TODO: update database
+      this.setState(this.state);
+    },
+    calcColor: (score) => {
+      switch(score) {
+        case 2: return '#FD992D';
+        case 3: return '#FFEC8B';
+        case 4: return '#BCED91';
+        case 5: return '#2DE636';
+        default:
+          return '#FF8080';
+      }
+    },
   }
+
+  // setScore(idx, value) {
+  //   return () => {
+  //     this.state.response.questions[idx].ans.answer = value;
+  //     this.setScoreColor(this.state.response.questions[idx].ans);
+  //     // TODO: update database
+  //     this.setState(this.state);
+  //   }
+  // }
 
   toLinkArray(links) {
     return links.split('-').map(l=>l.trim()).filter(l=>l!=="")
@@ -55,26 +86,15 @@ class  ResponseViewComponent extends Component {
   mergeAns2Question(ans, q) {
     for (let i = 0; i < q.length; i++) {
       ans[i].comments = this.getInnerText(ans[i].comments);
-      if (!ans[i].answer) {
-        ans[i].answer = '-';
-        ans[i].color = '#FF8080';
-      } else {
-        switch(ans[i].answer) {
-          case 2: ans[i].color = '#FD992D'; break;
-          case 3: ans[i].color = '#FFEC8B'; break;
-          case 4: ans[i].color = '#BCED91'; break;
-          case 5: ans[i].color = '#2DE636'; break;
-          default:
-            ans[i].color = '#FF8080';
-        }
-      }
+      ans[i].color = this.handle.calcColor(ans[i].answer);
       q[i].ans = ans[i];
     }
     return q;
   }
 
+
   render () {
-    console.log("RVC state: ", this.state);
+    // console.log("RVC state: ", this.state);
     if (!this.state.response) {
       return (<ScrollView></ScrollView>);
     } else return (
