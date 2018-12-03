@@ -41,6 +41,7 @@ class  ResponseViewComponent extends Component {
     editComment: (idx) => (value) => {
       this.state.response.questions[idx].ans.comments = value;
       // TODO: update database
+      // TODO: update store state
       this.setState(this.state);
     },
     editScore: (idx) => (i, value) => {
@@ -48,6 +49,7 @@ class  ResponseViewComponent extends Component {
       this.state.response.questions[idx].ans.color =
         this.handle.calcColor(this.state.response.questions[idx].ans.answer);
       // TODO: update database
+      // TODO: update store state
       this.setState(this.state);
     },
     calcColor: (score) => {
@@ -61,15 +63,6 @@ class  ResponseViewComponent extends Component {
       }
     },
   }
-
-  // setScore(idx, value) {
-  //   return () => {
-  //     this.state.response.questions[idx].ans.answer = value;
-  //     this.setScoreColor(this.state.response.questions[idx].ans);
-  //     // TODO: update database
-  //     this.setState(this.state);
-  //   }
-  // }
 
   toLinkArray(links) {
     return links.split('-').map(l=>l.trim()).filter(l=>l!=="")

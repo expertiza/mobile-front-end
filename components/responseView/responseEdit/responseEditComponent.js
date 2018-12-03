@@ -27,7 +27,7 @@ const style = {
   },
   textInput: {
     backgroundColor: '#FFFFFF',
-    width: 240,
+    width: 235,
   },
 }
 
