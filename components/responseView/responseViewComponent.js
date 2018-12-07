@@ -16,6 +16,7 @@ class  ResponseViewComponent extends Component {
       }
   }
   componentDidMount () {
+    // TODO: get response id from props
       this.props.fetchReviewData(78704, this.props.jwt)
       .then(() => {
         // console.log("set state");
