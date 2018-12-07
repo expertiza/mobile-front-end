@@ -413,6 +413,52 @@ class AssignmentDetails extends Component {
 
                 this.time_array = this.get_timeline()
 
+<<<<<<< HEAD
+=======
+        if(this.props.loaded){
+
+
+            let temp_print = []
+            temp_print = this.get_timeline()
+
+            const list = [
+
+                            {
+                                name: "Signup sheet",
+                                desc: "Sign up for a topic"
+                            },
+                            {
+                                name: "Your team",
+                                desc: "You have to choose a topic first",
+                                handler: ()=>{
+                                  this.props.navigation.navigate('StudentTeamComponent', {});
+                                }
+                            },
+                            {
+                                name: "Your work",
+                                desc: "You have to choose a topic first",
+                                handler: ()=>{
+                                  this.props.navigation.navigate('SubmittedContentEditComponent', {});
+                                }
+                            },
+                            {
+                                name: "Others Work",
+                                desc: "Give feedback to others on their work"
+                            },
+                            {
+                                name: "Change handle",
+                                desc: "Provide a different handle for this assignment",
+                                handler: ()=>{
+                                  this.props.navigation.navigate('ChangeHandle', {});
+                                }
+                            },
+                        ]
+
+// Implement a spinner so that it loads until the new timeine is printed
+
+            if(temp_print)
+            {
+>>>>>>> bdf99bf7d5b76fef4a73c97f9319a6334cfbc7d2
                 return(
 
                     <ScrollView>

@@ -178,4 +178,24 @@ export const loadFailure = () => {
         type: actions.STUDENT_TASK_VIEW_FAILURE,
         denied: true
     }
+<<<<<<< HEAD
 }
+=======
+}
+
+export const updateParticipant = (participant) => {
+  // console.log('StudentTaskView.participant: ', participant);
+  return {
+    type: actions.STUDENT_TASK_VIEW_PARTICIPANT,
+    payload: participant
+  }
+}
+
+export const updateTeam = (team) => {
+  // console.log('StudentTaskView.participant: ', participant);
+  return {
+    type: actions.STUDENT_TASK_VIEW_UPDATE_TEAM,
+    payload: team
+  }
+}
+>>>>>>> bdf99bf7d5b76fef4a73c97f9319a6334cfbc7d2

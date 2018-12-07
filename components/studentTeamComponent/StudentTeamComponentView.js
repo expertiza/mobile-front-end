@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import {ScrollView, View, Text, Button} from 'react-native';
+import {ScrollView, View, Text} from 'react-native';
+import {Button} from 'react-native-elements';
 import StudentTeamMemberComponent from './studentTeamMember/studentTeamMemberComponent';
 import InvitationComponent from './invitation/invitationComponent';
 
@@ -26,9 +27,12 @@ const style = {
     marginRight: 20,
   },
   buttonView: {
-      marginTop: 50,
-      marginLeft: 10,
-      marginRight: 10,
+    marginTop: 50,
+    marginLeft: 10,
+    marginRight: 10,
+  },
+  button: {
+    backgroundColor: "#a90201"
   }
 }
 
@@ -41,7 +45,7 @@ class StudentTeamView extends Component {
           <Text style={style.text}>{this.props.teamName}</Text>
         </View>
         <View style={style.view}>
-          <Button title='Edit name' onPress={() => {}} />
+          <Button buttonStyle={style.button} title='Edit name' onPress={() => {}} />
         </View>
         <Text style={style.label}>Team members</Text>
         {this.props.members.map((member) =>
@@ -54,7 +58,7 @@ class StudentTeamView extends Component {
             key={'invitation_' + invitation.id} name={invitation.name}
             status={invitation.status} />))}
         <View style={style.buttonView}>
-          <Button title='Advertisement for teammates' onPress={(e) => {
+          <Button buttonStyle={style.button} title='Advertisement for teammates' onPress={(e) => {
             console.log('StudentTeamView.props: ', this.props);
           }} />
         </View>
