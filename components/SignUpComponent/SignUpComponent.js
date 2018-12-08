@@ -3,26 +3,12 @@ import { connect } from 'react-redux'
 import * as actions from '../../redux'
 import { Alert, StyleSheet, Text, View, ScrollView } from 'react-native'
 import { Card, ListItem, Button, Icon } from 'react-native-elements'
-import { Table, Row, Rows, Col, Cols } from 'react-native-table-component';
+import { Table, Row, TableWrapper } from 'react-native-table-component';
 import Spinner from 'react-native-loading-spinner-overlay';
 // import Orientation from 'react-native-orientation';
 
 
 class SignUp extends Component {
-
-  //   componentWillMount() {
-  //   // The getOrientation method is async. It happens sometimes that
-  //   // you need the orientation at the moment the JS runtime starts running on device.
-  //   // `getInitialOrientation` returns directly because its a constant set at the
-  //   // beginning of the JS runtime.
-
-  //   const initial = Orientation.getInitialOrientation();
-  //   if (initial === 'PORTRAIT') {
-  //     // do something
-  //   } else {
-  //     // do something else
-  //   }
-  // }
 
     componentDidMount () {
 
@@ -83,10 +69,10 @@ class SignUp extends Component {
 
     render() {
         
-        table_head = ['Topic Name', 'Actions']
+        table_head = ["Topic Name", "Actions"]
         table_data = []
         table_row = []
-        widthArr = [138, 138]
+        widthArr = [150, 150]
         
         i = 0
         k = 0 
@@ -170,7 +156,7 @@ class SignUp extends Component {
                     <Text style = {{fontSize:10, marginLeft: 2}}> Long Press to see details{'\n'} </Text> 
                     <ScrollView horizontal = {true}>
                     
-                        <View style = {{flex:1}}>
+                        <View >
 
                              <Table borderStyle={{borderWidth: 1, borderColor: 'black'}}>
                                     <Row 
@@ -182,7 +168,7 @@ class SignUp extends Component {
                             </Table>      
                            
                         
-                            <ScrollView style={[{marginTop: -1, backgroundColor: 'white'}]}>
+                            <ScrollView style={{marginTop: -1, backgroundColor: 'white'}} >
 
                                 <Table borderStyle={{borderWidth: 1, borderColor: 'black'}}>
                                     {
@@ -193,9 +179,9 @@ class SignUp extends Component {
                                           key={index}
                                           onLongPress={(e) => this.create_alert(alert_arr[index])}
                                           data={table_row}
-                                          widthArr={widthArr}
-                                          style={ [{height:40}, color == 'yellow' && {backgroundColor: 'yellow'}, color == 'lightgray' && {backgroundColor: 'gray'}] }
                                           textStyle={{margin:6, textAlign: 'center'}}
+                                          style={ [{height:40}, color == 'yellow' && {backgroundColor: 'yellow'}, color == 'lightgray' && {backgroundColor: 'gray'}] }
+                                          widthArr={widthArr}
                                         />
                                       ))
                                     }

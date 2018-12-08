@@ -11,6 +11,9 @@ import Spinner from 'react-native-loading-spinner-overlay';
 
 class AssignmentDetails extends Component {
     
+    options_available = []
+    temp_object = {}
+
     f = true
     time_array = []
     options_list = []
@@ -41,39 +44,41 @@ class AssignmentDetails extends Component {
         return alias_name
     }
 
+    filltemp = (name,desc,handler) => {
+        this.temp_object["name"] = name
+        this.temp_object["desc"] = desc
+        this.temp_object["handler"] = handler
+        this.options_available.push(this.temp_object)
+        this.temp_object = {} 
+    }
+
     get_options_list = () => {
 
         let i = 0
-        options_available = []
+        
         list_array = []
         card_array = []
-        temp_object = {}
+        
 
         // Sign up option
 
-            if(this.props.topics.length > 0)
-            {
-                if(this.props.authorization === 'participant' || this.props.authorization === 'submitter')
-                {
-                    temp_object["name"] = "Sign up sheet"
-                    temp_object["desc"] = "Sign up for a topic"
-                    options_available.push(temp_object)
-                    temp_object = {}   
-                }
-            }
+            this.props.topics.length > 0 ? this.props.authorization === 'participant' || this.props.authorization === 'submitter' ? 
+            this.filltemp("Sign up sheet","Sign up for a topic", () => {this.props.navigation.navigate('Signup', {
+                                        par_id: this.props.participant.id,
+                                        ass_name: this.props.assignment.name,})}
+                        ) : null : null
 
         // View and manage your team
-
-            
 
             if(this.props.assignment.max_team_size > 1)
             {
                 if(this.props.authorization === 'participant')
                 {
-                    temp_object["name"] = "Your team"
-                    temp_object["desc"] = "View and Manage your team"
-                    options_available.push(temp_object)
-                    temp_object = {}
+                    // Add your Screen name here
+                    this.filltemp("Your team","View and Manage your team", ()=>{
+                                  this.props.navigation.navigate('Screen name', {});
+                                }
+                                )
                 }
             }
 
@@ -85,35 +90,25 @@ class AssignmentDetails extends Component {
             {
                 if(this.props.topics.size > 0)
                 {
-                    if(this.props.topic_id && this.props.submission_allowed)
+                    if(this.props.topic_id && !this.props.submission_allowed)
                     {
-                        // Add link here
-                        temp_object["name"] = "Your work"
-                        temp_object["desc"] = "Submit and view your work"
-                        options_available.push(temp_object)
-                        temp_object = {}
+                        // Add your Screen name here
+                        this.filltemp("Your work","Submit and view your work", ()=>{
+                                  this.props.navigation.navigate('Screen name', {});
+                                })
                     }
                     else{
-                        temp_object["name"] = "Your work"
-                        temp_object["desc"] = "You have to choose a topic first"
-                        options_available.push(temp_object)
-                        temp_object = {}
+                        this.filltemp("Your work","You have to choose a topic first", () => {})
                     }
                 }
                 else{
 
-                    if(this.props.submission_allowed)
+                    if(!this.props.submission_allowed)
                     {
-                        temp_object["name"] = "Your work"
-                        temp_object["desc"] = "Submit and view your work"
-                        options_available.push(temp_object)
-                        temp_object = {}
+                        this.filltemp("Your work","Submit and view your work", () => {})                        
                     }
                     else{
-                        temp_object["name"] = "Your work"
-                        temp_object["desc"] = "You are not allowed to submit your work right now"
-                        options_available.push(temp_object)
-                        temp_object = {}
+                        this.filltemp("Your work","You are not allowed to submit your work right now", () => {})
                     }
 
                 }
@@ -125,18 +120,14 @@ class AssignmentDetails extends Component {
             {
                 if(this.props.check_reviewable_topics || this.props.metareview_allowed || this.props.get_current_stage === "Finished")
                 {
-                    // Add link here
-                    temp_object["name"] = this.getAliasName()
-                    temp_object["desc"] = "(Give feedback to others on their work)"
-                    options_available.push(temp_object)
-                    temp_object = {}        
+                    // Add your Screen name here
+                    this.filltemp(this.getAliasName(),"(Give feedback to others on their work)",()=>{
+                                  this.props.navigation.navigate('Screen name', {});
+                                })   
                 }
                 else
                 {
-                    temp_object["name"] = this.getAliasName()
-                    temp_object["desc"] = "(Give feedback to others on their work)"
-                    options_available.push(temp_object)
-                    temp_object = {} 
+                    this.filltemp(this.getAliasName(),"(Give feedback to others on their work)",() => {}) 
                 }
             }
 
@@ -146,18 +137,14 @@ class AssignmentDetails extends Component {
             {
                 if(this.props.authorization === 'participant' || this.props.can_take_quiz)
                 {
-                    // Add link here
-                    temp_object["name"] = "Take quizzes"
-                    temp_object["desc"] = "(Take quizzes over the work you have read)"
-                    options_available.push(temp_object)
-                    temp_object = {}        
+                    // Add your Screen name here
+                    this.filltemp("Take quizzes","(Take quizzes over the work you have read)",()=>{
+                                  this.props.navigation.navigate('Screen name', {});
+                                })      
                 }
                 else
                 {
-                    temp_object["name"] = "Take quizzes"
-                    temp_object["desc"] = "(Take quizzes over the work you have read)"
-                    options_available.push(temp_object)
-                    temp_object = {} 
+                    this.filltemp("Take quizzes","(Take quizzes over the work you have read)",()=>{}) 
                 }
             }
 
@@ -167,48 +154,51 @@ class AssignmentDetails extends Component {
             {
                 if(this.props.assignment.is_selfreview_enabled && this.props.unsubmitted_self_review)
                 {
-                    // Add link here
-                    temp_object["name"] = "Your scores"
-                    temp_object["desc"] = "(You have to submit self-review under 'Your work' before checking 'Your scores')"
-                    options_available.push(temp_object)
-                    temp_object = {}        
+                    this.filltemp("Your scores","(You have to submit self-review under 'Your work' before checking 'Your scores')",()=>{})  
+                    
                 }
                 else
                 {
-                    temp_object["name"] = "Your scores"
-                    temp_object["desc"] = "(View feedback on your work)"
-                    options_available.push(temp_object)
-                    temp_object = {} 
+                    this.filltemp("Your scores","(View feedback on your work)",()=>{
+                                  this.props.navigation.navigate('Scores', {
+                                        par_id: this.props.participant.id,
+                                        ass_name: this.props.assignment.name,
+                                        
+                                        });
+                                })     
                 }
             }
 
             if(this.props.can_provide_suggestions)
             {
-                temp_object["name"] = "Suggest a topic"
-                temp_object["desc"] = ""
-                options_available.push(temp_object)
-                temp_object = {}    
+                // Add your Screen name here   
+                this.filltemp("Suggest a Topic","",()=>{
+                                  this.props.navigation.navigate('Screen name', {});
+                                })    
+ 
             }
 
             if(this.props.get_current_stage === "Complete")
             {
-                temp_object["name"] = "Take a survey"
-                temp_object["desc"] = ""
-                options_available.push(temp_object)
-                temp_object = {}     
+                // Add your Screen name here
+                this.filltemp("Take a Survey","",()=>{
+                                  this.props.navigation.navigate('Screen name', {});
+                                })    
+     
             }
 
-            temp_object["name"] = "Change your handle"
-            temp_object["desc"] = ""
-            options_available.push(temp_object)
-            temp_object = {}     
+            // Add your Screen name here
+            this.filltemp("Change your handle","",()=>{
+                                  this.props.navigation.navigate('Screen name', {});
+                                })    
 
            
         // List items that has the options related to the assignment
+
             let par_id
             let ass_name
 
-            options_available.map((l,i) => (    
+            this.options_available.map((l,i) => (    
                 list_array.push(
                     <ListItem 
                         key ={i}
@@ -217,31 +207,7 @@ class AssignmentDetails extends Component {
                         titleStyle={{ color: 'black', fontSize:13, textAlign: 'left' }}
                         subtitle={l.desc}
                         subtitleStyle={{ color: 'red', fontSize:10 }}
-                        onPress={ () => {
-
-                                    if(l.desc == "(View feedback on your work)")
-                                    {
-
-                                        this.props.navigation.navigate('Scores', {
-                                        par_id: this.props.participant.id,
-                                        ass_name: this.props.assignment.name,
-                                        
-                                        }); 
-
-                                    }
-
-                                    if(l.desc == "Sign up for a topic")
-                                    {
-
-                                        this.props.navigation.navigate('Signup', {
-                                        par_id: this.props.participant.id,
-                                        ass_name: this.props.assignment.name,
-                                        
-                                        }); 
-
-                                    }
-                                    
-                                }}
+                        onPress={l.handler}
 
                     />
                 )
@@ -273,7 +239,7 @@ class AssignmentDetails extends Component {
                             </Card>
                         )
 
-
+            this.options_available = []
 
          return card_array
     }
@@ -407,58 +373,10 @@ class AssignmentDetails extends Component {
 
         const {navigation} = this.props;
         const part_id = navigation.getParam('par_id', 'NO-ID');
-        const part_id_string = JSON.stringify(part_id)
 
         if(this.props.loaded && this.props.participant.id == part_id ){
 
-                this.time_array = this.get_timeline()
 
-<<<<<<< HEAD
-=======
-        if(this.props.loaded){
-
-
-            let temp_print = []
-            temp_print = this.get_timeline()
-
-            const list = [
-
-                            {
-                                name: "Signup sheet",
-                                desc: "Sign up for a topic"
-                            },
-                            {
-                                name: "Your team",
-                                desc: "You have to choose a topic first",
-                                handler: ()=>{
-                                  this.props.navigation.navigate('StudentTeamComponent', {});
-                                }
-                            },
-                            {
-                                name: "Your work",
-                                desc: "You have to choose a topic first",
-                                handler: ()=>{
-                                  this.props.navigation.navigate('SubmittedContentEditComponent', {});
-                                }
-                            },
-                            {
-                                name: "Others Work",
-                                desc: "Give feedback to others on their work"
-                            },
-                            {
-                                name: "Change handle",
-                                desc: "Provide a different handle for this assignment",
-                                handler: ()=>{
-                                  this.props.navigation.navigate('ChangeHandle', {});
-                                }
-                            },
-                        ]
-
-// Implement a spinner so that it loads until the new timeine is printed
-
-            if(temp_print)
-            {
->>>>>>> bdf99bf7d5b76fef4a73c97f9319a6334cfbc7d2
                 return(
 
                     <ScrollView>
@@ -536,7 +454,3 @@ const mapDispatchToProps = dispatch => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(AssignmentDetails);
-
-
-       
-   

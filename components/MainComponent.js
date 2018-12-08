@@ -6,12 +6,9 @@ import Profile from './ProfileComponent/ProfileComponent';
 import Preference from './PreferenceComponent/PreferenceComponent';
 import Assignment from './AssignmentComponent/AssignmentComponent';
 import AssignmentDetails from './AssignmentDetailsComponent/AssignmentDetailsComponent';
-<<<<<<< HEAD
-=======
 import ChangeHandle from './ChangeHandle/ChangeHandleComponent';
 import StudentTeamComponent from './studentTeamComponent/StudentTeamComponent';
 import SubmittedContentEditComponent from './submittedContentEdit/SubmittedContentEditComponent';
->>>>>>> bdf99bf7d5b76fef4a73c97f9319a6334cfbc7d2
 import Logout from './Auth/logoutComponent';
 import Login from './Auth/loginComponent';
 import AuthLoadingScreen from './Auth/AuthLoading';
@@ -63,18 +60,16 @@ const PreferenceNavigator = createStackNavigator({
 const AssignmentNavigator = createStackNavigator({
     Assignment: { screen: Assignment },
     Details: {screen: AssignmentDetails },
-<<<<<<< HEAD
     Review: { screen: Review },
     Scores: { screen: YourScores },
     ScoresbyQuestion: {screen: ScoresbyQuestion},
-    Signup: {screen: SignUp}
-
-=======
+    Signup: {screen: SignUp},
     ChangeHandle: {screen: ChangeHandle},
     StudentTeamComponent: {screen: StudentTeamComponent},
     SubmittedContentEditComponent: {screen: SubmittedContentEditComponent},
->>>>>>> bdf99bf7d5b76fef4a73c97f9319a6334cfbc7d2
+
 },
+
 {
     initialRouteName: 'Assignment',
     navigationOptions: ({ navigation }) => ({
