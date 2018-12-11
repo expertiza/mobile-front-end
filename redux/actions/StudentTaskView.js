@@ -13,17 +13,17 @@ export const onLoad = (id, jwt) => {
             data: { "id": id }
         })
         .then(response => {
-            // console.log("data recieved is:", response.data)
+            console.log("data recieved is:", response.data)
             if(response.data.denied) {
                 dispatch(actions.loadFailure())
             }else {
-                // console.log("need to see data here",response.data)
+                console.log("need to see data here",response.data)
                 dispatch(actions.loadSuccess(response.data));
                 dispatch(actions.submission_allowed(response.data.assignment.id, response.data.topic_id, jwt))
                 dispatch(actions.check_reviewable_topics(response.data.assignment.id, jwt))
                 dispatch(actions.get_current_stage(response.data.assignment.id, response.data.topic_id, jwt))
-                dispatch(actions.quiz_allowed(response.data.assignment.id, response.data.topic_id, jwt))
-                dispatch(actions.unsubmitted_self_review(response.data.participant.id, jwt))
+                dispatch(actions.quiz_allowed(response.data.assignment.id, response.data.topic_id, jwt))   
+                dispatch(actions.unsubmitted_self_review(response.data.participant.id, jwt))             
             }
         })
         .catch(error => {
@@ -180,6 +180,7 @@ export const loadFailure = () => {
     }
 }
 
+
 export const updateParticipant = (participant) => {
   // console.log('StudentTaskView.participant: ', participant);
   return {
@@ -195,3 +196,4 @@ export const updateTeam = (team) => {
     payload: team
   }
 }
+

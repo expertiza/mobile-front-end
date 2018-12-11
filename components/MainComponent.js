@@ -13,6 +13,10 @@ import ResponseViewComponent from './responseView/responseViewComponent';
 import Logout from './Auth/logoutComponent';
 import Login from './Auth/loginComponent';
 import AuthLoadingScreen from './Auth/AuthLoading';
+import Review from './ReviewComponent/ReviewComponent';
+import YourScores from './YourScoresComponent/YourScoresComponent';
+import ScoresbyQuestion from './YourScoresComponent/ScoresbyQuestion';
+import SignUp from './SignUpComponent/SignUpComponent';
 
 const ProfileNavigator = createStackNavigator({
     Profile: { screen: Profile }
@@ -77,10 +81,16 @@ const TempNavigator = createStackNavigator({
 const AssignmentNavigator = createStackNavigator({
     Assignment: { screen: Assignment },
     Details: {screen: AssignmentDetails },
+    Review: { screen: Review },
+    Scores: { screen: YourScores },
+    ScoresbyQuestion: {screen: ScoresbyQuestion},
+    Signup: {screen: SignUp},
     ChangeHandle: {screen: ChangeHandle},
     StudentTeamComponent: {screen: StudentTeamComponent},
     SubmittedContentEditComponent: {screen: SubmittedContentEditComponent},
+
 },
+
 {
     initialRouteName: 'Assignment',
     navigationOptions: ({ navigation }) => ({
@@ -91,7 +101,7 @@ const AssignmentNavigator = createStackNavigator({
           color: "#fff"
       },
       headerTintColor: "#fff",
-
+      
     })
 }
 );
@@ -166,21 +176,21 @@ const MainNavigator = createDrawerNavigator({
         navigationOptions: {
           title: 'Profile',
           drawerLabel: 'Profile  '
-        },
+        }, 
       },
     Preference:
     { screen: PreferenceNavigator,
       navigationOptions: {
-        title: 'Setting',
-        drawerLabel: 'Setting  '
+        title: 'Preference',
+        drawerLabel: 'Preference  '
       },
     },
-    Logout:
+    Logout: 
       { screen: LogoutNavigator,
         navigationOptions: {
           title: 'Logout',
           drawerLabel: 'Logout  '
-        },
+        }, 
       },
 }, {
   drawerBackgroundColor: '#ffffff',

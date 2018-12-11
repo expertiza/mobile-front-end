@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
-import {ScrollView, View, Text, TextInput, Picker, Switch} from 'react-native';
-import {Button} from 'react-native-elements';
+import {ScrollView, View, Text, TextInput, Picker, Switch, Button} from 'react-native';
 
 const style = {
   view: {
@@ -16,13 +15,9 @@ const style = {
   },
   submit: {
     view: {
-      marginLeft: 60,
-      marginRight: 60,
-      marginTop: 40,
-      marginBottom: 300
-    },
-    style: {
-      backgroundColor: "#a90201"
+      marginTop: 50,
+      marginLeft: 10,
+      marginRight: 10
     }
   }
 }
@@ -51,7 +46,7 @@ class PreferenceView extends Component {
           </View>
 
           <View style={style.submit.view}>
-            <Button buttonStyle={style.submit.style} title='Save'
+            <Button style={style.submit} title='Save'
               onPress={(e) => {this.props.handleSubmit();}} />
           </View>
       </ScrollView>

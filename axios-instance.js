@@ -1,9 +1,10 @@
 import axios from 'axios';
-import { SecureStore } from 'expo';
+import { SecureStore } from 'expo'; 
 
 
 const instance = axios.create({
-    baseURL : 'http://192.168.1.122:3000/api/v1/'
+    baseURL : 'http://192.168.1.124:3001/api/v1/'
 });
+
 
 export default instance;

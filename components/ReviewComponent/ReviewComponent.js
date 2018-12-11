@@ -54,6 +54,27 @@ class Review extends Component {
   };
 
 
+    score_button = (score) => {
+        return(
+
+                <Button
+                    title={score}
+                    titleStyle = {{fontSize: 10, textAlign: 'center', fontWeight: 'bold', margin: 2}}
+
+                    buttonStyle={{
+                    backgroundColor: 'red',
+                    margin: 10,
+                    width: 30,
+                    height: 30,
+                    borderColor: "transparent",
+                    borderWidth: 1,
+                    borderRadius: 50
+                            
+                    }}
+                />
+            )
+    }
+
     author_review_table = () => {
 
                     let i = 0
@@ -74,19 +95,37 @@ class Review extends Component {
                                     
                                 
                                 title_string = index+1 +". "+question.txt
-                                subtitle_string = this.props.author_answers[index].answer.toString()                             
+                                if(this.props.author_answers[index].answer)
+                                {
+                                    subtitle_string = this.props.author_answers[index].answer.toString() 
+                                }
+                                                            
                                 
                                 list_array.push(
 
                                     <ListItem 
                                         key ={index}
-                                        containerStyle={{flex:1}}
+                                        containerStyle={{ flex:1, padding: 0, margin: 5 }}
                                             
                                         title={title_string}
                                         titleStyle={{ color: 'black', fontSize:13, textAlign: 'left' }}
 
-                                        subtitle={subtitle_string}
-                                        subtitleStyle={{ color: 'red', fontSize:11, fontWeight: 'bold' }}
+                                        
+                                        badge =
+
+                                        {{ value: badge_value, 
+                                            textStyle: { color: 'white'}, 
+                                            containerStyle: { 
+                                                    backgroundColor:'red',
+                                                    marginTop: -2,
+                                                    width: 40,
+                                                    height: 40,
+                                                    borderColor: "transparent",
+                                                    borderWidth: 1,
+                                                    borderRadius: 50
+
+                                                } 
+                                        }}
                                     />
 
                                 ) 
@@ -100,7 +139,7 @@ class Review extends Component {
 
                         card_array.push(
                             <Card 
-                                title = {"Author Review"} 
+                                title = {"Feedback to Reviewer"} 
                                 key = {i++}
                                 containerStyle={{
 
@@ -141,6 +180,8 @@ class Review extends Component {
                     {
                         this.props.questions.map((question) => {
                                 
+                            // Heading Case - only in certain assignments
+
                             if(!this.props.answers[index])
                             {
                                 title_string = question.txt
@@ -150,71 +191,140 @@ class Review extends Component {
                             
                                 <ListItem 
                                     key ={index}
-                                    containerStyle={{flex:1, padding:1}}
+                                    containerStyle={{flex:1, padding: 0, margin: 5}}
                                         
                                     title={title_string}
                                     titleStyle={{ color: 'black', fontSize:15, textAlign: 'left', fontWeight:'bold'}}
 
                                     subtitle={subtitle_string}
-                                    subtitleStyle={{ color: 'red', fontSize:13, }}
+                                    subtitleStyle={{ color: 'red', fontSize:13 }}
                                 />
 
                             ) 
 
                             }
+
+                            // Comments not available case
 
                             else if(this.props.answers[index].comments == "") {
                                 title_string = qno+1 +". "+question.txt
+                                subtitle_string = ""
                                 if(this.props.answers[index].answer == null)
                                 {
                                     subtitle_string = "No answer"
-                                }
-                                else if(this.props.answers[index].answer == 1){
-                                    subtitle_string = "Yes"
-                                }
-                                else{
-                                    subtitle_string = "No"
-                                }
-                                list_array.push(                       
+                                    list_array.push(                       
                             
-                                <ListItem 
-                                    key ={index}
-                                    containerStyle={{flex:1}}
-                                        
-                                    title={title_string}
-                                    titleStyle={{ color: 'black', fontSize:13, textAlign: 'left' }}
+                                        <ListItem 
+                                            key ={index}
+                                            containerStyle={{flex:1, padding: 0, margin: 5}}
+                                                
+                                            title={title_string}
+                                            titleStyle={{ color: 'black', fontSize:13, textAlign: 'left' }}
 
-                                    subtitle={subtitle_string}
-                                    subtitleStyle={{ color: 'red', fontSize:11 }}
-                                />
+                                            subtitle={subtitle_string}
+                                            subtitleStyle={{ color: 'red', fontSize:11 }}
 
-                            ) 
+                                        />
+
+                                    ) 
+                                }
+
+                                else{
+                                    badge_value = this.props.answers[index].answer 
+                                    list_array.push(                       
+                            
+                                        <ListItem 
+                                            key ={index}
+                                            containerStyle={{flex:1, padding: 0, margin: 5}}
+                                                
+                                            title={title_string}
+                                            titleStyle={{ color: 'black', fontSize:13, textAlign: 'left' }}
+
+                                            badge =
+
+                                                {{ value: badge_value, 
+                                                    textStyle: { color: 'white' }, 
+                                                    containerStyle: { 
+                                                            backgroundColor:'red',
+                                                            marginTop: -2,
+                                                            width: 40,
+                                                            height: 40,
+                                                            borderColor: "transparent",
+                                                            borderWidth: 1,
+                                                            borderRadius: 50
+
+                                                        } 
+                                                }}
+
+
+                                        />
+
+                                    ) 
+                                }
+
+                                
                             }
+
+                            //  Comments Available Case
 
                             else{
                                 title_string = qno+1 +". "+question.txt
                                 subtitle_string = this.props.answers[index].comments
+
                                 if(this.props.answers[index].answer == null)
                                 {
-                                    lefticon = ""
-                                }
-                                else{
-                                    lefticon = "(" + this.props.answers[index].answer + ")"
-                                }
-                                list_array.push(                       
+                                    badge_value = ""
+                                    list_array.push(                       
                             
-                                <ListItem 
-                                    key ={index}
-                                    containerStyle={{flex:1}}
-                                        
-                                    title={title_string}
-                                    titleStyle={{ color: 'black', fontSize:13, textAlign: 'left' }}
+                                        <ListItem 
+                                            key ={index}
+                                            containerStyle={{flex:1, padding: 0, margin: 5 }}
+                                                
+                                            title={title_string}
+                                            titleStyle={{ color: 'black', fontSize:13, textAlign: 'left' }}
 
-                                    subtitle={subtitle_string + lefticon}
-                                    subtitleStyle={{ color: 'red', fontSize:11 }}
-                                />
+                                            subtitle={subtitle_string}
+                                            subtitleStyle={{ color: 'red', fontSize:11 }}
+
+                                        />
+                                    ) 
+                                }
+
+                                else{
+                                    badge_value = this.props.answers[index].answer 
+                                    list_array.push(                       
+                            
+                                        <ListItem 
+                                            key ={index}
+                                            containerStyle={{flex:1, padding: 0, margin: 5 }}
+                                                
+                                            title={title_string}
+                                            titleStyle={{ color: 'black', fontSize:13, textAlign: 'left' }}
+
+                                            subtitle={subtitle_string}
+                                            subtitleStyle={{ color: 'red', fontSize:11 }}
+
+                                            badge =
+
+                                            {{ 
+                                                value: badge_value, 
+                                                textStyle: { color: 'white' }, 
+                                                containerStyle: { 
+                                                        backgroundColor:'red',
+                                                        marginTop: -4,
+                                                        width: 40,
+                                                        height: 40,
+                                                        borderColor: "transparent",
+                                                        borderWidth: 1,
+                                                        borderRadius: 50
+
+                                                    } 
+                                            }}
+                                        />
 
                             ) 
+                                }
+                                
                             }
 
                                 index = index + 1  
@@ -223,11 +333,13 @@ class Review extends Component {
                         )
                     }
 
+                    // Additional Comments
+
                     list_array.push(
 
                                 <ListItem 
                                     key ={index}
-                                    containerStyle={{flex:1}}
+                                    containerStyle={{flex:1, padding: 0, margin: 5}}
                                         
                                     title={"Additional Comments"}
                                     titleStyle={{ color: 'black', fontSize:13, textAlign: 'left', fontWeight:'bold' }}
@@ -266,7 +378,10 @@ class Review extends Component {
 
     render(){
 
-        if(!this.props.loading){
+        const {navigation} = this.props;
+        const rid = navigation.getParam('r_id', 'NO-ID');
+
+        if(!this.props.loading && this.props.response.id == rid ){
 
             if ( this.props.survey ) {
                 // return(
@@ -301,17 +416,6 @@ class Review extends Component {
                     )
 
                 }
-
-                else{
-                    return(
-
-                        <Spinner
-                          visible={true}
-                          textContent={'Loading...'}
-                        />
-                    )
-                }
-
             }
 
         }
