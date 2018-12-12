@@ -18,7 +18,7 @@ export const fetchReviewData = (response_id, jwt) => {
         .catch(error => {
                 console.log(error)
                 dispatch(actions.fetchReviewDataFailure())
-               })
+        })
     }
 }
 

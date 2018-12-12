@@ -1,6 +1,6 @@
 import  * as actions from '../index'
-// import axios from '../../axios-instance';
-import axios from 'axios';
+ import axios from '../../axios-instance';
+// import axios from 'axios';
 import { SecureStore } from 'expo';
 
 export const authSuccess = (jwt) => {
@@ -19,18 +19,18 @@ export const authFailure = (error) => {
 
 export const auth = (name, password) => {
     return dispatch => {
-        axios({
-            method: 'post',
-            url:  'http://192.168.1.124:3001/api/v1/sessions',     
-            headers: { "Content-Type": "application/json"},
-            data: {auth: { name: name, password: password }}
-        })
         // axios({
         //     method: 'post',
-        //     url: 'sessions',
+        //     url:  'http://192.168.1.12:3001/api/v1/sessions',     
         //     headers: { "Content-Type": "application/json"},
         //     data: {auth: { name: name, password: password }}
         // })
+        axios({
+            method: 'post',
+            url: 'sessions',
+            headers: { "Content-Type": "application/json"},
+            data: {auth: { name: name, password: password }}
+        })
         .then(response => {
             SecureStore.setItemAsync('jwt', JSON.stringify(response.data))
         })

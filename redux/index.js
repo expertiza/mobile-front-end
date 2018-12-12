@@ -36,7 +36,8 @@ export {
     ADVERTISE_CONTENT_SUCCESS,
     UPDATE_COMMENT_SUCCESS,
     UPDATE_COMMENT_FAILURE,
-    ADD_SCORE
+    ADD_SCORE,
+    ADD_ASSIGNMENT_REVIEW_DATA
 } from './ActionTypes';
 
 export {
@@ -114,3 +115,8 @@ export  { fetchReviewData,
     fetchReviewDataFailure,
     retractInvitation
 } from './actions/Response'
+
+export {
+    fetchAssignmentReviewData,
+    addReviewList
+} from './actions/StudentReview';

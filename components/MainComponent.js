@@ -17,6 +17,7 @@ import Review from './ReviewComponent/ReviewComponent';
 import YourScores from './YourScoresComponent/YourScoresComponent';
 import ScoresbyQuestion from './YourScoresComponent/ScoresbyQuestion';
 import SignUp from './SignUpComponent/SignUpComponent';
+import StudentReviewListComponent from './StudentReviewList/StudentReviewListComponent';
 
 const ProfileNavigator = createStackNavigator({
     Profile: { screen: Profile }
@@ -85,6 +86,7 @@ const AssignmentNavigator = createStackNavigator({
     Scores: { screen: YourScores },
     ScoresbyQuestion: {screen: ScoresbyQuestion},
     Signup: {screen: SignUp},
+    OthersWork: {screen: StudentReviewListComponent},
     ChangeHandle: {screen: ChangeHandle},
     StudentTeamComponent: {screen: StudentTeamComponent},
     SubmittedContentEditComponent: {screen: SubmittedContentEditComponent},

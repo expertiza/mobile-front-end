@@ -8,7 +8,7 @@ import studentTaskViewReducer from './reducers/StudentTaskView';
 import responseReducer from './reducers/Response';
 import signUpSheetList from './reducers/SignUpSheetList';
 import Grades from './reducers/Grade';
-
+import assignmentReviewData from './reducers/StudentReview';
 
 import submittedContent from './reducers/SubmittedContent';
 import thunk from 'redux-thunk';
@@ -28,6 +28,7 @@ export const ConfigureStore = () => {
             signUpSheetList: signUpSheetList,
             grades: Grades,
             submittedContent: submittedContent,
+            assignmentReviewData: assignmentReviewData,
         }),
         applyMiddleware(thunk)
     );

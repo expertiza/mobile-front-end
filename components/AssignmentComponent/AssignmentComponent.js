@@ -25,13 +25,10 @@ class Assignment extends Component {
 
         }
     }
-
     componentDidMount(){
         this.props.fetchStudentTasks(this.props.jwt);
         this.props.fetchStudentsTeamedWith(this.props.jwt);
     }
-
-
     create_cards = () => {
         
         let flags = []
@@ -41,42 +38,28 @@ class Assignment extends Component {
         let list_array = []
         {
             this.props.studentTasks.map((studentTask1) => {
-
-            if(flags.indexOf(studentTask1.course_name) < 0){
-                flags.push(studentTask1.course_name);
-                count++;
-            }
-            }
-            );
+                if(flags.indexOf(studentTask1.course_name) < 0){
+                    flags.push(studentTask1.course_name);
+                    count++;
+                }
+            });
         } 
-
         for(i=0; i < flags.length; i++)
-                {
-                    let f
-                    f = flags[i];
-
-                    
-                    {
-                    this.props.studentTasks.map((studentTask2) => {
-
+        {
+            let f
+            f = flags[i];    
+            {this.props.studentTasks.map((studentTask2) => {
                     let deadline = studentTask2.stage_deadline.split(".",1).toString();
-
                     var q = new Date();
                     var m = q.getMonth();
                     var d = q.getDay();
                     var y = q.getFullYear();
-
                     var date = new Date(y,m,d);
-
                     deadline = deadline.split("T",1).toString();
-
                     mydate=new Date(deadline);
-
-                    if(date>mydate)
-                    {
+                    if(date>mydate){
                         deadline = "Finished";
                     }
-
                     if(studentTask2.course_name == f){
                            list_array.push(                       
                             <ListItem 
@@ -95,60 +78,41 @@ class Assignment extends Component {
 
                             />)
                     }    
-                    }
-                    )
-                    }
-                    card_array.push(
-                        <Card 
-                            title = {f} 
-                            key = {i}
-                            containerStyle={{
+                })}
+            card_array.push(
+                <Card 
+                    title = {f} 
+                    key = {i}
+                    containerStyle={{
 
-                                borderWidth: 1, 
-                                borderColor: 'gray',
-                                marginRight:20,
-                                marginLeft:20,
-                                marginTop:10,
-                                paddingTop:10,
-                                paddingBottom:10,
-                                paddingRight:1,
-                                borderRadius:10,
-            
-                        }}
-                            
-                        >
-
-                        {list_array}
-
-                        </Card>
-                    );
-                }  
-        
-        
+                        borderWidth: 1, 
+                        borderColor: 'gray',
+                        marginRight:20,
+                        marginLeft:20,
+                        marginTop:10,
+                        paddingTop:10,
+                        paddingBottom:10,
+                        paddingRight:1,
+                        borderRadius:10,
+                }}>{list_array}
+                 </Card>);
+        }    
         return card_array;
     }
-
-    
     static navigationOptions = ({ navigation, navigationOptions }) => {
         return{
-        title: 'Assignments',
-        headerLeft: <Icon name='menu' size={24}
-        iconStyle={{ color: 'white' }}
-        onPress={ () => navigation.toggleDrawer() } />
+            title: 'Assignments',
+            headerLeft: <Icon name='menu' size={24}
+            iconStyle={{ color: 'white' }}
+            onPress={ () => navigation.toggleDrawer() } />
+        }
     };
-    };
-
     render(){
-
         return( 
-        
             <ScrollView>
-                
-            <View style = {styles.container}>
-                
-            {this.create_cards()}
-
-            </View>
+                <View style = {styles.container}>
+                        {this.create_cards()}
+                </View>
             </ScrollView> 
         );
     }

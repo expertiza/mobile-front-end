@@ -3,7 +3,7 @@ import { SecureStore } from 'expo';
 
 
 const instance = axios.create({
-    baseURL : 'http://192.168.1.124:3001/api/v1/'
+    baseURL : 'http://192.168.1.12:3001/api/v1/'
 });
 
 
