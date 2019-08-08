@@ -8,9 +8,16 @@ import Assignment from './AssignmentComponent/AssignmentComponent';
 import AssignmentDetails from './AssignmentDetailsComponent/AssignmentDetailsComponent';
 import ChangeHandle from './ChangeHandle/ChangeHandleComponent';
 import StudentTeamComponent from './studentTeamComponent/StudentTeamComponent';
+import SubmittedContentEditComponent from './submittedContentEdit/SubmittedContentEditComponent';
+import ResponseViewComponent from './responseView/responseViewComponent';
 import Logout from './Auth/logoutComponent';
 import Login from './Auth/loginComponent';
 import AuthLoadingScreen from './Auth/AuthLoading';
+import Review from './ReviewComponent/ReviewComponent';
+import YourScores from './YourScoresComponent/YourScoresComponent';
+import ScoresbyQuestion from './YourScoresComponent/ScoresbyQuestion';
+import SignUp from './SignUpComponent/SignUpComponent';
+import StudentReviewListComponent from './StudentReviewList/StudentReviewListComponent';
 
 const ProfileNavigator = createStackNavigator({
     Profile: { screen: Profile }
@@ -52,12 +59,40 @@ const PreferenceNavigator = createStackNavigator({
   }
 );
 
+const TempNavigator = createStackNavigator({
+    ResponseViewComponent: {screen: ResponseViewComponent},
+  },
+  {
+    initialRouteName: 'ResponseViewComponent',
+    navigationOptions: ({ navigation }) => ({
+      headerStyle: {
+        backgroundColor: "#a90201"
+      },
+      headerTitleStyle: {
+        color: "#fff"
+      },
+      headerTintColor: "#fff",
+      headerLeft: <Icon name="menu" size={24}
+        iconStyle={{ color: 'white' }}
+        onPress={ () => navigation.toggleDrawer() } />
+    })
+  }
+);
+
 const AssignmentNavigator = createStackNavigator({
     Assignment: { screen: Assignment },
     Details: {screen: AssignmentDetails },
+    Review: { screen: Review },
+    Scores: { screen: YourScores },
+    ScoresbyQuestion: {screen: ScoresbyQuestion},
+    Signup: {screen: SignUp},
+    OthersWork: {screen: StudentReviewListComponent},
     ChangeHandle: {screen: ChangeHandle},
     StudentTeamComponent: {screen: StudentTeamComponent},
+    SubmittedContentEditComponent: {screen: SubmittedContentEditComponent},
+
 },
+
 {
     initialRouteName: 'Assignment',
     navigationOptions: ({ navigation }) => ({
@@ -68,7 +103,7 @@ const AssignmentNavigator = createStackNavigator({
           color: "#fff"
       },
       headerTintColor: "#fff",
-
+      
     })
 }
 );
@@ -131,26 +166,33 @@ const MainNavigator = createDrawerNavigator({
           drawerLabel: 'Assignments   '
         }
       },
+    Temp:
+      { screen: TempNavigator,
+        navigationOptions: {
+          title: 'Temp',
+          drawerLabel: 'Temp   '
+        }
+      },
     Profile:
       { screen: ProfileNavigator,
         navigationOptions: {
           title: 'Profile',
           drawerLabel: 'Profile  '
-        },
+        }, 
       },
     Preference:
     { screen: PreferenceNavigator,
       navigationOptions: {
-        title: 'Setting',
-        drawerLabel: 'Setting  '
+        title: 'Preference',
+        drawerLabel: 'Preference  '
       },
     },
-    Logout:
+    Logout: 
       { screen: LogoutNavigator,
         navigationOptions: {
           title: 'Logout',
           drawerLabel: 'Logout  '
-        },
+        }, 
       },
 }, {
   drawerBackgroundColor: '#ffffff',

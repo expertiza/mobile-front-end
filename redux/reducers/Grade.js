@@ -1,4 +1,4 @@
-import * as actions from '..';
+import * as actions from '../index'
 
 const Grades = (state = {
     questionnaires: {},

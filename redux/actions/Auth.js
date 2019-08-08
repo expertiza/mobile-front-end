@@ -1,5 +1,6 @@
 import  * as actions from '../index'
-import axios from '../../axios-instance';
+ import axios from '../../axios-instance';
+// import axios from 'axios';
 import { SecureStore } from 'expo';
 
 export const authSuccess = (jwt) => {
@@ -18,9 +19,15 @@ export const authFailure = (error) => {
 
 export const auth = (name, password) => {
     return dispatch => {
+        // axios({
+        //     method: 'post',
+        //     url:  'http://192.168.1.12:3001/api/v1/sessions',     
+        //     headers: { "Content-Type": "application/json"},
+        //     data: {auth: { name: name, password: password }}
+        // })
         axios({
             method: 'post',
-            url:  'sessions',     
+            url: 'sessions',
             headers: { "Content-Type": "application/json"},
             data: {auth: { name: name, password: password }}
         })
@@ -41,35 +48,3 @@ export const auth = (name, password) => {
         })
     }
 }
-
-export const forgetPasswordSendSuccess = () => {
-    return {
-        type: actions.PASSWORD_RESET_EMAIL_SEND_SUCCESS,
-    }
-}
-export const forgetPasswordSendFailure = () => {
-    return {
-        type: actions.PASSWORD_RESET_EMAIL_SEND_FAILURE,
-    }
-}
-
-export const passwordResetEmailSend = (email) => {
-    return dispatch => {
-        axios({
-            method: 'post',
-            url: 'password_retrieval/forgottenPasswordSendLink',
-            headers: { "Content-Type": "application/json"},
-            data: { user: { email : email, username: null} }
-        })
-        .then(response => {
-            console.log(response)
-            alert('password reset successful')
-            dispatch(actions.forgetPasswordSendSuccess())
-        })
-        .catch(error => {
-            console.log(error)
-            alert('Something went wrong. adding the log: ', error)
-            dispatch(actions.forgetPasswordSendFailure())
-        })
-    }
-} 
